@@ -1,27 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bot Manager · VC Innovations Group</title>
-<meta name="description" content="Bot Manager is a desktop app to create, schedule, run, and review AI bots for your projects, on your own Claude plan.">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bot Manager · VC Innovations Group</title>
+  <meta name="description" content="Bot Manager is a desktop app to create, schedule, run, and review AI bots for your projects, on your own Claude plan." />
+  <meta property="og:title" content="Bot Manager · VC Innovations Group" />
+  <meta property="og:description" content="Bot Manager is a desktop app to create, schedule, run, and review AI bots for your projects, on your own Claude plan." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="top"><a class="brand" href="./"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 18V12a4 4 0 0 1 4-4h6M46 8h6a4 4 0 0 1 4 4v6M56 46v6a4 4 0 0 1-4 4h-6M18 56h-6a4 4 0 0 1-4-4v-6" fill="none" stroke="#c3cbe4" stroke-width="4" stroke-linecap="round"/><rect x="16" y="22" width="32" height="25" rx="9" fill="#1e3a8a"/><rect x="30" y="14" width="4" height="9" rx="2" fill="#8494c4"/><circle cx="32" cy="13" r="3.5" fill="#8494c4"/><circle cx="26" cy="34.5" r="3.4" fill="#fff"/><circle cx="38" cy="34.5" r="3.4" fill="#fff"/></svg>Bot Manager</a><nav><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></header>
-<main class="page">
-  <h1>Bot Manager</h1>
-  <p class="lead">A desktop app for Windows to create, schedule, run, and review AI bots. Each bot does one job, like reviewing code, researching a topic, or watching for secrets, with its own rules and schedule, for one project or many.</p>
-  <div class="cards">
-    <div class="card"><b>Runs on your PC</b><span>Bots run with Claude Code on your own computer and your own Claude plan. Your code and your bots' work stay on your PC.</span></div>
-    <div class="card"><b>Safe by default</b><span>Bots are read-only unless you give them more. They never commit, push, deploy, or publish.</span></div>
-    <div class="card"><b>Teams</b><span>Sign in with Google or GitHub to work with your team. An owner invites people by email with a one-time code.</span></div>
-  </div>
-  <h2>Signing in</h2>
-  <p>Bot Manager uses your Google or GitHub account only to know who you are on a team: your email address and your name. It never sees your password. Read the <a href="privacy.html">privacy policy</a> for what is kept and how to have it deleted.</p>
-  <h2>Who makes it</h2>
-  <p>Bot Manager is made by VC Innovations Group. It is in early use within our own team.</p>
-</main>
-<footer class="foot">© 2026 VC Innovations Group · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></footer>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="https://vcinnovationsgroup.com/">
+        <span class="mark">VC</span>
+        <span class="name">VC Innovations Group</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./" class="on">Bot Manager</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="mailto:vfratto@vcinnovationsgroup.com">Get in touch</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">A VC Innovations Group product</span>
+      <h1>Bot Manager: <span class="italic">AI bots</span> that work while you do</h1>
+      <p class="lede">A desktop app for Windows to create, schedule, run, and review AI bots. Each bot does one job, like reviewing code, researching a topic, or watching for secrets, with its own rules and schedule, for one project or many.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="mailto:vfratto@vcinnovationsgroup.com">Ask about Bot Manager</a>
+        <a class="btn btn-ghost" href="privacy.html">Privacy policy</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">How it works</span>
+        <h2>Your bots, your PC, <span class="italic">your plan</span></h2>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="num">01</div><h3>Runs on your PC</h3><p>Bots run with Claude Code on your own computer and your own Claude plan. Your code and your bots' work stay on your PC.</p></div>
+        <div class="card"><div class="num">02</div><h3>Safe by default</h3><p>Bots are read-only unless you give them more. They never commit, push, deploy, or publish.</p></div>
+        <div class="card"><div class="num">03</div><h3>Built for teams</h3><p>Sign in with Google or GitHub to work with your team. An owner invites people by email with a one-time code.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="note"><b>Signing in.</b> Bot Manager uses your Google or GitHub account only to know who you are on a team: your email address and your name. It never sees your password. The <a class="text-link" href="privacy.html">privacy policy</a> says what is kept and how to have it deleted.</div>
+    </div>
+  </section>
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <a class="brand" href="https://vcinnovationsgroup.com/">
+          <span class="mark">VC</span>
+          <span class="name">VC Innovations Group</span>
+        </a>
+        <div class="foot-links">
+          <div class="foot-col">
+            <h4>Bot Manager</h4>
+            <a href="./">Overview</a>
+            <a href="privacy.html">Privacy policy</a>
+            <a href="terms.html">Terms of service</a>
+          </div>
+          <div class="foot-col">
+            <h4>Studio</h4>
+            <a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a>
+          </div>
+          <div class="foot-col">
+            <h4>Contact</h4>
+            <a href="mailto:vfratto@vcinnovationsgroup.com">vfratto@vcinnovationsgroup.com</a>
+            <span>San Antonio, TX</span>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 VC Innovations Group. All rights reserved.</span>
+        <span>Bot Manager</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
