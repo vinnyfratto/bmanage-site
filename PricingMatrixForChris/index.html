@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bot Manager pricing matrix (draft)</title>
+  <meta name="description" content="Internal draft: Bot Manager plans and prices next to similar tools." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Bot Manager pricing matrix (draft)" />
+  <meta property="og:description" content="Internal draft: Bot Manager plans and prices next to similar tools." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/assets/bm-config.js"></script>
+  <script type="module" src="/assets/bm-auth.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="https://vcinnovationsgroup.com/">
+        <span class="mark">VC</span>
+        <span class="name">VC Innovations Group</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/">Bot Manager</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
+        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <link rel="stylesheet" href="/assets/pricing-matrix.css" />
+  <main class="pm">
+  <section class="pm-hero">
+    <div class="wrap">
+      <span class="eyebrow">For Chris · internal draft</span><span class="pill"><span class="dot"></span>Prices not final</span>
+      <h1>Bot Manager pricing matrix</h1>
+      <p class="lede">Our proposed plans next to the tools people compare us with. Change any price below and every chart, table, and total updates. <b>Copy a link</b> sends your version back with your numbers in it.</p>
+      <p class="pm-meta">Prepared Nov 27, 2026 by Vinny. Competitor prices come from their pricing pages and third-party summaries in November 2026; check them before anything is published.</p>
+    </div>
+  </section>
+
+  <section class="pm-sec">
+    <div class="wrap">
+      <div class="pm-head"><h2>1. Our prices</h2><p>Every number here can be changed. Start from a preset, then adjust.</p></div>
+      <div class="pm-presets" role="group" aria-label="Presets">
+        <button type="button" class="pm-chip" data-preset="first">First idea ($10/yr)</button>
+        <button type="button" class="pm-chip" data-preset="suggested">Suggested ($48/yr)</button>
+        <button type="button" class="pm-chip" data-preset="lower">Lower still ($36/yr)</button>
+        <span class="pm-grow"></span>
+        <button type="button" class="pm-chip pm-strong" id="pm-copy">Copy a link to these numbers</button>
+        <span class="pm-copied" id="pm-copied" aria-live="polite"></span>
+      </div>
+      <div class="pm-grid">
+        <fieldset class="pm-card">
+          <legend>Pro (one person, 2 PCs)</legend>
+          <label>Yearly price<span class="pm-in">$<input type="number" min="0" step="1" data-k="proYear"></span></label>
+          <label>Month-to-month price <small>0 = yearly only</small><span class="pm-in">$<input type="number" min="0" step="0.5" data-k="proMonth"></span></label>
+          <label>Founding price, per year, kept for life<span class="pm-in">$<input type="number" min="0" step="1" data-k="founding"></span></label>
+          <label>Extra PC, per year<span class="pm-in">$<input type="number" min="0" step="1" data-k="extraPc"></span></label>
+        </fieldset>
+        <fieldset class="pm-card">
+          <legend>Enterprise (per seat, 5 or more)</legend>
+          <label>Per seat, per year (5 to 24 seats)<span class="pm-in">$<input type="number" min="0" step="1" data-k="seatYear"></span></label>
+          <label>Per seat, per year (25 to 99 seats)<span class="pm-in">$<input type="number" min="0" step="1" data-k="seatYear25"></span></label>
+          <label>Fewest seats<span class="pm-in"><input type="number" min="1" step="1" data-k="minSeats"></span></label>
+          <p class="pm-note">100 or more seats: priced by hand (invoices, single sign-on).</p>
+        </fieldset>
+        <fieldset class="pm-card">
+          <legend>How many buy (a guess, for the totals)</legend>
+          <label>Pro accounts<span class="pm-in"><input type="number" min="0" step="50" data-k="proUsers"></span></label>
+          <label>Of those, on the founding price<span class="pm-in"><input type="number" min="0" max="100" step="5" data-k="foundingPct">%</span></label>
+          <label>Of those, paying month to month<span class="pm-in"><input type="number" min="0" max="100" step="5" data-k="monthlyPct">%</span></label>
+          <label>Of those, buying an extra PC<span class="pm-in"><input type="number" min="0" max="100" step="1" data-k="extraPcPct">%</span></label>
+          <label>Enterprise companies<span class="pm-in"><input type="number" min="0" step="1" data-k="companies"></span></label>
+          <label>Seats per company (average)<span class="pm-in"><input type="number" min="1" step="1" data-k="seats"></span></label>
+        </fieldset>
+      </div>
+    </div>
+  </section>
+
+  <section class="pm-sec pm-alt">
+    <div class="wrap">
+      <div class="pm-head"><h2>2. Next to the competition</h2><p>What one person, and one team seat, pays in a year. Hover a bar for details.</p></div>
+      <div class="pm-tiles" id="pm-tiles"></div>
+      <div class="pm-charts">
+        <figure class="pm-chart"><figcaption>One person, per year</figcaption><div id="pm-chart-person"></div></figure>
+        <figure class="pm-chart"><figcaption>One team seat, per year</figcaption><div id="pm-chart-seat"></div></figure>
+      </div>
+      <p class="pm-key"><span class="pm-sw pm-sw-us"></span>Bot Manager <span class="pm-sw pm-sw-them"></span>Others. <span class="pm-key-ai">AI</span> next to a price: the AI cost is included in their price; Bot Manager runs on the person's own Claude plan.</p>
+      <div id="pm-tip" class="pm-tip" role="tooltip" hidden></div>
+    </div>
+  </section>
+
+  <section class="pm-sec">
+    <div class="wrap">
+      <div class="pm-head"><h2>3. What it earns, after payment fees</h2><p>One year at the numbers above. Fees are worked out per payment, so a small monthly charge costs more in fees than one yearly charge.</p></div>
+      <div class="pm-table-wrap"><table class="pm-table" id="pm-money"></table></div>
+      <h3 class="pm-h3">Fees on a single payment</h3>
+      <div class="pm-table-wrap"><table class="pm-table" id="pm-single"></table></div>
+      <details class="pm-details">
+        <summary>Fee settings (change if the providers' rates change)</summary>
+        <div class="pm-grid pm-grid-fees">
+          <fieldset class="pm-card"><legend>Paddle</legend>
+            <label>Percent<span class="pm-in"><input type="number" step="0.1" data-k="paddlePct">%</span></label>
+            <label>Per payment<span class="pm-in">$<input type="number" step="0.05" data-k="paddleFixed"></span></label>
+            <label class="pm-check"><input type="checkbox" data-k="paddleSmall"> Use the small-order rate under $10 (a Paddle page says 10%; not confirmed)</label>
+          </fieldset>
+          <fieldset class="pm-card"><legend>Stripe</legend>
+            <label>Card percent (US card)<span class="pm-in"><input type="number" step="0.1" data-k="stripePct">%</span></label>
+            <label>Per payment<span class="pm-in">$<input type="number" step="0.05" data-k="stripeFixed"></span></label>
+            <label>Stripe Billing (subscriptions)<span class="pm-in"><input type="number" step="0.1" data-k="billingPct">%</span></label>
+            <label>Stripe Tax (where registered)<span class="pm-in"><input type="number" step="0.1" data-k="taxPct">%</span></label>
+            <label>Managed Payments (Stripe as merchant of record)<span class="pm-in"><input type="number" step="0.1" data-k="mpPct">%</span></label>
+            <label>Your tax filing cost per year <small>accountant or filing service, a guess</small><span class="pm-in">$<input type="number" step="100" data-k="filingCost"></span></label>
+          </fieldset>
+          <fieldset class="pm-card"><legend>Who pays</legend>
+            <label>Payments with a card from outside the US<span class="pm-in"><input type="number" min="0" max="100" step="5" data-k="intlPct">%</span></label>
+            <label>Payments that need a currency conversion<span class="pm-in"><input type="number" min="0" max="100" step="5" data-k="fxPct">%</span></label>
+            <p class="pm-note">Stripe adds 1.5% for a card from outside the US and 1% for a currency conversion. Paddle's price already covers both at checkout.</p>
+          </fieldset>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="pm-sec pm-alt">
+    <div class="wrap">
+      <div class="pm-head"><h2>4. What each plan includes</h2><p>Locked means visible with a lock and an Upgrade button, never removed. Nothing a person made is deleted when a plan ends.</p></div>
+      <div class="pm-table-wrap"><table class="pm-table pm-features">
+        <thead><tr><th></th><th>Trial</th><th>Free</th><th>Pro</th><th>Enterprise</th></tr></thead>
+        <tbody>
+          <tr><th>Price</th><td>7 days, no card</td><td>$0</td><td data-show="proLine"></td><td data-show="seatLine"></td></tr>
+          <tr><th>Claude Code threads, replies, Claude asks first</th><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><th>claude.ai chats and Projects, live</th><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Build a bot and do a test run</th><td>✓</td><td>✓ not saved</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Saved bots and schedules (also with the app closed)</th><td>✓</td><td>Locked</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Report history</th><td>✓</td><td>Last run</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Groups</th><td>✓</td><td>Locked</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Skills and add-ons in bots</th><td>✓</td><td>Locked</td><td>✓</td><td>✓</td></tr>
+          <tr><th>Join a team</th><td>✓</td><td>Locked</td><td>✓ <small>(to decide)</small></td><td>✓</td></tr>
+          <tr><th>Own a team, invite people</th><td>✓</td><td>Locked</td><td>Locked <small>(to decide)</small></td><td>✓</td></tr>
+          <tr><th>PCs</th><td>2</td><td>1</td><td data-show="pcLine"></td><td>2 per seat</td></tr>
+          <tr><th>Admin: buy seats, assign by email, invoices</th><td></td><td></td><td></td><td>✓</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="pm-sec">
+    <div class="wrap">
+      <div class="pm-head"><h2>5. The tools we compared</h2><p>"Brings own AI" means the person pays for the AI separately, as with Bot Manager. The others include AI usage in their price, which is most of why they cost more.</p></div>
+      <div class="pm-table-wrap"><table class="pm-table" id="pm-rivals"></table></div>
+    </div>
+  </section>
+
+  <section class="pm-sec pm-alt">
+    <div class="wrap">
+      <div class="pm-head"><h2>6. Paddle or Stripe</h2><p>The big difference is tax. Paddle is the <b>merchant of record</b>: it is the seller on every receipt, so it collects and pays sales tax and VAT everywhere. With Stripe, VC Innovations Group is the seller and owes those taxes itself.</p></div>
+      <div class="pm-table-wrap"><table class="pm-table pm-vs">
+        <thead><tr><th></th><th>Paddle</th><th>Stripe</th><th>Stripe Managed Payments</th></tr></thead>
+        <tbody>
+          <tr><th>Who is the seller</th><td>Paddle (merchant of record)</td><td>VC Innovations Group</td><td>Stripe (merchant of record)</td></tr>
+          <tr><th>Fee per payment</th><td>5% + $0.50, all in. A Paddle page says payments under $10 are 10% instead (not confirmed)</td><td>2.9% + $0.30 (US card), +1.5% outside-US card, +1% currency conversion</td><td>Stripe's card fees + 3.5%</td></tr>
+          <tr><th>Subscriptions</th><td>Included</td><td>Stripe Billing: +0.7%</td><td>Included in the setup; Billing may still apply</td></tr>
+          <tr><th>Sales tax and VAT: worked out at checkout</th><td>Included</td><td>Stripe Tax: about +0.5% per payment where you're registered</td><td>Included</td></tr>
+          <tr><th>Sales tax and VAT: registering and filing</th><td><b>Paddle does it</b></td><td><b>You do it</b>, in each place you owe tax (below)</td><td>Stripe does it</td></tr>
+          <tr><th>Disputes (chargebacks)</th><td>Paddle handles them; $20 each, kept even if won</td><td>You answer them; Stripe charges a fee per dispute</td><td>Stripe handles them</td></tr>
+          <tr><th>Getting paid</th><td>Monthly, once the balance is over $100; a wire to a non-local currency costs $15; up to 1.5% on currency conversion</td><td>Every few days, to your bank</td><td>Stripe's usual payouts</td></tr>
+          <tr><th>Buyer support (refunds, receipts)</th><td>Paddle answers buyers</td><td>You do</td><td>Stripe answers buyers</td></tr>
+          <tr><th>Customer portal (cancel, change card)</th><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th>Seats (Enterprise) and add-ons (extra PC)</th><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+          <tr><th>Checks before going live</th><td>Reviews the business, the website, the terms and refund policy</td><td>Light</td><td>Reviews the business; newer product, rates may change</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="pm-h3">The tax work Paddle takes off our hands</h3>
+      <ul class="pm-list">
+        <li><b>European Union VAT, from the first sale.</b> A US business selling software to people in the EU owes VAT from the first euro, with no minimum. It registers once (the non-Union OSS scheme) and files every quarter.</li>
+        <li><b>United Kingdom VAT, from the first sale</b>, filed separately.</li>
+        <li><b>Other countries</b> (Canada, Australia, Norway, Switzerland, Japan, and more) each have their own rules and minimums.</li>
+        <li><b>US sales tax.</b> About half the states tax software subscriptions. A state's tax is owed once sales there pass its line, usually $100,000 a year (some still also count 200 sales; 16 states dropped that count by 2026). Texas taxes software subscriptions (on 80% of the price), and because we are based in Texas we would owe it on Texas buyers from the first sale.</li>
+        <li>With Paddle, all of this is Paddle's: it charges the right tax, files, and pays. We get one payout and one monthly statement.</li>
+      </ul>
+      <div class="pm-reco">
+        <b>Recommendation: Paddle.</b> At our prices its fee is a bit higher than Stripe's on paper (see section 3), but Stripe leaves us registering for VAT on day one and filing in several places, which costs more in time and accountant fees than the difference. Lemon Squeezy, the other common choice, is being folded into Stripe, so we'd skip it. If the business grows large, moving to Stripe later is possible.
+      </div>
+    </div>
+  </section>
+
+  <section class="pm-sec">
+    <div class="wrap">
+      <div class="pm-head"><h2>7. Still to decide</h2></div>
+      <ol class="pm-list">
+        <li>Pro: $48 a year with a $29 founding price, or another number.</li>
+        <li>Enterprise per seat, and whether a seat costs more than Pro (it includes owning teams, admin, and invoices).</li>
+        <li>Can Pro join teams? Own them?</li>
+        <li>Month-to-month billing, or yearly only.</li>
+        <li>A lifetime offer during the launch only (for example $99), or not.</li>
+        <li>Paddle or Stripe.</li>
+        <li>Trial with no card (recommended) or a card up front.</li>
+        <li>The final product name, which goes on receipts.</li>
+      </ol>
+      <p class="pm-meta">Sources: the pricing pages of Paddle, Stripe, Conductor, Raycast, Warp, GitHub Copilot, Cursor, Devin, CodeRabbit, n8n, Zapier, Lindy, and Relevance AI, and summaries from Avalara (US sales tax), Rework, CostBench, and dev.to, read November 2026. Several third-party numbers disagree; the ones here are the most common.</p>
+    </div>
+  </section>
+  </main>
+  <script src="/assets/pricing-matrix.js"></script>
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <a class="brand" href="https://vcinnovationsgroup.com/">
+          <span class="mark">VC</span>
+          <span class="name">VC Innovations Group</span>
+        </a>
+        <div class="foot-links">
+          <div class="foot-col">
+            <h4>Bot Manager</h4>
+            <a href="/">Overview</a>
+            <a href="/account/">Your account</a>
+            <a href="/privacy.html">Privacy policy</a>
+            <a href="/terms.html">Terms of service</a>
+          </div>
+          <div class="foot-col">
+            <h4>Studio</h4>
+            <a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a>
+          </div>
+          <div class="foot-col">
+            <h4>Contact</h4>
+            <a href="mailto:vfratto@vcinnovationsgroup.com">vfratto@vcinnovationsgroup.com</a>
+            <span>San Antonio, TX</span>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 VC Innovations Group. All rights reserved.</span>
+        <span>Bot Manager · under development</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

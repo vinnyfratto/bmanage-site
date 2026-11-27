@@ -9,14 +9,15 @@ GOOGLE = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M2
 GITHUB = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="#313131" d="M8 0C3.6 0 0 3.6 0 8c0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-3.9 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4C13.7 14.5 16 11.5 16 8c0-4.4-3.6-8-8-8z"/></svg>'
 
 
-def head(title, desc):
+def head(title, desc, robots=''):
+    robots = f'\n  <meta name="robots" content="{robots}" />' if robots else ''
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
-  <meta name="description" content="{desc}" />
+  <meta name="description" content="{desc}" />{robots}
   <meta property="og:title" content="{title}" />
   <meta property="og:description" content="{desc}" />
   <meta property="og:type" content="website" />
@@ -95,10 +96,10 @@ OAUTH = f'''    <div class="oauth">
 '''
 
 
-def page(path, title, desc, body, on=''):
+def page(path, title, desc, body, on='', robots=''):
     full = os.path.join(D, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
-    io.open(full, 'w', encoding='utf-8', newline='\n').write(head(title, desc) + header(on) + body + FOOTER)
+    io.open(full, 'w', encoding='utf-8', newline='\n').write(head(title, desc, robots) + header(on) + body + FOOTER)
 
 
 # ---------- home ----------
@@ -292,4 +293,7 @@ page('account/index.html', 'Your Bot Manager account', 'Your Bot Manager account
   </div>
   </main>
 ''')
+# ---------- pricing matrix for Chris (internal: not linked, not indexed) ----------
+page('PricingMatrixForChris/index.html', 'Bot Manager pricing matrix (draft)', 'Internal draft: Bot Manager plans and prices next to similar tools.',
+     io.open(os.path.join(D, '_pricing-matrix.html'), encoding='utf-8').read(), robots='noindex, nofollow')
 print('built')
