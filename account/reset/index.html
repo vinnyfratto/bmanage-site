@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset your Bot Manager password</title>
+  <meta name="description" content="Reset the password for your Bot Manager account." />
+  <meta property="og:title" content="Reset your Bot Manager password" />
+  <meta property="og:description" content="Reset the password for your Bot Manager account." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/assets/bm-config.js"></script>
+  <script type="module" src="/assets/bm-auth.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="https://vcinnovationsgroup.com/">
+        <span class="mark">VC</span>
+        <span class="name">VC Innovations Group</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/">Bot Manager</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
+        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="acct">
+  <div class="acct-card" data-bm-page="reset">
+    <span class="eyebrow">Account</span>
+    <h1>Reset your password</h1>
+    <p class="acct-sub">We'll email you a link to set a new one. Signed up with Google or GitHub? Just log in with it.</p>
+    <div id="bm-alert" class="alert" role="status" aria-live="polite"></div>
+    <form id="bm-reset-request-form" novalidate>
+      <div class="field"><label for="rs-email">Email</label><input id="rs-email" name="email" type="email" autocomplete="email" required /></div>
+      <button type="submit" class="btn btn-primary">Send reset link</button>
+    </form>
+    <form id="bm-reset-set-form" novalidate style="display:none">
+      <div class="field"><label for="rs-password">New password <span class="hint">(min. 8 characters)</span></label>
+        <div class="pw-field"><input id="rs-password" name="password" type="password" autocomplete="new-password" minlength="8" required /><button type="button" class="pw-toggle" aria-label="Show password"></button></div></div>
+      <button type="submit" class="btn btn-primary">Set new password</button>
+    </form>
+    <p class="acct-links"><a href="/account/login/">Back to log in</a></p>
+  </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <a class="brand" href="https://vcinnovationsgroup.com/">
+          <span class="mark">VC</span>
+          <span class="name">VC Innovations Group</span>
+        </a>
+        <div class="foot-links">
+          <div class="foot-col">
+            <h4>Bot Manager</h4>
+            <a href="/">Overview</a>
+            <a href="/account/">Your account</a>
+            <a href="/privacy.html">Privacy policy</a>
+            <a href="/terms.html">Terms of service</a>
+          </div>
+          <div class="foot-col">
+            <h4>Studio</h4>
+            <a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a>
+          </div>
+          <div class="foot-col">
+            <h4>Contact</h4>
+            <a href="mailto:vfratto@vcinnovationsgroup.com">vfratto@vcinnovationsgroup.com</a>
+            <span>San Antonio, TX</span>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 VC Innovations Group. All rights reserved.</span>
+        <span>Bot Manager · under development</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -11,7 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/assets/bm-config.js"></script>
+  <script type="module" src="/assets/bm-auth.js"></script>
 </head>
 <body>
   <header>
@@ -21,12 +23,13 @@
         <span class="name">VC Innovations Group</span>
       </a>
       <nav class="nav-links">
-        <a href="./">Bot Manager</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html" class="on">Terms</a>
+        <a href="/">Bot Manager</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html" class="on">Terms</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn-primary" href="mailto:vfratto@vcinnovationsgroup.com">Get in touch</a>
+        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
+        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
       </div>
     </div>
   </header>
@@ -36,12 +39,14 @@
       <div class="prose">
         <span class="eyebrow">Bot Manager</span>
         <h1>Terms of service</h1>
-        <p class="meta">Last updated November 25, 2026</p>
-        <p>Bot Manager is a desktop app made by VC Innovations Group. By using it, you agree to these terms.</p>
+        <p class="meta">Last updated November 27, 2026</p>
+        <p>Bot Manager is a desktop app and website made by VC Innovations Group. By creating an account or using it, you agree to these terms.</p>
         <h2>Using Bot Manager</h2>
-        <p>Bot Manager is in early use. It is provided as is, without warranties of any kind. You're responsible for the bots you set up, what you let them do, and the projects you run them on. Bots run with Claude Code under your own Claude account, so Anthropic's terms apply to that use too.</p>
+        <p>Bot Manager is under development. It is provided as is, without warranties of any kind. You're responsible for the bots you set up, what you let them do, and the projects you run them on. Bots run with Claude Code under your own Claude account, so Anthropic's terms apply to that use too.</p>
         <h2>Your account and teams</h2>
-        <p>You sign in with your own Google or GitHub account. Keep it secure. Only invite people you mean to work with, and don't use Bot Manager to break the law or anyone's rights.</p>
+        <p>Keep your account secure, whether you sign in with email, Google, or GitHub. Only invite people you mean to work with, and don't use Bot Manager to break the law or anyone's rights.</p>
+        <h2>Plans</h2>
+        <p>Bot Manager is free while it is under development. If paid plans come, their price, billing period, and the number of PCs each allows will be shown before you buy, and you can cancel before the next billing date.</p>
         <h2>Limits</h2>
         <p>To the extent the law allows, VC Innovations Group isn't liable for indirect or lost-profit damages from using Bot Manager. We may change or stop the service, and we may update these terms; the date above shows the latest version.</p>
         <h2>Contact</h2>
@@ -59,9 +64,10 @@
         <div class="foot-links">
           <div class="foot-col">
             <h4>Bot Manager</h4>
-            <a href="./">Overview</a>
-            <a href="privacy.html">Privacy policy</a>
-            <a href="terms.html">Terms of service</a>
+            <a href="/">Overview</a>
+            <a href="/account/">Your account</a>
+            <a href="/privacy.html">Privacy policy</a>
+            <a href="/terms.html">Terms of service</a>
           </div>
           <div class="foot-col">
             <h4>Studio</h4>
@@ -76,7 +82,7 @@
       </div>
       <div class="foot-bottom">
         <span>© 2026 VC Innovations Group. All rights reserved.</span>
-        <span>Bot Manager</span>
+        <span>Bot Manager · under development</span>
       </div>
     </div>
   </footer>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Bot Manager account</title>
+  <meta name="description" content="Your Bot Manager account: plan, PCs, and sign-in." />
+  <meta property="og:title" content="Your Bot Manager account" />
+  <meta property="og:description" content="Your Bot Manager account: plan, PCs, and sign-in." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/assets/bm-config.js"></script>
+  <script type="module" src="/assets/bm-auth.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="https://vcinnovationsgroup.com/">
+        <span class="mark">VC</span>
+        <span class="name">VC Innovations Group</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/">Bot Manager</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
+        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="acct">
+  <div class="acct-card" data-bm-page="account">
+    <p id="bm-gate" class="acct-sub">Loading your account...</p>
+    <div id="bm-account" style="display:none">
+      <span class="eyebrow">Your account</span>
+      <h1 id="acct-name"></h1>
+      <p class="acct-sub" id="acct-email"></p>
+      <h2 class="acct-section">Plan</h2>
+      <dl class="acct-facts">
+        <dt>Plan</dt><dd id="acct-plan"></dd>
+        <dt>Status</dt><dd id="acct-status"></dd>
+        <dt id="acct-renew-row">Renews</dt><dd id="acct-renew"></dd>
+        <dt>PCs</dt><dd id="acct-devices"></dd>
+      </dl>
+      <h2 class="acct-section">Sign-in</h2>
+      <dl class="acct-facts">
+        <dt>Signs in with</dt><dd id="acct-provider"></dd>
+        <dt>Member since</dt><dd id="acct-since"></dd>
+      </dl>
+      <div class="note" style="margin-bottom:22px"><b>Bot Manager is under development.</b> Every account is on the Free plan for now. Paid plans and the PC limit come later.</div>
+      <button type="button" class="btn btn-ghost" id="bm-signout">Sign out</button>
+    </div>
+  </div>
+  </main>
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <a class="brand" href="https://vcinnovationsgroup.com/">
+          <span class="mark">VC</span>
+          <span class="name">VC Innovations Group</span>
+        </a>
+        <div class="foot-links">
+          <div class="foot-col">
+            <h4>Bot Manager</h4>
+            <a href="/">Overview</a>
+            <a href="/account/">Your account</a>
+            <a href="/privacy.html">Privacy policy</a>
+            <a href="/terms.html">Terms of service</a>
+          </div>
+          <div class="foot-col">
+            <h4>Studio</h4>
+            <a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a>
+          </div>
+          <div class="foot-col">
+            <h4>Contact</h4>
+            <a href="mailto:vfratto@vcinnovationsgroup.com">vfratto@vcinnovationsgroup.com</a>
+            <span>San Antonio, TX</span>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 VC Innovations Group. All rights reserved.</span>
+        <span>Bot Manager · under development</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

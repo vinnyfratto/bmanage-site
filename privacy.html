@@ -11,7 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <script src="/assets/bm-config.js"></script>
+  <script type="module" src="/assets/bm-auth.js"></script>
 </head>
 <body>
   <header>
@@ -21,12 +23,13 @@
         <span class="name">VC Innovations Group</span>
       </a>
       <nav class="nav-links">
-        <a href="./">Bot Manager</a>
-        <a href="privacy.html" class="on">Privacy</a>
-        <a href="terms.html">Terms</a>
+        <a href="/">Bot Manager</a>
+        <a href="/privacy.html" class="on">Privacy</a>
+        <a href="/terms.html">Terms</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn-primary" href="mailto:vfratto@vcinnovationsgroup.com">Get in touch</a>
+        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
+        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
       </div>
     </div>
   </header>
@@ -36,23 +39,27 @@
       <div class="prose">
         <span class="eyebrow">Bot Manager</span>
         <h1>Privacy policy</h1>
-        <p class="meta">Last updated November 25, 2026</p>
-        <p>This policy explains what Bot Manager, a desktop app made by VC Innovations Group ("we"), keeps about you and why.</p>
-        <h2>Signing in with Google or GitHub</h2>
-        <p>When you sign in, Google or GitHub tells Bot Manager your <b>email address</b> and your <b>name</b>. We ask for nothing else: no contacts, files, mail, calendar, or repositories. Bot Manager never sees your Google or GitHub password; you sign in on Google's or GitHub's own page.</p>
+        <p class="meta">Last updated November 27, 2026</p>
+        <p>This policy explains what Bot Manager, a desktop app and website made by VC Innovations Group ("we"), keeps about you and why. Bot Manager is under development; we'll update this page as it grows.</p>
+        <h2>Your account</h2>
+        <p>You can sign up with your email and a password, or with Google or GitHub. With email, we keep your name and email; your password is stored only as a one-way hash, never readable. With Google or GitHub, they tell us your <b>email address</b> and your <b>name</b>, and we ask for nothing else: no contacts, files, mail, calendar, or repositories. We never see your Google or GitHub password.</p>
         <p>We use your email address to match you to invitations, since an invitation works only for the email it was sent to, and we show your name and email to the people on your teams.</p>
         <h2>What we keep on our server</h2>
         <ul>
-        <li>Your email address and name, and which sign-in you used (Google or GitHub).</li>
-        <li>The teams you make or join, your role on each, and when you joined.</li>
-        <li>Invitations: the email invited and when. The invitation code itself is never stored, only a one-way fingerprint of it.</li>
-        <li>When your Bot Manager last checked in, so teammates can see you're online.</li>
+          <li>Your name, email address, and how you sign in (email, Google, or GitHub), and whether you asked for product email.</li>
+          <li>Your plan (Free, Pro, or Enterprise) and its status. Once paid plans exist: the price, billing dates, and the payment service's reference numbers. Card details are handled by the payment service and never stored by us.</li>
+          <li>The PCs you use Bot Manager on, so a plan can allow a set number: a name, the app version, and when each was last used.</li>
+          <li>The teams you make or join, your role on each, and when you joined.</li>
+          <li>Invitations: the email invited and when. The invitation code itself is never stored, only a one-way fingerprint of it.</li>
+          <li>When your Bot Manager last checked in, so teammates can see you're online.</li>
         </ul>
-        <p>This is kept in a database hosted by Supabase in the United States, encrypted at rest. Only the account it belongs to, and the teams it is part of, can see it.</p>
+        <p>This is kept in a database hosted by Supabase in the United States, encrypted at rest. You can see your own account; teammates see only your name, email, and whether you're online.</p>
         <h2>What stays on your computer</h2>
-        <p>Your bots, their runs and reports, your projects and code, your Claude threads, and your Claude account all stay on your computer. Bots run with Claude Code under your own Claude account with Anthropic, which has its own terms and privacy policy. Bot Manager keeps your sign-in on your computer encrypted by Windows.</p>
+        <p>Your bots, their runs and reports, your projects and code, your Claude threads, and your Claude account all stay on your computer. Bots run with Claude Code under your own Claude account with Anthropic, which has its own terms and privacy policy. The Bot Manager app keeps your sign-in on your computer encrypted by Windows.</p>
+        <h2>This website</h2>
+        <p>When you sign in here, your browser keeps the sign-in in its local storage until you sign out. The site uses no cookies of its own and no analytics or ads.</p>
         <h2>What we don't do</h2>
-        <p>We don't sell or share your information, show ads, or track you across apps or websites. This website uses no cookies and no analytics.</p>
+        <p>We don't sell or share your information, show ads, or track you across apps or websites.</p>
         <h2>Deleting your information</h2>
         <p>You can leave a team or delete a team you own in Bot Manager at any time. To have your account and everything we keep about you deleted, email us at <a href="mailto:vfratto@vcinnovationsgroup.com">vfratto@vcinnovationsgroup.com</a> from the address you sign in with. We delete it within 30 days. You can also remove Bot Manager's access in your Google or GitHub account settings.</p>
         <h2>Changes</h2>
@@ -72,9 +79,10 @@
         <div class="foot-links">
           <div class="foot-col">
             <h4>Bot Manager</h4>
-            <a href="./">Overview</a>
-            <a href="privacy.html">Privacy policy</a>
-            <a href="terms.html">Terms of service</a>
+            <a href="/">Overview</a>
+            <a href="/account/">Your account</a>
+            <a href="/privacy.html">Privacy policy</a>
+            <a href="/terms.html">Terms of service</a>
           </div>
           <div class="foot-col">
             <h4>Studio</h4>
@@ -89,7 +97,7 @@
       </div>
       <div class="foot-bottom">
         <span>© 2026 VC Innovations Group. All rights reserved.</span>
-        <span>Bot Manager</span>
+        <span>Bot Manager · under development</span>
       </div>
     </div>
   </footer>
