@@ -153,10 +153,25 @@ function initReset() {
 }
 
 // ---------- my account ----------
-const PLAN = { free: 'Free', pro: 'Pro', enterprise: 'Enterprise' };
+// The plan comes from the server's bm_entitlement (supabase/plans.sql): the plan in effect (a paid plan, an
+// Enterprise seat, the trial, or Free), its end date, and the PCs in use, which can be taken off here.
 const STATUS = { active: 'Active', trialing: 'Trial', past_due: 'Payment due', canceled: 'Canceled', expired: 'Expired', paused: 'Paused' };
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '');
 function setText(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
+function showRow(id, on) { [id + '-row', id].forEach((x) => { const el = document.getElementById(x); if (el) el.style.display = on ? '' : 'none'; }); }
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function planLine(e) {
+  if (e.plan === 'trial') { const d = Math.max(0, Math.ceil((Date.parse(e.ends) - Date.now()) / 864e5)); return `Trial, ${d} day${d === 1 ? '' : 's'} left`; }
+  if (e.plan === 'enterprise' && e.source === 'seat') return `Enterprise${e.org && e.org.name ? ', through ' + e.org.name : ''}`;
+  return e.name || 'Free';
+}
+function drawDevices(e) {
+  const d = e.devices || { used: 0, max: 1, list: [] };
+  setText('acct-devices', `${d.used} of ${d.max} in use`);
+  const box = document.getElementById('acct-pcs'); if (!box) return;
+  box.innerHTML = (d.list || []).map((x) => `<li><span><b>${esc(x.name || 'A PC')}</b><small>${esc([x.version && 'Bot Manager ' + x.version, x.last && 'last seen ' + fmtDate(x.last)].filter(Boolean).join(', '))}</small></span><button type="button" class="btn btn-ghost btn-small" data-pc="${esc(x.id)}">Remove</button></li>`).join('')
+    || '<li class="none">No PCs yet. Sign in to the Bot Manager app and it appears here.</li>';
+}
 async function initAccount() {
   const root = document.getElementById('bm-account'); if (!root) return;
   const { data: sess } = await supabase.auth.getSession();
@@ -165,18 +180,30 @@ async function initAccount() {
   const prov = user.app_metadata?.provider || 'email';
   const m = user.user_metadata || {};
   const { data: acct } = await supabase.from('bm_users')
-    .select('full_name, plan, plan_status, max_devices, expires_at, next_due_at, created_at').eq('id', user.id).maybeSingle();
-  const { count } = await supabase.from('bm_devices').select('id', { count: 'exact', head: true }).is('removed_at', null);
+    .select('full_name, plan_status, created_at').eq('id', user.id).maybeSingle();
+  const { data: ent, error } = await supabase.rpc('bm_entitlement', { p_device: '' });
   setText('acct-name', (acct && acct.full_name) || m.full_name || m.name || m.user_name || user.email);
   setText('acct-email', user.email || '');
   setText('acct-provider', prov === 'github' ? 'GitHub' : prov === 'google' ? 'Google' : 'Email and password');
-  setText('acct-plan', acct ? PLAN[acct.plan] || acct.plan : 'Free');
-  setText('acct-status', acct ? STATUS[acct.plan_status] || acct.plan_status : 'Active');
-  setText('acct-devices', `${count || 0} of ${(acct && acct.max_devices) || 2} in use`);
   setText('acct-since', fmtDate((acct && acct.created_at) || user.created_at));
-  const renew = acct && (acct.next_due_at || acct.expires_at);
-  ['acct-renew-row', 'acct-renew'].forEach((id) => { const el = document.getElementById(id); if (el) el.style.display = renew ? '' : 'none'; });
-  setText('acct-renew', fmtDate(renew));
+  if (error || !ent) {
+    setText('acct-plan', 'Free'); setText('acct-status', "Couldn't load your plan. Refresh to try again.");
+    showRow('acct-renew', false); setText('acct-devices', '');
+  } else {
+    setText('acct-plan', planLine(ent));
+    setText('acct-status', ent.plan === 'trial' ? 'Everything included while it lasts' : ent.source === 'seat' ? 'Seat from your company' : ent.plan === 'free' ? 'Active' : (acct && STATUS[acct.plan_status]) || 'Active');
+    const when = ent.plan === 'trial' ? ['Trial ends', ent.ends] : ent.canceling ? ['Ends', ent.ends] : ent.renews ? ['Renews', ent.renews] : ['', ''];
+    setText('acct-renew-row', when[0]); setText('acct-renew', fmtDate(when[1])); showRow('acct-renew', !!when[1]);
+    drawDevices(ent);
+  }
+  document.getElementById('acct-pcs')?.addEventListener('click', async (ev) => {
+    const b = ev.target.closest('[data-pc]'); if (!b) return;
+    busy(b, true, 'Removing...');
+    const { error: e2 } = await supabase.rpc('bm_device_remove', { p_id: b.dataset.pc });
+    if (e2) { busy(b, false); return; }
+    const { data: again } = await supabase.rpc('bm_entitlement', { p_device: '' });
+    if (again) drawDevices(again);
+  });
   document.getElementById('bm-signout')?.addEventListener('click', async () => { await supabase.auth.signOut(); location.href = '/'; });
   root.style.display = '';
   document.getElementById('bm-gate')?.remove();

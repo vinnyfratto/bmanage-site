@@ -137,3 +137,11 @@ footer .brand .name { color: var(--cream); }
 .acct-facts dd { margin: 0; color: var(--navy); font-weight: 500; overflow-wrap: anywhere; }
 .acct-section { font-family: var(--serif); font-size: 1.2rem; color: var(--navy); margin: 8px 0 12px; }
 .acct .btn-ghost { background: #fff; }
+
+/* my account: PCs */
+.acct-pcs { list-style: none; margin: -10px 0 26px; padding: 0; display: grid; gap: 8px; }
+.acct-pcs li { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #fff; border: 1px solid var(--wg200); border-radius: var(--radius-sm); padding: 10px 12px; }
+.acct-pcs li b { display: block; color: var(--navy); font-weight: 600; font-size: 0.95rem; }
+.acct-pcs li small { color: var(--wg500); font-size: 0.8rem; }
+.acct-pcs li.none { color: var(--wg500); font-size: 0.9rem; }
+.acct .acct-pcs .btn-small { width: auto; margin: 0; padding: 7px 14px; font-size: 11px; }

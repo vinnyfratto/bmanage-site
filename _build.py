@@ -282,12 +282,13 @@ page('account/index.html', 'Your Bot Manager account', 'Your Bot Manager account
         <dt id="acct-renew-row">Renews</dt><dd id="acct-renew"></dd>
         <dt>PCs</dt><dd id="acct-devices"></dd>
       </dl>
+      <ul class="acct-pcs" id="acct-pcs"></ul>
       <h2 class="acct-section">Sign-in</h2>
       <dl class="acct-facts">
         <dt>Signs in with</dt><dd id="acct-provider"></dd>
         <dt>Member since</dt><dd id="acct-since"></dd>
       </dl>
-      <div class="note" style="margin-bottom:22px"><b>Bot Manager is under development.</b> Every account is on the Free plan for now. Paid plans and the PC limit come later.</div>
+      <div class="note" style="margin-bottom:22px"><b>Bot Manager is under development.</b> Every new account starts with a 7-day trial that includes everything. Paid plans come later; nothing is locked yet.</div>
       <button type="button" class="btn btn-ghost" id="bm-signout">Sign out</button>
     </div>
   </div>
