@@ -16,92 +16,75 @@
   <link rel="apple-touch-icon" href="/assets/brand/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/site.css" />
   <script src="/assets/bm-config.js"></script>
   <script type="module" src="/assets/bm-auth.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="/" aria-label="AI Project Hub, home">
-        <img class="logo" src="/assets/brand/logo.svg" alt="AI Project Hub" width="273" height="64" />
-      </a>
-      <nav class="nav-links">
-        <a href="/">Overview</a>
-        <a href="/#features">Features</a>
-        <a href="/pricing/" class="on">Pricing</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-      </nav>
-      <div class="nav-cta">
-        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
-        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
+<div class="topbar" role="region" aria-label="Holiday price"><div class="ticker"><span><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span></div></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="AI Project Hub, home"><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /></a>
+    <nav class="nav-links">
+      <a href="/">Home</a><a href="/#features">Features</a><a href="/pricing/" class="on">Pricing</a><a href="/pricing/#faq">Questions</a><a href="/privacy.html">Privacy</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-line" href="/account/login/" data-bm-account>Log in</a>
+      <a class="btn btn-blue" href="/account/signup/" data-bm-signup>Create account</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="right:-170px;top:-120px;width:640px;height:640px;opacity:.06" />
+  <div class="wrap">
+    <span class="kicker">Pricing</span>
+    <h1>Two plans. Every tool in both.</h1>
+    <p class="lede">Pro is for one person on a main PC and a laptop. Enterprise adds a server for your company, so departments and teams work from the same notes. The AI runs on the Claude plan you already have.</p>
+    <div class="plans">
+      <div class="plan main">
+        <span class="tag">Holiday price</span>
+        <h3>Pro</h3>
+        <p class="for">For one person: every tool in AI Project Hub, on your main PC and a remote one.</p>
+        <div class="price"><s>$39</s><strong>$29</strong><small>/ year</small></div>
+        <p class="sub">$29 for your first year through January 31, 2027, then $39 a year.</p>
+        <ul>
+          <li>Groups that link projects, Code threads, and claude.ai chats into one shared brain</li>
+          <li>Work on the same code from your desktop or your laptop</li>
+          <li>Bots you build as a visual flow, on a schedule or after each commit</li>
+          <li>Every Claude Code thread and claude.ai chat in one list</li>
+          <li>Inbox, run history, skills, and connectors</li>
+          <li>Teams: invite people by email</li>
+        </ul>
+        <a class="btn btn-blue" href="/account/?buy=pro">Get Pro</a>
+      </div>
+      <div class="plan">
+        <h3>Enterprise</h3>
+        <p class="for">For companies: every tool, plus a server of your own so departments and teams work from the same notes.</p>
+        <div class="price"><strong style="font-size:40px">Let's talk</strong></div>
+        <p class="sub">Priced for your company, by seats and departments.</p>
+        <ul>
+          <li>Everything in Pro, for every seat</li>
+          <li>A dedicated server that keeps your threads available from any approved PC</li>
+          <li>Groups across departments, teams, or the whole company</li>
+          <li>Threads, projects, and bots in a group work from that group's notes</li>
+          <li>Seats assigned by email, and invoices</li>
+        </ul>
+        <a class="btn btn-line" href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20Enterprise">Contact us</a>
       </div>
     </div>
-  </header>
+    <p class="note">Every plan includes every tool. The AI runs on your own Claude plan (Pro or Max), never an API key, so the price covers the app, not AI usage. No free trial: cancel within 30 days of making your account for a full refund.</p>
 
-  <section class="hero hero-tight">
-    <div class="wrap">
-      <a class="promo" href="/pricing/">
-        <span class="promo-tag">Holiday price</span>
-        <span class="promo-text">Pro is <b>$29</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027.</span>
-        <span class="promo-go">See Pro &rarr;</span>
-      </a>
+  </div>
+  <svg class="wave" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path fill="#ffffff" d="M790.5,93.1c-59.3-5.3-116.8-18-192.6-50c-29.6-12.7-76.9-31-100.5-35.9c-23.6-4.9-52.6-7.8-75.5-5.3c-10.2,1.1-22.6,1.4-50.1,7.4c-27.2,6.3-58.2,16.6-79.4,24.7c-41.3,15.9-94.9,21.9-134,22.6C72,58.2,0,25.8,0,25.8V100h1000V65.3c0,0-51.5,19.4-106.2,25.7C839.5,97,814.1,95.2,790.5,93.1z"/></svg>
+</section>
 
-      <span class="eyebrow">Pricing</span>
-      <h1>Two plans. <span class="italic">Every tool in both.</span></h1>
-      <p class="lede">Pro is for one person on a main PC and a laptop. Enterprise adds a server for your company, so departments and teams work from the same notes. The AI runs on the Claude plan you already have.</p>
-    </div>
-  </section>
-
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-
-      <div class="plans plans-2">
-        <div class="plan plan-main">
-          <span class="plan-tag">Holiday price</span>
-          <h3>Pro</h3>
-          <p class="plan-for">For one person: every tool in AI Project Hub, on your main PC and a remote one.</p>
-          <div class="price"><span class="was">$39</span><span class="amt">$29</span><span class="per">/ year</span></div>
-          <p class="price-sub"><b>$29 a year through January 31, 2027</b>, then $39 a year. 2 devices: your main PC and a remote one.</p>
-          <ul class="plan-list">
-            <li>Groups that link projects, Code threads, and claude.ai chats into one shared brain</li>
-            <li>Work on the same code from your desktop or your laptop</li>
-            <li>Bots you build as a visual flow, on a schedule or after each commit</li>
-            <li>Every Claude Code thread and claude.ai chat in one list</li>
-            <li>Inbox, run history, skills, and connectors</li>
-            <li>Teams: invite people by email</li>
-          </ul>
-          <a class="btn btn-primary" href="/account/?buy=pro">Get Pro</a>
-        </div>
-        <div class="plan">
-          <h3>Enterprise</h3>
-          <p class="plan-for">For companies: every tool, plus a server of your own so departments and teams work from the same notes.</p>
-          <div class="price"><span class="amt amt-text">Let's talk</span></div>
-          <p class="price-sub">Priced for your company, by seats and departments.</p>
-          <ul class="plan-list">
-            <li>Everything in Pro, for every seat</li>
-            <li>A dedicated server that keeps your threads available from any approved PC</li>
-            <li>Groups across departments, teams, or the whole company</li>
-            <li>Threads, projects, and bots in a group work from that group's notes</li>
-            <li>Seats assigned by email, and invoices</li>
-          </ul>
-          <a class="btn btn-ghost" href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20Enterprise">Contact us</a>
-        </div>
-      </div>
-      <div class="note plans-note"><b>Every plan includes every tool.</b> Enterprise adds a server for your company. <b>Your Claude plan runs the AI:</b> AI Project Hub runs Claude Code on your own Claude plan (Pro or Max) with Anthropic, never an API key, so its price covers the app, not AI usage. <b>No free trial</b>: cancel within 30 days of making your account for a full refund.</div>
-
-    </div>
-  </section>
-
-  <section class="block alt">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Compare</span>
-        <h2>Pro and Enterprise, side by side</h2>
-      </div>
-      <div class="table-wrap">
+<section class="plain" id="compare">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Compare</span><h2>Pro and Enterprise, side by side</h2></div>
+    <div class="table-wrap">
         <table class="compare compare-2">
           <thead><tr><th></th><th class="hl">Pro</th><th>Enterprise</th></tr></thead>
           <tbody>
@@ -129,61 +112,57 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Questions</span>
-        <h2>Before you buy</h2>
-      </div>
-      <div class="faq">
-        <details><summary>Do I need a Claude plan?</summary><p>Yes. AI Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, the same as running Claude Code yourself.</p></details>
-        <details><summary>How does the holiday price work?</summary><p>Sign up for Pro by January 31, 2027 and your first year is $29. It renews at $39 a year.</p></details>
-        <details><summary>Is there a free trial?</summary><p>No. If you cancel within 30 days of making your account, you get a full refund.</p></details>
-        <details><summary>What are the 2 devices?</summary><p>Your main PC and a remote one, like a laptop. Pair them once and the laptop can use everything on the main PC. You can remove a device any time from <a class="text-link" href="/account/">your account</a>.</p></details>
-        <details><summary>Does Pro leave anything out?</summary><p>No. Pro has every tool: groups and brains, two devices, bots and schedules, threads and claude.ai chats, skills and connectors, and Teams. Enterprise adds a server for your company.</p></details>
-        <details><summary>What does the Enterprise server do?</summary><p>It hosts your company's threads, so they're available from any approved PC, not only the one where they started. Groups can cover a department, a team, or the whole company, and every thread, project, and bot in a group works from that group's notes.</p></details>
-        <details><summary>Does my code leave my PC?</summary><p>On Pro, no. Projects, bots, runs, reports, and threads stay on your computer. Our server keeps only your account, plan, devices, and teams; the <a class="text-link" href="/privacy.html">privacy policy</a> lists all of it. On Enterprise, threads are kept on your company's server.</p></details>
-        <details><summary>What if I stop paying?</summary><p>Nothing you made is deleted. Your bots stay in their files, and your groups and brains stay on your PC.</p></details>
-      </div>
+<section class="dark alt" id="faq">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="left:-200px;bottom:-200px" />
+  <div class="wrap faq-grid">
+    <div>
+      <span class="kicker">Questions</span>
+      <h2>Before you buy</h2>
+      <p style="margin-top:14px">Still wondering about something? <a class="text-link" style="color:var(--blue2)" href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20question">Email us</a>.</p>
+      <div class="underline"></div>
     </div>
-  </section>
-  <footer>
-    <div class="wrap">
-      <div class="foot-grid">
-        <div class="foot-brand">
-          <a class="brand" href="/" aria-label="AI Project Hub, home">
-            <img class="logo" src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" />
-          </a>
-          <a class="by" href="https://vcinnovationsgroup.com/">by VC Innovations Group</a>
-        </div>
-        <div class="foot-links">
-          <div class="foot-col">
-            <h4>AI Project Hub</h4>
-            <a href="/">Overview</a>
-            <a href="/#features">Features</a>
-            <a href="/pricing/">Pricing</a>
-            <a href="/account/">Your account</a>
-            <a href="/privacy.html">Privacy policy</a>
-            <a href="/terms.html">Terms of service</a>
-          </div>
-          <div class="foot-col">
-            <h4>Studio</h4>
-            <a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a>
-          </div>
-          <div class="foot-col">
-            <h4>Contact</h4>
-            <a href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20question">Have questions? Email us</a>
-          </div>
-        </div>
-      </div>
-      <div class="foot-bottom">
-        <span>© 2026 VC Innovations Group. All rights reserved.</span>
-        <span>AI Project Hub · under development</span>
-      </div>
+    <div class="faq">
+      <details open><summary>Do I need a Claude plan?</summary><p>Yes. AI Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, the same as running Claude Code yourself.</p></details>
+      <details><summary>How does the holiday price work?</summary><p>Sign up for Pro by January 31, 2027 and your first year is $29. It renews at $39 a year.</p></details>
+      <details><summary>Is there a free trial?</summary><p>No. If you cancel within 30 days of making your account, you get a full refund.</p></details>
+      <details><summary>What are the 2 devices?</summary><p>Your main PC and a remote one, like a laptop. Link them once and the laptop can use everything on the main PC. You can remove a device any time from <a href="/account/">your account</a>.</p></details>
+      <details><summary>Does Pro leave anything out?</summary><p>No. Pro has every tool: groups and brains, two devices, bots and schedules, threads and claude.ai chats, skills and connectors, and Teams. Enterprise adds a server for your company.</p></details>
+      <details><summary>What does the Enterprise server do?</summary><p>It hosts your company's threads, so they're available from any approved PC, not only the one where they started. Groups can cover a department, a team, or the whole company, and every thread, project, and bot in a group works from that group's notes.</p></details>
+      <details><summary>Does my code leave my PC?</summary><p>On Pro, no. Projects, bots, runs, reports, and threads stay on your computer. Our server keeps only your account, plan, devices, and teams; the <a href="/privacy.html">privacy policy</a> lists all of it. On Enterprise, threads are kept on your company's server.</p></details>
+      <details><summary>What if I stop paying?</summary><p>Nothing you made is deleted. Your bots stay in their files, and your groups and brains stay on your PC.</p></details>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- 10. promo band (the template's "Save 40%") -->
+<section class="promo">
+  <div class="wrap promo-grid">
+    <div>
+      <div class="badge"><i>&#9733;</i>HOLIDAY PRICE</div>
+      <h2>Pro is $29 for your first year</h2>
+    </div>
+    <div class="rule"></div>
+    <div>
+      <p>Normally $39 a year. Sign up by January 31, 2027 to get every tool on your main PC and a remote one for $29.</p>
+      <a class="btn btn-white" href="/account/?buy=pro">Get Pro for $29</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="left:-200px;top:-120px" />
+  <div class="wrap">
+    <div class="f-grid">
+      <div><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /><p>A Windows app for Claude Code, by VC Innovations Group.</p></div>
+      <div><h4>AI Project Hub</h4><a href="/">Overview</a><a href="/#features">Features</a><a href="/pricing/">Pricing</a><a href="/account/">Your account</a></div>
+      <div><h4>Company</h4><a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms of service</a></div>
+      <div><h4>Contact</h4><a href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20question">Have questions? Email us</a></div>
+    </div>
+    <div class="f-bottom"><span>&copy; 2026 VC Innovations Group. All rights reserved.</span><span>AI Project Hub</span></div>
+  </div>
+</footer>
 </body>
 </html>

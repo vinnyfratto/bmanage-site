@@ -108,10 +108,86 @@ OAUTH = f'''    <div class="oauth">
 '''
 
 
-def page(path, title, desc, body, on='', robots=''):
+# ---------- the new design's shell (Nov 28): ticker, header over a dark band, footer. Styles: /site.css ----------
+def new_head(title, desc, robots=''):
+    h = head(title, desc, robots)
+    h = h.replace('family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400', 'family=Heebo:wght@400;500;600;700;800')
+    return h.replace('href="/style.css"', 'href="/site.css"')
+
+
+def ticker():
+    ends = SALE_ENDS.replace(' ', '&nbsp;')
+    a = f'<b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;${PRO_SALE}&nbsp;</b> for your first year, normally ${PRO_YEAR}. Sign up by {ends}. <a href="/account/?buy=pro">Subscribe Today</a>'
+    b = f'<b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;${PRO_SALE}</b>, with a {REFUND_DAYS}-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a>'
+    spans = [f'<span>{a}</span>'] + [f'<span aria-hidden="true">{x}</span>' for x in [b, a, b, a, b, a, b]]
+    return '<div class="topbar" role="region" aria-label="Holiday price"><div class="ticker">' + ''.join(spans) + '</div></div>\n'
+
+
+def new_header(on=''):
+    links = [('/', 'Home', 'home'), ('/#features', 'Features', 'features'), ('/pricing/', 'Pricing', 'pricing'), ('/pricing/#faq', 'Questions', 'faq'), ('/privacy.html', 'Privacy', 'privacy')]
+    nav = ''.join(f'<a href="{h}"{" class=\"on\"" if k == on else ""}>{l}</a>' for h, l, k in links)
+    return f'''
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="AI Project Hub, home"><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /></a>
+    <nav class="nav-links">
+      {nav}
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-line" href="/account/login/" data-bm-account>Log in</a>
+      <a class="btn btn-blue" href="/account/signup/" data-bm-signup>Create account</a>
+    </div>
+  </div>
+</header>
+
+'''
+
+
+WAVE = '<svg class="wave" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path fill="#ffffff" d="M790.5,93.1c-59.3-5.3-116.8-18-192.6-50c-29.6-12.7-76.9-31-100.5-35.9c-23.6-4.9-52.6-7.8-75.5-5.3c-10.2,1.1-22.6,1.4-50.1,7.4c-27.2,6.3-58.2,16.6-79.4,24.7c-41.3,15.9-94.9,21.9-134,22.6C72,58.2,0,25.8,0,25.8V100h1000V65.3c0,0-51.5,19.4-106.2,25.7C839.5,97,814.1,95.2,790.5,93.1z"/></svg>'
+WASH = '<img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="{}" />'
+
+
+def page_hero(kicker='', h1='', lede='', extra='', bare=False):
+    # The band at the top of every page but the home page: the home hero's colors, our washed-out mark, and the wave.
+    inner = ''
+    if kicker: inner += f'\n    <span class="kicker">{kicker}</span>'
+    if h1: inner += f'\n    <h1>{h1}</h1>'
+    if lede: inner += f'\n    <p class="lede">{lede}</p>'
+    return f'''<section class="page-hero{' bare' if bare else ''}">
+  {WASH.format('right:-170px;top:-120px;width:640px;height:640px;opacity:.06')}
+  <div class="wrap">{inner}{extra}
+  </div>
+  {WAVE}
+</section>
+'''
+
+
+NEW_FOOTER = f'''
+<footer>
+  {WASH.format('left:-200px;top:-120px')}
+  <div class="wrap">
+    <div class="f-grid">
+      <div><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /><p>A Windows app for Claude Code, by VC Innovations Group.</p></div>
+      <div><h4>AI Project Hub</h4><a href="/">Overview</a><a href="/#features">Features</a><a href="/pricing/">Pricing</a><a href="/account/">Your account</a></div>
+      <div><h4>Company</h4><a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms of service</a></div>
+      <div><h4>Contact</h4><a href="mailto:{EMAIL}?subject=AI%20Project%20Hub%20question">Have questions? Email us</a></div>
+    </div>
+    <div class="f-bottom"><span>&copy; 2026 VC Innovations Group. All rights reserved.</span><span>AI Project Hub</span></div>
+  </div>
+</footer>
+</body>
+</html>
+'''
+
+
+def page(path, title, desc, body, on='', robots='', legacy=False):
     full = os.path.join(D, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
-    io.open(full, 'w', encoding='utf-8', newline='\n').write(head(title, desc, robots) + header(on) + body + FOOTER)
+    if legacy:  # the internal pricing matrix keeps the old look (style.css)
+        html = head(title, desc, robots) + header(on) + body + FOOTER
+    else:
+        html = new_head(title, desc, robots) + ticker() + new_header(on) + body + NEW_FOOTER
+    io.open(full, 'w', encoding='utf-8', newline='\n').write(html)
 
 
 # ---------- shared bits for the home and pricing pages ----------
@@ -119,39 +195,39 @@ YES = '<span class="yes" aria-label="Included">&#10003;</span>'
 NO = '<span class="no" aria-label="Not included">&ndash;</span>'
 
 PLANS = f'''
-      <div class="plans plans-2">
-        <div class="plan plan-main">
-          <span class="plan-tag">Holiday price</span>
-          <h3>Pro</h3>
-          <p class="plan-for">For one person: every tool in AI Project Hub, on your main PC and a remote one.</p>
-          <div class="price"><span class="was">${PRO_YEAR}</span><span class="amt">${PRO_SALE}</span><span class="per">/ year</span></div>
-          <p class="price-sub"><b>${PRO_SALE} a year through {SALE_ENDS}</b>, then ${PRO_YEAR} a year. 2 devices: your main PC and a remote one.</p>
-          <ul class="plan-list">
-            <li>Groups that link projects, Code threads, and claude.ai chats into one shared brain</li>
-            <li>Work on the same code from your desktop or your laptop</li>
-            <li>Bots you build as a visual flow, on a schedule or after each commit</li>
-            <li>Every Claude Code thread and claude.ai chat in one list</li>
-            <li>Inbox, run history, skills, and connectors</li>
-            <li>Teams: invite people by email</li>
-          </ul>
-          <a class="btn btn-primary" href="/account/?buy=pro">Get Pro</a>
-        </div>
-        <div class="plan">
-          <h3>Enterprise</h3>
-          <p class="plan-for">For companies: every tool, plus a server of your own so departments and teams work from the same notes.</p>
-          <div class="price"><span class="amt amt-text">Let's talk</span></div>
-          <p class="price-sub">Priced for your company, by seats and departments.</p>
-          <ul class="plan-list">
-            <li>Everything in Pro, for every seat</li>
-            <li>A dedicated server that keeps your threads available from any approved PC</li>
-            <li>Groups across departments, teams, or the whole company</li>
-            <li>Threads, projects, and bots in a group work from that group's notes</li>
-            <li>Seats assigned by email, and invoices</li>
-          </ul>
-          <a class="btn btn-ghost" href="mailto:{EMAIL}?subject=AI%20Project%20Hub%20Enterprise">Contact us</a>
-        </div>
+    <div class="plans">
+      <div class="plan main">
+        <span class="tag">Holiday price</span>
+        <h3>Pro</h3>
+        <p class="for">For one person: every tool in AI Project Hub, on your main PC and a remote one.</p>
+        <div class="price"><s>${PRO_YEAR}</s><strong>${PRO_SALE}</strong><small>/ year</small></div>
+        <p class="sub">${PRO_SALE} for your first year through {SALE_ENDS}, then ${PRO_YEAR} a year.</p>
+        <ul>
+          <li>Groups that link projects, Code threads, and claude.ai chats into one shared brain</li>
+          <li>Work on the same code from your desktop or your laptop</li>
+          <li>Bots you build as a visual flow, on a schedule or after each commit</li>
+          <li>Every Claude Code thread and claude.ai chat in one list</li>
+          <li>Inbox, run history, skills, and connectors</li>
+          <li>Teams: invite people by email</li>
+        </ul>
+        <a class="btn btn-blue" href="/account/?buy=pro">Get Pro</a>
       </div>
-      <div class="note plans-note"><b>Every plan includes every tool.</b> Enterprise adds a server for your company. <b>Your Claude plan runs the AI:</b> AI Project Hub runs Claude Code on your own Claude plan (Pro or Max) with Anthropic, never an API key, so its price covers the app, not AI usage. <b>No free trial</b>: cancel within {REFUND_DAYS} days of making your account for a full refund.</div>
+      <div class="plan">
+        <h3>Enterprise</h3>
+        <p class="for">For companies: every tool, plus a server of your own so departments and teams work from the same notes.</p>
+        <div class="price"><strong style="font-size:40px">Let's talk</strong></div>
+        <p class="sub">Priced for your company, by seats and departments.</p>
+        <ul>
+          <li>Everything in Pro, for every seat</li>
+          <li>A dedicated server that keeps your threads available from any approved PC</li>
+          <li>Groups across departments, teams, or the whole company</li>
+          <li>Threads, projects, and bots in a group work from that group's notes</li>
+          <li>Seats assigned by email, and invoices</li>
+        </ul>
+        <a class="btn btn-line" href="mailto:{EMAIL}?subject=AI%20Project%20Hub%20Enterprise">Contact us</a>
+      </div>
+    </div>
+    <p class="note">Every plan includes every tool. The AI runs on your own Claude plan (Pro or Max), never an API key, so the price covers the app, not AI usage. No free trial: cancel within {REFUND_DAYS} days of making your account for a full refund.</p>
 '''
 
 COMPARE = [
@@ -197,84 +273,67 @@ def compare_table():
       </div>'''
 
 
-PROMO = f'''      <a class="promo" href="/pricing/">
-        <span class="promo-tag">Holiday price</span>
-        <span class="promo-text">Pro is <b>${PRO_SALE}</b> for your first year, normally ${PRO_YEAR}. Sign up by {SALE_ENDS.replace(' ', '&nbsp;')}.</span>
-        <span class="promo-go">See Pro &rarr;</span>
-      </a>
-'''
-
 # ---------- home ----------
 # The home page is its own design (Vinny, Nov 28: the Virtuware template's layout, mocked up in _Mockups/virtuware/):
 # _home.html holds its styles and body; the prices, dates, and email come from the constants at the top.
-def home_head(title, desc):
-    h = head(title, desc)
-    h = h.replace('family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400', 'family=Heebo:wght@400;500;600;700;800')
-    return h.replace('  <link rel="stylesheet" href="/style.css" />\n', '').replace('</head>\n<body>\n', '')
-
 HOME = io.open(os.path.join(D, '_home.html'), encoding='utf-8').read()
 for k, v in {'SALE': PRO_SALE, 'YEAR': PRO_YEAR, 'ENDS_NB': SALE_ENDS.replace(' ', '&nbsp;'), 'ENDS': SALE_ENDS, 'REFUND': REFUND_DAYS, 'EMAIL': EMAIL}.items():
     HOME = HOME.replace('{{' + k + '}}', str(v))
 assert '{{' not in HOME
-io.open(os.path.join(D, 'index.html'), 'w', encoding='utf-8', newline='\n').write(home_head(
-    'AI Project Hub · A shared brain for your Claude projects, on two machines',
-    f'AI Project Hub is a Windows app for Claude Code. Link projects in groups so Code threads and claude.ai chats feed one shared brain, work on the same code from your desktop or laptop, and build bots by drawing them. Pro is ${PRO_SALE} for your first year through {SALE_ENDS}.') + HOME)
+page('index.html', 'AI Project Hub · A shared brain for your Claude projects, on two machines',
+     f'AI Project Hub is a Windows app for Claude Code. Link projects in groups so Code threads and claude.ai chats feed one shared brain, work on the same code from your desktop or laptop, and build bots by drawing them. Pro is ${PRO_SALE} for your first year through {SALE_ENDS}.',
+     HOME, 'home')
 
 # ---------- pricing ----------
-page('pricing/index.html', 'Pricing · AI Project Hub', f'AI Project Hub Pro is ${PRO_SALE} for your first year through {SALE_ENDS}, then ${PRO_YEAR} a year, with every tool on 2 devices. Enterprise adds a dedicated server for your company.', f'''
-  <section class="hero hero-tight">
-    <div class="wrap">
-{PROMO}
-      <span class="eyebrow">Pricing</span>
-      <h1>Two plans. <span class="italic">Every tool in both.</span></h1>
-      <p class="lede">Pro is for one person on a main PC and a laptop. Enterprise adds a server for your company, so departments and teams work from the same notes. The AI runs on the Claude plan you already have.</p>
-    </div>
-  </section>
+PROMO_BAND = HOME[HOME.index('<!-- 10. promo band'):HOME.index('</section>', HOME.index('<!-- 10. promo band')) + 10]
 
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-{PLANS}
-    </div>
-  </section>
+FAQ = [
+    ('Do I need a Claude plan?', 'Yes. AI Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, the same as running Claude Code yourself.'),
+    ('How does the holiday price work?', f'Sign up for Pro by {SALE_ENDS} and your first year is ${PRO_SALE}. It renews at ${PRO_YEAR} a year.'),
+    ('Is there a free trial?', f'No. If you cancel within {REFUND_DAYS} days of making your account, you get a full refund.'),
+    ('What are the 2 devices?', 'Your main PC and a remote one, like a laptop. Link them once and the laptop can use everything on the main PC. You can remove a device any time from <a href="/account/">your account</a>.'),
+    ('Does Pro leave anything out?', 'No. Pro has every tool: groups and brains, two devices, bots and schedules, threads and claude.ai chats, skills and connectors, and Teams. Enterprise adds a server for your company.'),
+    ('What does the Enterprise server do?', "It hosts your company's threads, so they're available from any approved PC, not only the one where they started. Groups can cover a department, a team, or the whole company, and every thread, project, and bot in a group works from that group's notes."),
+    ('Does my code leave my PC?', "On Pro, no. Projects, bots, runs, reports, and threads stay on your computer. Our server keeps only your account, plan, devices, and teams; the <a href=\"/privacy.html\">privacy policy</a> lists all of it. On Enterprise, threads are kept on your company's server."),
+    ('What if I stop paying?', 'Nothing you made is deleted. Your bots stay in their files, and your groups and brains stay on your PC.'),
+]
+FAQ_HTML = '\n'.join(f'      <details{" open" if i == 0 else ""}><summary>{q}</summary><p>{a}</p></details>' for i, (q, a) in enumerate(FAQ))
 
-  <section class="block alt">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Compare</span>
-        <h2>Pro and Enterprise, side by side</h2>
-      </div>
-      {compare_table()}
-    </div>
-  </section>
+page('pricing/index.html', 'Pricing · AI Project Hub', f'AI Project Hub Pro is ${PRO_SALE} for your first year through {SALE_ENDS}, then ${PRO_YEAR} a year, with every tool on 2 devices. Enterprise adds a dedicated server for your company.',
+     page_hero('Pricing', 'Two plans. Every tool in both.',
+               'Pro is for one person on a main PC and a laptop. Enterprise adds a server for your company, so departments and teams work from the same notes. The AI runs on the Claude plan you already have.',
+               PLANS) + f'''
+<section class="plain" id="compare">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Compare</span><h2>Pro and Enterprise, side by side</h2></div>
+    {compare_table()}
+  </div>
+</section>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">Questions</span>
-        <h2>Before you buy</h2>
-      </div>
-      <div class="faq">
-        <details><summary>Do I need a Claude plan?</summary><p>Yes. AI Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, the same as running Claude Code yourself.</p></details>
-        <details><summary>How does the holiday price work?</summary><p>Sign up for Pro by {SALE_ENDS} and your first year is ${PRO_SALE}. It renews at ${PRO_YEAR} a year.</p></details>
-        <details><summary>Is there a free trial?</summary><p>No. If you cancel within {REFUND_DAYS} days of making your account, you get a full refund.</p></details>
-        <details><summary>What are the 2 devices?</summary><p>Your main PC and a remote one, like a laptop. Pair them once and the laptop can use everything on the main PC. You can remove a device any time from <a class="text-link" href="/account/">your account</a>.</p></details>
-        <details><summary>Does Pro leave anything out?</summary><p>No. Pro has every tool: groups and brains, two devices, bots and schedules, threads and claude.ai chats, skills and connectors, and Teams. Enterprise adds a server for your company.</p></details>
-        <details><summary>What does the Enterprise server do?</summary><p>It hosts your company's threads, so they're available from any approved PC, not only the one where they started. Groups can cover a department, a team, or the whole company, and every thread, project, and bot in a group works from that group's notes.</p></details>
-        <details><summary>Does my code leave my PC?</summary><p>On Pro, no. Projects, bots, runs, reports, and threads stay on your computer. Our server keeps only your account, plan, devices, and teams; the <a class="text-link" href="/privacy.html">privacy policy</a> lists all of it. On Enterprise, threads are kept on your company's server.</p></details>
-        <details><summary>What if I stop paying?</summary><p>Nothing you made is deleted. Your bots stay in their files, and your groups and brains stay on your PC.</p></details>
-      </div>
+<section class="dark alt" id="faq">
+  {WASH.format('left:-200px;bottom:-200px')}
+  <div class="wrap faq-grid">
+    <div>
+      <span class="kicker">Questions</span>
+      <h2>Before you buy</h2>
+      <p style="margin-top:14px">Still wondering about something? <a class="text-link" style="color:var(--blue2)" href="mailto:{EMAIL}?subject=AI%20Project%20Hub%20question">Email us</a>.</p>
+      <div class="underline"></div>
     </div>
-  </section>
+    <div class="faq">
+{FAQ_HTML}
+    </div>
+  </div>
+</section>
+
+{PROMO_BAND}
 ''', 'pricing')
 
 # ---------- privacy ----------
 page('privacy.html', 'Privacy policy · AI Project Hub', 'What AI Project Hub, by VC Innovations Group, keeps about you and why.', f'''
+{page_hero('AI Project Hub', 'Privacy policy', extra='<p class="meta">Last updated ' + UPDATED + '</p>')}
   <section class="legal">
     <div class="wrap">
       <div class="prose">
-        <span class="eyebrow">AI Project Hub</span>
-        <h1>Privacy policy</h1>
-        <p class="meta">Last updated {UPDATED}</p>
         <p>This policy explains what AI Project Hub, a desktop app and website made by VC Innovations Group ("we"), keeps about you and why. AI Project Hub is under development; we'll update this page as it grows.</p>
         <h2>Your account</h2>
         <p>You can sign up with your email and a password, or with Google or GitHub. With email, we keep your name and email; your password is stored only as a one-way hash, never readable. With Google or GitHub, they tell us your <b>email address</b> and your <b>name</b>, and we ask for nothing else: no contacts, files, mail, calendar, or repositories. We never see your Google or GitHub password.</p>
@@ -308,12 +367,10 @@ page('privacy.html', 'Privacy policy · AI Project Hub', 'What AI Project Hub, b
 
 # ---------- terms ----------
 page('terms.html', 'Terms of service · AI Project Hub', 'The terms for using AI Project Hub, by VC Innovations Group.', f'''
+{page_hero('AI Project Hub', 'Terms of service', extra='<p class="meta">Last updated ' + UPDATED + '</p>')}
   <section class="legal">
     <div class="wrap">
       <div class="prose">
-        <span class="eyebrow">AI Project Hub</span>
-        <h1>Terms of service</h1>
-        <p class="meta">Last updated {UPDATED}</p>
         <p>AI Project Hub is a desktop app and website made by VC Innovations Group. By creating an account or using it, you agree to these terms.</p>
         <h2>Using AI Project Hub</h2>
         <p>AI Project Hub is under development. It is provided as is, without warranties of any kind. You're responsible for the bots you set up, what you let them do, and the projects you run them on. Bots run with Claude Code under your own Claude account, so Anthropic's terms apply to that use too.</p>
@@ -330,15 +387,17 @@ page('terms.html', 'Terms of service · AI Project Hub', 'The terms for using AI
   </section>
 ''', 'terms')
 
+BAND = page_hero(bare=True)
+
 # ---------- account: sign up ----------
 page('account/signup/index.html', 'Create your AI Project Hub account', 'Create your AI Project Hub account.', f'''
-  <main class="acct">
+{BAND}  <main class="acct">
   <div class="acct-card" data-bm-page="signup">
-    <span class="eyebrow">Get started</span>
+    <span class="kicker">Get started</span>
     <h1>Create your account</h1>
     <p class="acct-sub">One account works in the AI Project Hub app and on this website.</p>
     <div id="bm-alert" class="alert" role="status" aria-live="polite"></div>
-    <label class="check"><input type="checkbox" name="terms" form="bm-signup-form" required /><span>I agree to the <a href="/terms.html">Terms of Service</a> and <a href="/privacy.html">Privacy Policy</a>.</span></label>
+    <label class="agree"><input type="checkbox" name="terms" form="bm-signup-form" required /><span>I agree to the <a href="/terms.html">Terms of Service</a> and <a href="/privacy.html">Privacy Policy</a>.</span></label>
 {OAUTH}    <form id="bm-signup-form" novalidate>
       <div class="field-row">
         <div class="field"><label for="su-first">First name</label><input id="su-first" name="first_name" type="text" autocomplete="given-name" required /></div>
@@ -347,7 +406,7 @@ page('account/signup/index.html', 'Create your AI Project Hub account', 'Create 
       <div class="field"><label for="su-email">Email</label><input id="su-email" name="email" type="email" autocomplete="email" required /></div>
       <div class="field"><label for="su-password">Password <span class="hint">(min. 8 characters)</span></label>
         <div class="pw-field"><input id="su-password" name="password" type="password" autocomplete="new-password" minlength="8" required /><button type="button" class="pw-toggle" aria-label="Show password"></button></div></div>
-      <label class="check"><input type="checkbox" name="marketing_opt_in" /><span>Send me AI Project Hub news and product updates by email. (optional)</span></label>
+      <label class="agree"><input type="checkbox" name="marketing_opt_in" /><span>Send me AI Project Hub news and product updates by email. (optional)</span></label>
       <button type="submit" class="btn btn-primary">Create account</button>
     </form>
     <p class="acct-links">Already have an account? <a href="/account/login/">Log in</a></p>
@@ -357,9 +416,9 @@ page('account/signup/index.html', 'Create your AI Project Hub account', 'Create 
 
 # ---------- account: log in ----------
 page('account/login/index.html', 'Log in to AI Project Hub', 'Log in to your AI Project Hub account.', f'''
-  <main class="acct">
+{BAND}  <main class="acct">
   <div class="acct-card" data-bm-page="login">
-    <span class="eyebrow">Welcome back</span>
+    <span class="kicker">Welcome back</span>
     <h1>Log in</h1>
     <p class="acct-sub">Use the same account as the AI Project Hub app.</p>
     <div id="bm-alert" class="alert" role="status" aria-live="polite"></div>
@@ -375,10 +434,10 @@ page('account/login/index.html', 'Log in to AI Project Hub', 'Log in to your AI 
 ''')
 
 # ---------- account: reset ----------
-page('account/reset/index.html', 'Reset your AI Project Hub password', 'Reset the password for your AI Project Hub account.', '''
-  <main class="acct">
+page('account/reset/index.html', 'Reset your AI Project Hub password', 'Reset the password for your AI Project Hub account.', f'''
+{BAND}  <main class="acct">
   <div class="acct-card" data-bm-page="reset">
-    <span class="eyebrow">Account</span>
+    <span class="kicker">Account</span>
     <h1>Reset your password</h1>
     <p class="acct-sub">We'll email you a link to set a new one. Signed up with Google or GitHub? Just log in with it.</p>
     <div id="bm-alert" class="alert" role="status" aria-live="polite"></div>
@@ -397,12 +456,12 @@ page('account/reset/index.html', 'Reset your AI Project Hub password', 'Reset th
 ''')
 
 # ---------- account: my account ----------
-page('account/index.html', 'Your AI Project Hub account', 'Your AI Project Hub account: plan, PCs, and sign-in.', '''
-  <main class="acct">
+page('account/index.html', 'Your AI Project Hub account', 'Your AI Project Hub account: plan, PCs, and sign-in.', f'''
+{BAND}  <main class="acct">
   <div class="acct-card" data-bm-page="account">
     <p id="bm-gate" class="acct-sub">Loading your account...</p>
     <div id="bm-account" style="display:none">
-      <span class="eyebrow">Your account</span>
+      <span class="kicker">Your account</span>
       <h1 id="acct-name"></h1>
       <p class="acct-sub" id="acct-email"></p>
       <h2 class="acct-section">Plan</h2>
@@ -425,7 +484,7 @@ page('account/index.html', 'Your AI Project Hub account', 'Your AI Project Hub a
         <dt>Signs in with</dt><dd id="acct-provider"></dd>
         <dt>Member since</dt><dd id="acct-since"></dd>
       </dl>
-      <div class="note" style="margin-bottom:22px"><b>No free trial.</b> Cancel within 30 days of making your account for a full refund. Payments are handled by Stripe; we never see or keep your card.</div>
+      <div class="acct-note" style="margin-bottom:22px"><b>No free trial.</b> Cancel within {REFUND_DAYS} days of making your account for a full refund. Payments are handled by Stripe; we never see or keep your card.</div>
       <button type="button" class="btn btn-ghost" id="bm-signout">Sign out</button>
     </div>
   </div>
@@ -433,5 +492,5 @@ page('account/index.html', 'Your AI Project Hub account', 'Your AI Project Hub a
 ''')
 # ---------- pricing matrix for Chris (internal: not linked, not indexed) ----------
 page('PricingMatrixForChris/index.html', 'AI Project Hub pricing matrix (draft)', 'Internal draft: AI Project Hub plans and prices next to similar tools.',
-     io.open(os.path.join(D, '_pricing-matrix.html'), encoding='utf-8').read(), robots='noindex, nofollow')
+     io.open(os.path.join(D, '_pricing-matrix.html'), encoding='utf-8').read(), robots='noindex, nofollow', legacy=True)
 print('built')

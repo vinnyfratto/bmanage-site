@@ -16,36 +16,39 @@
   <link rel="apple-touch-icon" href="/assets/brand/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/site.css" />
   <script src="/assets/bm-config.js"></script>
   <script type="module" src="/assets/bm-auth.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="/" aria-label="AI Project Hub, home">
-        <img class="logo" src="/assets/brand/logo.svg" alt="AI Project Hub" width="273" height="64" />
-      </a>
-      <nav class="nav-links">
-        <a href="/">Overview</a>
-        <a href="/#features">Features</a>
-        <a href="/pricing/">Pricing</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-      </nav>
-      <div class="nav-cta">
-        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
-        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create account</a>
-      </div>
-    </div>
-  </header>
+<div class="topbar" role="region" aria-label="Holiday price"><div class="ticker"><span><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;$29&nbsp;</b> for your first year, normally $39. Sign up by January&nbsp;31,&nbsp;2027. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;$29</b>, with a 30-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span></div></div>
 
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="AI Project Hub, home"><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /></a>
+    <nav class="nav-links">
+      <a href="/">Home</a><a href="/#features">Features</a><a href="/pricing/">Pricing</a><a href="/pricing/#faq">Questions</a><a href="/privacy.html">Privacy</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-line" href="/account/login/" data-bm-account>Log in</a>
+      <a class="btn btn-blue" href="/account/signup/" data-bm-signup>Create account</a>
+    </div>
+  </div>
+</header>
+
+
+<section class="page-hero bare">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="right:-170px;top:-120px;width:640px;height:640px;opacity:.06" />
+  <div class="wrap">
+  </div>
+  <svg class="wave" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path fill="#ffffff" d="M790.5,93.1c-59.3-5.3-116.8-18-192.6-50c-29.6-12.7-76.9-31-100.5-35.9c-23.6-4.9-52.6-7.8-75.5-5.3c-10.2,1.1-22.6,1.4-50.1,7.4c-27.2,6.3-58.2,16.6-79.4,24.7c-41.3,15.9-94.9,21.9-134,22.6C72,58.2,0,25.8,0,25.8V100h1000V65.3c0,0-51.5,19.4-106.2,25.7C839.5,97,814.1,95.2,790.5,93.1z"/></svg>
+</section>
   <main class="acct">
   <div class="acct-card" data-bm-page="account">
     <p id="bm-gate" class="acct-sub">Loading your account...</p>
     <div id="bm-account" style="display:none">
-      <span class="eyebrow">Your account</span>
+      <span class="kicker">Your account</span>
       <h1 id="acct-name"></h1>
       <p class="acct-sub" id="acct-email"></p>
       <h2 class="acct-section">Plan</h2>
@@ -68,45 +71,23 @@
         <dt>Signs in with</dt><dd id="acct-provider"></dd>
         <dt>Member since</dt><dd id="acct-since"></dd>
       </dl>
-      <div class="note" style="margin-bottom:22px"><b>No free trial.</b> Cancel within 30 days of making your account for a full refund. Payments are handled by Stripe; we never see or keep your card.</div>
+      <div class="acct-note" style="margin-bottom:22px"><b>No free trial.</b> Cancel within 30 days of making your account for a full refund. Payments are handled by Stripe; we never see or keep your card.</div>
       <button type="button" class="btn btn-ghost" id="bm-signout">Sign out</button>
     </div>
   </div>
   </main>
-  <footer>
-    <div class="wrap">
-      <div class="foot-grid">
-        <div class="foot-brand">
-          <a class="brand" href="/" aria-label="AI Project Hub, home">
-            <img class="logo" src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" />
-          </a>
-          <a class="by" href="https://vcinnovationsgroup.com/">by VC Innovations Group</a>
-        </div>
-        <div class="foot-links">
-          <div class="foot-col">
-            <h4>AI Project Hub</h4>
-            <a href="/">Overview</a>
-            <a href="/#features">Features</a>
-            <a href="/pricing/">Pricing</a>
-            <a href="/account/">Your account</a>
-            <a href="/privacy.html">Privacy policy</a>
-            <a href="/terms.html">Terms of service</a>
-          </div>
-          <div class="foot-col">
-            <h4>Studio</h4>
-            <a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a>
-          </div>
-          <div class="foot-col">
-            <h4>Contact</h4>
-            <a href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20question">Have questions? Email us</a>
-          </div>
-        </div>
-      </div>
-      <div class="foot-bottom">
-        <span>© 2026 VC Innovations Group. All rights reserved.</span>
-        <span>AI Project Hub · under development</span>
-      </div>
+
+<footer>
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="left:-200px;top:-120px" />
+  <div class="wrap">
+    <div class="f-grid">
+      <div><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /><p>A Windows app for Claude Code, by VC Innovations Group.</p></div>
+      <div><h4>AI Project Hub</h4><a href="/">Overview</a><a href="/#features">Features</a><a href="/pricing/">Pricing</a><a href="/account/">Your account</a></div>
+      <div><h4>Company</h4><a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms of service</a></div>
+      <div><h4>Contact</h4><a href="mailto:vfratto@vcinnovationsgroup.com?subject=AI%20Project%20Hub%20question">Have questions? Email us</a></div>
     </div>
-  </footer>
+    <div class="f-bottom"><span>&copy; 2026 VC Innovations Group. All rights reserved.</span><span>AI Project Hub</span></div>
+  </div>
+</footer>
 </body>
 </html>
