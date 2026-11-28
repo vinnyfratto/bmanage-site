@@ -34,6 +34,9 @@ header { position: sticky; top: 0; z-index: 50; background: rgba(242,245,247,0.9
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand .mark { width: 38px; height: 38px; border-radius: 11px; background: var(--navy); display: grid; place-items: center; flex-shrink: 0; font-family: var(--serif); font-style: italic; color: var(--cream); font-size: 17px; }
 .brand .name { font-family: var(--serif); font-size: 19px; color: var(--navy); white-space: nowrap; }
+.brand img.logo { height: 40px; width: auto; display: block; }
+.foot-brand .by { display: block; margin-top: 10px; font-size: 12px; letter-spacing: 0.5px; color: rgba(255,255,255,0.55); }
+.foot-brand .by:hover { color: #fff; }
 .nav-links { display: flex; align-items: center; gap: 34px; }
 .nav-links a { font-size: 12px; letter-spacing: 0.6px; color: var(--wg600); transition: color .15s ease; }
 .nav-links a:hover, .nav-links a.on { color: var(--rust); }

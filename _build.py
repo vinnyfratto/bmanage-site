@@ -23,6 +23,10 @@ def head(title, desc, robots=''):
   <meta property="og:title" content="{title}" />
   <meta property="og:description" content="{desc}" />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://getaiprojecthub.com/assets/brand/logo-mark-512.png" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/brand/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -35,13 +39,12 @@ def head(title, desc, robots=''):
 
 
 def header(on=''):
-    links = [('/', 'Ai Project Hub', 'home'), ('/privacy.html', 'Privacy', 'privacy'), ('/terms.html', 'Terms', 'terms')]
+    links = [('/', 'Overview', 'home'), ('/privacy.html', 'Privacy', 'privacy'), ('/terms.html', 'Terms', 'terms')]
     nav = ''.join(f'\n        <a href="{h}"{" class=\"on\"" if k == on else ""}>{l}</a>' for h, l, k in links)
     return f'''  <header>
     <div class="wrap nav">
-      <a class="brand" href="https://vcinnovationsgroup.com/">
-        <span class="mark">VC</span>
-        <span class="name">VC Innovations Group</span>
+      <a class="brand" href="/" aria-label="Ai Project Hub, home">
+        <img class="logo" src="/assets/brand/logo.svg" alt="Ai Project Hub" width="273" height="64" />
       </a>
       <nav class="nav-links">{nav}
       </nav>
@@ -57,10 +60,12 @@ def header(on=''):
 FOOTER = f'''  <footer>
     <div class="wrap">
       <div class="foot-grid">
-        <a class="brand" href="https://vcinnovationsgroup.com/">
-          <span class="mark">VC</span>
-          <span class="name">VC Innovations Group</span>
-        </a>
+        <div class="foot-brand">
+          <a class="brand" href="/" aria-label="Ai Project Hub, home">
+            <img class="logo" src="/assets/brand/logo-dark.svg" alt="Ai Project Hub" width="273" height="64" />
+          </a>
+          <a class="by" href="https://vcinnovationsgroup.com/">by VC Innovations Group</a>
+        </div>
         <div class="foot-links">
           <div class="foot-col">
             <h4>Ai Project Hub</h4>

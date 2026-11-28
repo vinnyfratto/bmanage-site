@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Ai Project Hub">
+  <title>Ai Project Hub</title>
+  <rect x="29" y="5" width="6" height="12" rx="3" fill="#8494c4"/><circle cx="32" cy="7" r="6" fill="#8494c4"/>
+  <rect x="4" y="16" width="56" height="44" rx="14" fill="#1e3a8a"/>
+  <circle cx="21" cy="38" r="6.5" fill="#fff"/><circle cx="43" cy="38" r="6.5" fill="#fff"/>
+</svg>

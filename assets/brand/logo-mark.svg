@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Ai Project Hub">
+  <title>Ai Project Hub</title>
+  <g fill="none" stroke="#c3cbe4" stroke-width="3.2" stroke-linecap="round">
+    <path d="M11 11 L17 17 M53 11 L47 17 M11 53 L17 47 M53 53 L47 47"/></g>
+  <g fill="#8494c4"><rect x="3" y="3" width="10" height="10" rx="3.2"/><rect x="51" y="3" width="10" height="10" rx="3.2"/>
+    <rect x="3" y="51" width="10" height="10" rx="3.2"/><rect x="51" y="51" width="10" height="10" rx="3.2"/></g>
+  <rect x="13" y="19" width="38" height="30" rx="10" fill="#1e3a8a"/>
+  <rect x="30" y="11" width="4" height="9" rx="2" fill="#8494c4"/><circle cx="32" cy="10" r="3.8" fill="#8494c4"/>
+  <circle cx="25" cy="34" r="4" fill="#ffffff"/><circle cx="39" cy="34" r="4" fill="#ffffff"/>
+</svg>
