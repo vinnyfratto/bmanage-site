@@ -1,4 +1,4 @@
-/* Bot Manager's site, in vcinnovationsgroup.com's template: same palette, fonts, header, cards, and footer
+/* Ai Project Hub's site, in vcinnovationsgroup.com's template: same palette, fonts, header, cards, and footer
    (from VC-Innovations-Group.github.io src/_includes/base.njk and _data/theme.json). */
 @font-face { font-family: 'RCL Morland'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://vcinnovationsgroup.com/media/fonts/RCLMorland-Regular.ttf') format('truetype'); }
 @font-face { font-family: 'RCL Morland'; font-style: italic; font-weight: 400; font-display: swap; src: url('https://vcinnovationsgroup.com/media/fonts/RCLMorland-Italic.ttf') format('truetype'); }
@@ -148,3 +148,60 @@ footer .brand .name { color: var(--cream); }
 .acct-pcs li small { color: var(--wg500); font-size: 0.8rem; }
 .acct-pcs li.none { color: var(--wg500); font-size: 0.9rem; }
 .acct .acct-pcs .btn-small { width: auto; margin: 0; padding: 7px 14px; font-size: 11px; }
+
+/* ---------- home: screenshot, features, alt sections ---------- */
+.shot-block { padding: 0 0 clamp(24px, 4vw, 48px); }
+.shot { margin: 0; }
+.shot img { display: block; width: 100%; height: auto; border-radius: var(--radius-md); border: 1px solid var(--wg200); box-shadow: var(--shadow-md); background: var(--card); }
+.shot figcaption { margin-top: 14px; font-size: 13px; color: var(--wg500); text-align: center; }
+section.block.alt { background: var(--wg100); border-top: 1px solid var(--wg200); border-bottom: 1px solid var(--wg200); }
+.feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 40px; }
+.feat { border-top: 2px solid var(--rust); padding-top: 18px; }
+.feat h3 { font-size: 22px; margin-bottom: 8px; }
+.feat p { color: var(--wg600); font-size: 14px; }
+.more { margin-top: 28px; font-size: 14px; }
+
+/* ---------- pricing ---------- */
+.hero-tight { padding-bottom: clamp(28px, 4vw, 48px); }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.plan { position: relative; display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--wg200); border-radius: var(--radius-lg); padding: 34px 30px 30px; }
+.plan-main { background: #fff; border: 2px solid var(--rust); box-shadow: var(--shadow-md); }
+.plan-tag { position: absolute; top: -13px; left: 30px; background: var(--rust); color: #fff; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
+.plan h3 { font-size: 28px; }
+.plan-for { color: var(--wg600); font-size: 14px; margin: 6px 0 18px; min-height: 3em; }
+.price { display: flex; align-items: baseline; gap: 8px; }
+.price .amt { font-family: var(--serif); font-size: 52px; line-height: 1; color: var(--navy); }
+.price .per { color: var(--wg500); font-size: 14px; }
+.price-sub { color: var(--wg600); font-size: 13px; margin-top: 10px; }
+.founding { margin-top: 14px; font-size: 13px; color: var(--wg600); background: var(--wg100); border: 1px solid var(--wg200); border-radius: var(--radius-sm); padding: 10px 12px; }
+.founding b { color: var(--navy); font-weight: 600; }
+.plan-list { list-style: none; margin: 22px 0 26px; flex: 1; }
+.plan-list li { position: relative; padding-left: 24px; margin-bottom: 10px; font-size: 14px; color: var(--navy); }
+.plan-list li::before { content: ''; position: absolute; left: 2px; top: 6px; width: 10px; height: 6px; border-left: 2px solid var(--rust); border-bottom: 2px solid var(--rust); transform: rotate(-45deg); }
+.plan .btn { justify-content: center; }
+.plans-note { max-width: none; margin-top: 26px; font-size: 14px; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--wg200); border-radius: var(--radius-md); background: #fff; }
+.compare { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
+.compare th, .compare td { padding: 12px 18px; border-bottom: 1px solid var(--wg200); text-align: center; }
+.compare thead th { font-family: var(--serif); font-weight: 400; font-size: 20px; color: var(--navy); background: var(--card); }
+.compare thead th.hl { color: var(--rust); }
+.compare tbody th { text-align: left; font-weight: 400; color: var(--navy); }
+.compare td { color: var(--wg600); width: 17%; }
+.compare tr.grp th { text-align: left; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--rust); font-weight: 500; background: var(--wg100); padding-top: 16px; }
+.compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: 0; }
+.compare .yes { color: var(--rust); font-weight: 700; }
+.compare .no { color: var(--wg400); }
+.table-note { margin-top: 16px; font-size: 13px; color: var(--wg500); max-width: 720px; }
+
+.faq { max-width: 760px; }
+.faq details { border-bottom: 1px solid var(--wg200); padding: 18px 0; }
+.faq summary { cursor: pointer; list-style: none; font-family: var(--serif); font-size: 21px; color: var(--navy); display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--rust); font-family: var(--sans); font-size: 22px; line-height: 1; }
+.faq details[open] summary::after { content: '\2212'; }
+.faq details p { margin-top: 10px; color: var(--wg600); font-size: 15px; }
+
+@media (max-width: 900px) { .plans, .feats { grid-template-columns: 1fr; } .plan-for { min-height: 0; } }
+@media (min-width: 761px) and (max-width: 900px) { .feats { grid-template-columns: 1fr 1fr; } }
+#features, #pricing { scroll-margin-top: 84px; }

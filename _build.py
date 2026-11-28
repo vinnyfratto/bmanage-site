@@ -5,6 +5,11 @@ D = os.path.dirname(os.path.abspath(__file__))
 EMAIL = 'vfratto@vcinnovationsgroup.com'
 UPDATED = 'November 27, 2026'
 
+# The price list, in one place (docs/02-subscriptions.md in the app repo; the suggested set, Nov 27).
+PRO_YEAR, PRO_MONTH, FOUNDING, EXTRA_PC = 48, 6, 29, 10
+SEAT_YEAR, SEAT_YEAR_25, MIN_SEATS = 72, 60, 5
+REFUND_DAYS = 30
+
 GOOGLE = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.6 13.2l7.9 6.2C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v8.7h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.8c4.3-4 6.9-9.9 6.9-16.8z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-2.9-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C.9 16.6 0 20.2 0 24s.9 7.4 2.6 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.8c-2.1 1.4-4.8 2.3-8.5 2.3-6.3 0-11.6-4.1-13.5-9.9l-7.9 6.2C6.6 42.6 14.6 48 24 48z"/></svg>'
 GITHUB = '<svg viewBox="0 0 16 16" aria-hidden="true"><path fill="#313131" d="M8 0C3.6 0 0 3.6 0 8c0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-3.9 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.6 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4C13.7 14.5 16 11.5 16 8c0-4.4-3.6-8-8-8z"/></svg>'
 
@@ -39,7 +44,7 @@ def head(title, desc, robots=''):
 
 
 def header(on=''):
-    links = [('/', 'Overview', 'home'), ('/privacy.html', 'Privacy', 'privacy'), ('/terms.html', 'Terms', 'terms')]
+    links = [('/', 'Overview', 'home'), ('/#features', 'Features', 'features'), ('/pricing/', 'Pricing', 'pricing'), ('/privacy.html', 'Privacy', 'privacy'), ('/terms.html', 'Terms', 'terms')]
     nav = ''.join(f'\n        <a href="{h}"{" class=\"on\"" if k == on else ""}>{l}</a>' for h, l, k in links)
     return f'''  <header>
     <div class="wrap nav">
@@ -70,6 +75,8 @@ FOOTER = f'''  <footer>
           <div class="foot-col">
             <h4>Ai Project Hub</h4>
             <a href="/">Overview</a>
+            <a href="/#features">Features</a>
+            <a href="/pricing/">Pricing</a>
             <a href="/account/">Your account</a>
             <a href="/privacy.html">Privacy policy</a>
             <a href="/terms.html">Terms of service</a>
@@ -109,40 +116,242 @@ def page(path, title, desc, body, on='', robots=''):
     io.open(full, 'w', encoding='utf-8', newline='\n').write(head(title, desc, robots) + header(on) + body + FOOTER)
 
 
+# ---------- shared bits for the home and pricing pages ----------
+YES = '<span class="yes" aria-label="Included">&#10003;</span>'
+NO = '<span class="no" aria-label="Not included">&ndash;</span>'
+
+PLANS = f'''
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="plan-for">Try it, and keep your Claude threads in one place.</p>
+          <div class="price"><span class="amt">$0</span></div>
+          <p class="price-sub">Free for good. 1 PC.</p>
+          <ul class="plan-list">
+            <li>Every Claude Code thread and claude.ai chat in one place</li>
+            <li>Reply, paste pictures, and approve what Claude asks</li>
+            <li>Build a bot and test-run it</li>
+            <li>The last run's report</li>
+          </ul>
+          <a class="btn btn-ghost" href="/account/signup/" data-bm-signup>Create account</a>
+        </div>
+        <div class="plan plan-main">
+          <span class="plan-tag">Most people</span>
+          <h3>Pro</h3>
+          <p class="plan-for">For one person running bots across their projects.</p>
+          <div class="price"><span class="amt">${PRO_YEAR}</span><span class="per">/ year</span></div>
+          <p class="price-sub">or ${PRO_MONTH} a month. 2 PCs, ${EXTRA_PC} a year for each extra PC.</p>
+          <p class="founding"><b>Founding price: ${FOUNDING} a year, kept for life</b>, for people who join before launch.</p>
+          <ul class="plan-list">
+            <li>Everything in Free</li>
+            <li>Saved bots that run on a schedule, even with the app closed</li>
+            <li>Every report, kept</li>
+            <li>Groups and group brains</li>
+            <li>Skills, plugins, and connectors in your bots</li>
+            <li>Join a team</li>
+          </ul>
+          <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Get started</a>
+        </div>
+        <div class="plan">
+          <h3>Enterprise</h3>
+          <p class="plan-for">For companies that run teams and manage seats.</p>
+          <div class="price"><span class="amt">${SEAT_YEAR}</span><span class="per">/ seat / year</span></div>
+          <p class="price-sub">{MIN_SEATS} seats or more. ${SEAT_YEAR_25} a seat from 25 seats. 2 PCs per seat.</p>
+          <ul class="plan-list">
+            <li>Everything in Pro</li>
+            <li>Make teams and invite people by email</li>
+            <li>Buy seats and assign them by email</li>
+            <li>Pay by invoice</li>
+            <li>100 seats or more: <a class="text-link" href="mailto:{EMAIL}?subject=Ai%20Project%20Hub%20Enterprise">talk to us</a></li>
+          </ul>
+          <a class="btn btn-ghost" href="mailto:{EMAIL}?subject=Ai%20Project%20Hub%20Enterprise">Contact us</a>
+        </div>
+      </div>
+      <div class="note plans-note"><b>Your Claude plan runs the AI.</b> Ai Project Hub runs Claude Code on your own Claude plan (Pro or Max) with Anthropic, never an API key, so its price covers the app, not AI usage. That's most of why it costs a fraction of tools that include the AI. <b>No free trial</b>: cancel within {REFUND_DAYS} days of making your account for a full refund. <b>Paid plans open at launch.</b> Until then, every feature is included.</div>
+'''
+
+COMPARE = [
+    ('Your Claude work', None),
+    ('Every Claude Code thread, from the Claude app and the terminal', (YES, YES, YES)),
+    ('claude.ai chats and Projects, live', (YES, YES, YES)),
+    ('Reply in a thread: pictures, lists, a queue, Claude asks first', (YES, YES, YES)),
+    ('File viewer for files Claude mentions', (YES, YES, YES)),
+    ('Bots', None),
+    ('Build a bot from a template or plain words, and test-run it', (YES, YES, YES)),
+    ('Save bots', (NO, YES, YES)),
+    ('Schedules, after each commit, and runs with the app closed', (NO, YES, YES)),
+    ('Inbox and report history', ('Last run', YES, YES)),
+    ('Skills, plugins, and connectors in bots', (NO, YES, YES)),
+    ('Organize', None),
+    ('Groups: projects, threads, bots, and files by client or task', (NO, YES, YES)),
+    ('Group brains: shared background for every run and reply', (NO, YES, YES)),
+    ('Teams', None),
+    ('Join a team', (NO, YES, YES)),
+    ('Make teams and invite people', (NO, NO, YES)),
+    ('Buy seats, assign them by email, pay by invoice', (NO, NO, YES)),
+    ('Your PCs', None),
+    ('PCs included', ('1', f'2 (+${EXTRA_PC}/yr each)', '2 per seat')),
+]
+
+
+def compare_table():
+    rows = []
+    for label, cells in COMPARE:
+        if cells is None:
+            rows.append(f'<tr class="grp"><th colspan="4">{label}</th></tr>')
+        else:
+            rows.append(f'<tr><th scope="row">{label}</th>' + ''.join(f'<td>{c}</td>' for c in cells) + '</tr>')
+    body = '\n          '.join(rows)
+    return f'''<div class="table-wrap">
+        <table class="compare">
+          <thead><tr><th></th><th>Free</th><th class="hl">Pro</th><th>Enterprise</th></tr></thead>
+          <tbody>
+          {body}
+          </tbody>
+        </table>
+      </div>'''
+
+
+FEATURES = [
+    ('Bots that do one job', 'A code reviewer, a topic researcher, a secrets watch, a docs check, a weekly changelog. Start from a template or describe it in plain words. Each bot is drawn as a simple flow: when it runs, where, its job, its rules, what it may do, and where results go.'),
+    ('Runs on its own', 'On a schedule, after each commit, or when you click Run now. A Windows task runs bots even with the app closed. Each run has a token limit, and all bots share a daily one.'),
+    ('Inbox, Runs, and Rules', 'What bots find lands in your Inbox: open it in your editor, fix it with Claude, or mark it done. Every run is kept step by step with its token count. House rules, like US English or no secrets in code, apply to every bot.'),
+    ('Every Claude thread in one place', 'Your Claude Code sessions, from the Claude app and the terminal, listed by project. Open one, read it, and reply: Claude continues the same session, and it shows in the Claude app too.'),
+    ('A better reply box', 'Paste pictures, mention files with @, write lists, and queue a message while Claude works. When Claude asks before a change, a popup lets you allow it, always allow it, or say no. Pick the model and effort per message.'),
+    ('claude.ai chats, live', 'Sign in to claude.ai inside Ai Project Hub and your chats and Projects show beside your code threads. Read them, reply, start a new chat in a Project.'),
+    ('Groups', 'Put projects, threads, bots, and files together by client, product, or task, drawn as one chart. Things in a group take its color everywhere, and Focus shows only that group.'),
+    ('Group brains', 'One shared page per group: what it is about, what was decided, how the pieces connect, and what is going on now. Every bot run and reply in the group starts with it, and a keeper proposes updates as work happens.'),
+    ('Teams', 'Make a team and invite people by email with a one-time code. See who is online.'),
+]
+
+
+def features_grid():
+    return '\n'.join(f'        <div class="feat"><h3>{t}</h3><p>{p}</p></div>' for t, p in FEATURES)
+
+
 # ---------- home ----------
-page('index.html', 'Ai Project Hub · VC Innovations Group', 'Ai Project Hub is a desktop app to create, schedule, run, and review AI bots for your projects, on your own Claude plan.', f'''
+page('index.html', 'Ai Project Hub · Your Claude work, bots, and projects in one place', 'Ai Project Hub is a Windows app that keeps every Claude thread in one place and runs AI bots on your projects, on your own Claude plan. Free, Pro, and Enterprise plans.', f'''
   <section class="hero">
     <div class="wrap">
       <span class="eyebrow">A VC Innovations Group product</span><span class="pill"><span class="dot"></span>Under development</span>
-      <h1>Ai Project Hub: <span class="italic">AI bots</span> that work while you do</h1>
-      <p class="lede">A desktop app for Windows to create, schedule, run, and review AI bots. Each bot does one job, like reviewing code, researching a topic, or watching for secrets, with its own rules and schedule, for one project or many. Ai Project Hub is under development and in early use within our team.</p>
+      <h1>Your Claude work, <span class="italic">in one place</span></h1>
+      <p class="lede">Ai Project Hub is a Windows app for people who build with Claude. It keeps every Claude Code thread and claude.ai chat together by project, runs AI bots that review, research, and watch your projects on a schedule, and gives each group of projects a shared brain. It all runs on your PC, on your own Claude plan.</p>
       <div class="cta">
         <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create your account</a>
-        <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
+        <a class="btn btn-ghost" href="/pricing/">See pricing</a>
       </div>
     </div>
   </section>
 
-  <section class="block" style="padding-top:0">
+  <section class="shot-block">
+    <div class="wrap">
+      <figure class="shot">
+        <img src="/assets/shots/bot-flow.png" alt="Ai Project Hub with a bot drawn as a flow: when it runs, where, its job, its rules, and what it may do" width="1424" height="861" loading="eager" />
+        <figcaption>A bot, drawn as a flow. Click any step to change it; the sentence on top says the whole bot in plain words.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">What it does</span>
+        <h2>More than a bot runner: <span class="italic">a hub</span> for your Claude projects</h2>
+        <p class="lede">Bots, threads, chats, files, and the people you work with, organized the way you think about your work.</p>
+      </div>
+      <div class="feats">
+{features_grid()}
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt">
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">How it works</span>
-        <h2>Your bots, your PC, <span class="italic">your plan</span></h2>
+        <h2>Your PC, your plan, <span class="italic">your rules</span></h2>
       </div>
       <div class="cards">
-        <div class="card"><div class="num">01</div><h3>Runs on your PC</h3><p>Bots run with Claude Code on your own computer and your own Claude plan. Your code and your bots' work stay on your PC.</p></div>
-        <div class="card"><div class="num">02</div><h3>Safe by default</h3><p>Bots are read-only unless you give them more. They never commit, push, deploy, or publish.</p></div>
-        <div class="card"><div class="num">03</div><h3>Built for teams</h3><p>One account, with email, Google, or GitHub, works in the app and here. An owner invites people by email with a one-time code.</p></div>
+        <div class="card"><div class="num">01</div><h3>Runs on your PC</h3><p>Bots and replies run with Claude Code on your computer, on your own Claude plan. Your code, threads, and reports stay on your PC.</p></div>
+        <div class="card"><div class="num">02</div><h3>Safe by default</h3><p>Bots are read-only unless you give them more. They never commit, push, deploy, or publish, and a bot that edits works in its own copy of the project.</p></div>
+        <div class="card"><div class="num">03</div><h3>Plain words</h3><p>No YAML to learn. Say what a bot should do, pick what it may use, and read what it found. Usage is shown in tokens, the way Claude Code shows it.</p></div>
       </div>
+    </div>
+  </section>
+
+  <section class="block" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Pricing</span>
+        <h2>Simple plans, <span class="italic">no AI markup</span></h2>
+        <p class="lede">Pay for the app once a year, or month to month. The AI runs on the Claude plan you already have.</p>
+      </div>
+{PLANS}
+      <p class="more"><a class="text-link" href="/pricing/">Compare every feature and read the questions people ask &rarr;</a></p>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">What you need</span>
+        <h2>Ready in <span class="italic">a few minutes</span></h2>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="num">01</div><h3>Windows 10 or 11</h3><p>Ai Project Hub is a desktop app for Windows, with a tray icon for runs in the background.</p></div>
+        <div class="card"><div class="num">02</div><h3>A Claude plan</h3><p>Claude Pro or Max, with Claude Code (the Claude app includes it). Link it once in Settings; Ai Project Hub never sees your password.</p></div>
+        <div class="card"><div class="num">03</div><h3>An Ai Project Hub account</h3><p>Sign up with email, Google, or GitHub. The same account works in the app and here, and keeps your plan, PCs, and teams.</p></div>
+      </div>
+    </div>
+  </section>
+''', 'home')
+
+# ---------- pricing ----------
+page('pricing/index.html', 'Pricing · Ai Project Hub', f'Ai Project Hub plans: Free, Pro at ${PRO_YEAR} a year, and Enterprise at ${SEAT_YEAR} a seat a year. The AI runs on your own Claude plan.', f'''
+  <section class="hero hero-tight">
+    <div class="wrap">
+      <span class="eyebrow">Pricing</span><span class="pill"><span class="dot"></span>Paid plans open at launch</span>
+      <h1>Simple plans, <span class="italic">no AI markup</span></h1>
+      <p class="lede">Ai Project Hub's price covers the app. The AI runs on the Claude plan you already have, so you never pay for it twice.</p>
     </div>
   </section>
 
   <section class="block" style="padding-top:0">
     <div class="wrap">
-      <div class="note"><b>Your account.</b> Sign up with email, Google, or GitHub. Ai Project Hub uses it to know who you are on a team, and to keep your plan and your PCs. The <a class="text-link" href="/privacy.html">privacy policy</a> says what is kept and how to have it deleted.</div>
+{PLANS}
     </div>
   </section>
-''', 'home')
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Compare</span>
+        <h2>Every feature, <span class="italic">plan by plan</span></h2>
+      </div>
+      {compare_table()}
+      <p class="table-note">A locked feature shows with a lock and an Upgrade button; it never disappears. Nothing you made is deleted when a plan ends: saved bots stop running but stay in their files.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Questions</span>
+        <h2>Before you <span class="italic">buy</span></h2>
+      </div>
+      <div class="faq">
+        <details><summary>Do I need a Claude plan?</summary><p>Yes. Ai Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, as if you ran Claude Code yourself.</p></details>
+        <details><summary>Is there a free trial?</summary><p>No trial. Instead, if you cancel within {REFUND_DAYS} days of making your account, you get a full refund. The Free plan is free for good.</p></details>
+        <details><summary>What is the founding price?</summary><p>People who take Pro before launch pay ${FOUNDING} a year instead of ${PRO_YEAR}, and keep that price for as long as they stay on Pro.</p></details>
+        <details><summary>What counts as a PC?</summary><p>Each Windows computer you sign in on. Pro includes 2; each extra PC is ${EXTRA_PC} a year. You can remove a PC any time from <a class="text-link" href="/account/">your account</a> to make room for another.</p></details>
+        <details><summary>What happens if I go back to Free?</summary><p>Nothing you made is deleted. Saved bots stop running but stay in their files, groups and brains stay, and your threads and chats keep working.</p></details>
+        <details><summary>Does my code leave my PC?</summary><p>No. Your projects, bots, runs, reports, and threads stay on your computer. Our server keeps only your account, plan, PCs, and teams; the <a class="text-link" href="/privacy.html">privacy policy</a> lists all of it.</p></details>
+        <details><summary>How does Enterprise work?</summary><p>A company buys {MIN_SEATS} seats or more (${SEAT_YEAR} a seat a year, ${SEAT_YEAR_25} from 25 seats) and assigns each seat by email. Each seat gets everything in Pro on 2 PCs, plus making teams and inviting people. Pay by card or invoice. For 100 seats or more, <a class="text-link" href="mailto:{EMAIL}?subject=Ai%20Project%20Hub%20Enterprise">talk to us</a>.</p></details>
+        <details><summary>When can I buy?</summary><p>Paid plans open at launch. Until then, Ai Project Hub is under development and every feature is included with a free account.</p></details>
+      </div>
+    </div>
+  </section>
+''', 'pricing')
 
 # ---------- privacy ----------
 page('privacy.html', 'Privacy policy · Ai Project Hub', 'What Ai Project Hub, by VC Innovations Group, keeps about you and why.', f'''
@@ -197,7 +406,7 @@ page('terms.html', 'Terms of service · Ai Project Hub', 'The terms for using Ai
         <h2>Your account and teams</h2>
         <p>Keep your account secure, whether you sign in with email, Google, or GitHub. Only invite people you mean to work with, and don't use Ai Project Hub to break the law or anyone's rights.</p>
         <h2>Plans</h2>
-        <p>Ai Project Hub is free while it is under development. If paid plans come, their price, billing period, and the number of PCs each allows will be shown before you buy, and you can cancel before the next billing date.</p>
+        <p>Ai Project Hub has a Free plan and paid plans (Pro and Enterprise), listed on the <a href="/pricing/">pricing page</a>. Paid plans open at launch; until then every feature is included. Before you buy, you see the price, the billing period, and how many PCs the plan allows. There is no free trial: if you cancel within {REFUND_DAYS} days of making your account, you get a full refund. After that, you can cancel any time and keep your plan until the end of the period you paid for. Ai Project Hub's price doesn't include Claude: your Claude plan with Anthropic is separate.</p>
         <h2>Limits</h2>
         <p>To the extent the law allows, VC Innovations Group isn't liable for indirect or lost-profit damages from using Ai Project Hub. We may change or stop the service, and we may update these terms; the date above shows the latest version.</p>
         <h2>Contact</h2>
