@@ -318,3 +318,6 @@ section.block.alt { background: var(--wg100); border-top: 1px solid var(--wg200)
   .promo-text { max-width: 34ch; }
   .promo-go { padding-right: 0; }
 }
+.pc2 .pc-role { color: #1e3a8a; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600; }
+.pc2 .pc-line { color: var(--wg600); font-size: 13px; line-height: 1.5; }
+.pc2 { justify-content: center; }

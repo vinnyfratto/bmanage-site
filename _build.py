@@ -220,7 +220,7 @@ def others_grid():
 
 
 BRAIN_CARD = '''<div class="mock brain" aria-hidden="true">
-          <div class="mock-head"><span class="dot-g"></span><b>Client A</b><span class="mock-sub">one group</span></div>
+          <div class="mock-head"><span class="dot-g"></span><b>Harbor Coffee Co.</b><span class="mock-sub">client group</span></div>
           <div class="feeds">
             <span class="feed"><b>8</b> Claude Code threads</span>
             <span class="feed"><b>4</b> claude.ai chats</span>
@@ -228,26 +228,24 @@ BRAIN_CARD = '''<div class="mock brain" aria-hidden="true">
             <span class="feed"><b>2</b> bots and their reports</span>
           </div>
           <div class="feed-arrow">all of it feeds one brain</div>
-          <div class="brain-sec"><span>About</span><p>Website, mobile app, and brand files for Client A.</p></div>
-          <div class="brain-sec"><span>Decided</span><p>Launch on the new checkout (agreed in a claude.ai chat, Nov 20).</p></div>
-          <div class="brain-sec"><span>How it connects</span><p>The app reads prices from the website's API.</p></div>
-          <div class="brain-sec"><span>Now</span><p>Fixing the sign-up form. Review due Friday.</p></div>
-          <div class="mock-foot">Every new message and bot run in Client A starts here</div>
+          <div class="brain-sec"><span>About</span><p>Online store, mobile ordering app, and brand files for a regional coffee roaster.</p></div>
+          <div class="brain-sec"><span>Decided</span><p>Ship the new checkout before the spring menu goes live (agreed with the owner in a claude.ai chat, Nov 20).</p></div>
+          <div class="brain-sec"><span>How it connects</span><p>The ordering app pulls menu prices from the store's product API.</p></div>
+          <div class="brain-sec"><span>Now</span><p>Fixing the loyalty sign-up form. Owner review on Friday.</p></div>
+          <div class="mock-foot">Every new message and bot run in Harbor Coffee Co. starts here</div>
         </div>'''
 
 PAIR_CARD = '''<div class="mock pair2" aria-hidden="true">
           <div class="pc2 home">
             <div class="pc-name">Desktop</div>
-            <div class="pc-role">Where the code lives</div>
-            <ul class="tree"><li>website</li><li>mobile-app</li><li>brand</li></ul>
-            <div class="pc-role">Claude Code runs here</div>
+            <div class="pc-role">Primary device</div>
+            <div class="pc-line">Your projects, threads, groups, and bots live here. Claude Code runs here.</div>
           </div>
-          <div class="pair-link"><span>Paired</span><b>482 913</b><span>encrypted</span></div>
+          <div class="pair-link"><span>Linked</span><b>482 913</b><span>encrypted</span></div>
           <div class="pc2">
             <div class="pc-name">Laptop</div>
-            <div class="pc-role">Same projects, same threads, same groups</div>
-            <ul class="tree ghost"><li>website</li><li>mobile-app</li><li>brand</li></ul>
-            <div class="pc-role">Nothing copied, nothing to sync</div>
+            <div class="pc-role">Linked device</div>
+            <div class="pc-line">Opens the same projects and threads, live. Nothing to copy or sync.</div>
           </div>
         </div>'''
 
@@ -295,7 +293,7 @@ page('index.html', 'Ai Project Hub · Linked projects, a shared brain, and two m
         <h2>Work on the same code from your desktop or your laptop</h2>
         <p>Your projects stay in one place: the folders on your desktop. Your laptop works on those same folders, with the same Claude Code sessions, groups, and brains. There's no second copy of the code to keep in step, no repo to pull first, and no thread that only exists on one machine.</p>
         <ul class="ticks">
-          <li><b>Pair once.</b> Both screens show the same six digits, and you click Allow. After that, the laptop connects whenever both PCs are on.</li>
+          <li><b>Link once.</b> Both screens show the same six digits, and you confirm they match. After that, the laptop connects whenever both are on.</li>
           <li><b>Everything, live.</b> The laptop shows the desktop's projects, threads, groups, bots, and runs as they happen.</li>
           <li><b>Runs where the code is.</b> When you reply from the laptop, Claude Code works on the desktop, in the real project folders, with the group's brain.</li>
           <li><b>Private.</b> Messages between your PCs are encrypted end to end. Our server passes them along and can't read them.</li>
