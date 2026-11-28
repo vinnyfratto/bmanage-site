@@ -200,7 +200,7 @@ def compare_table():
 
 PROMO = f'''      <a class="promo" href="/pricing/">
         <span class="promo-tag">Holiday price</span>
-        <span class="promo-text">Pro is <b>${PRO_SALE}</b> for your first year, normally ${PRO_YEAR}. Sign up by {SALE_ENDS}.</span>
+        <span class="promo-text">Pro is <b>${PRO_SALE}</b> for your first year, normally ${PRO_YEAR}. Sign up by {SALE_ENDS.replace(' ', '&nbsp;')}.</span>
         <span class="promo-go">See Pro &rarr;</span>
       </a>
 '''
