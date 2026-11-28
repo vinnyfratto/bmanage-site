@@ -128,25 +128,25 @@ PLANS = f'''
           <div class="price"><span class="was">${PRO_YEAR}</span><span class="amt">${PRO_SALE}</span><span class="per">/ year</span></div>
           <p class="price-sub"><b>${PRO_SALE} a year through {SALE_ENDS}</b>, then ${PRO_YEAR} a year. 2 devices: your main PC and a remote one.</p>
           <ul class="plan-list">
-            <li>Every Claude Code thread and claude.ai chat in one place</li>
-            <li>Bots that run on a schedule, even with the app closed</li>
-            <li>Inbox, run history, and house rules</li>
-            <li>Groups and group brains</li>
-            <li>Skills, plugins, and connectors in your bots</li>
+            <li>Groups with a shared brain that Claude reads before every reply</li>
+            <li>Use your home PC from your laptop, paired once</li>
+            <li>Bots you build as a visual flow, on a schedule or after each commit</li>
+            <li>Every Claude Code thread and claude.ai chat in one list</li>
+            <li>Inbox, run history, skills, and connectors</li>
             <li>Teams: invite people by email</li>
           </ul>
           <a class="btn btn-primary" href="/account/?buy=pro">Get Pro</a>
         </div>
         <div class="plan">
           <h3>Enterprise</h3>
-          <p class="plan-for">For companies: every tool, plus your own server so your whole company works from shared knowledge.</p>
+          <p class="plan-for">For companies: every tool, plus a server of your own so departments and teams work from the same notes.</p>
           <div class="price"><span class="amt amt-text">Let's talk</span></div>
           <p class="price-sub">Priced for your company, by seats and departments.</p>
           <ul class="plan-list">
             <li>Everything in Pro, for every seat</li>
-            <li>A dedicated server that hosts your threads, always available</li>
+            <li>A dedicated server that keeps your threads available from any approved PC</li>
             <li>Groups across departments, teams, or the whole company</li>
-            <li>Linked threads, projects, and bots share the company's, department's, or team's knowledge</li>
+            <li>Threads, projects, and bots in a group work from that group's notes</li>
             <li>Seats assigned by email, and invoices</li>
           </ul>
           <a class="btn btn-ghost" href="mailto:{EMAIL}?subject=Ai%20Project%20Hub%20Enterprise">Contact us</a>
@@ -198,107 +198,177 @@ def compare_table():
       </div>'''
 
 
-FEATURES = [
-    ('Bots that do one job', 'A code reviewer, a topic researcher, a secrets watch, a docs check, a weekly changelog. Start from a template or describe it in plain words. Each bot is drawn as a simple flow: when it runs, where, its job, its rules, what it may do, and where results go.'),
-    ('Runs on its own', 'On a schedule, after each commit, or when you click Run now. A Windows task runs bots even with the app closed. Each run has a token limit, and all bots share a daily one.'),
-    ('Inbox, Runs, and Rules', 'What bots find lands in your Inbox: open it in your editor, fix it with Claude, or mark it done. Every run is kept step by step with its token count. House rules, like US English or no secrets in code, apply to every bot.'),
-    ('Every Claude thread in one place', 'Your Claude Code sessions, from the Claude app and the terminal, listed by project. Open one, read it, and reply: Claude continues the same session, and it shows in the Claude app too.'),
-    ('A better reply box', 'Paste pictures, mention files with @, write lists, and queue a message while Claude works. When Claude asks before a change, a popup lets you allow it, always allow it, or say no. Pick the model and effort per message.'),
-    ('claude.ai chats, live', 'Sign in to claude.ai inside Ai Project Hub and your chats and Projects show beside your code threads. Read them, reply, start a new chat in a Project.'),
-    ('Groups', 'Put projects, threads, bots, and files together by client, product, or task, drawn as one chart. Things in a group take its color everywhere, and Focus shows only that group.'),
-    ('Group brains', 'One shared page per group: what it is about, what was decided, how the pieces connect, and what is going on now. Every bot run and reply in the group starts with it, and a keeper proposes updates as work happens.'),
-    ('Teams', 'Make a team and invite people by email with a one-time code. See who is online.'),
+PROMO = f'''      <a class="promo" href="/pricing/">
+        <span class="promo-tag">Holiday price</span>
+        <span class="promo-text">Pro is <b>${PRO_SALE}</b> for your first year, normally ${PRO_YEAR}. Sign up by {SALE_ENDS}.</span>
+        <span class="promo-go">See Pro &rarr;</span>
+      </a>
+'''
+
+OTHERS = [
+    ('Every thread in one list', 'Your Claude Code sessions from the Claude app and the terminal, sorted by project. Open one, read it, and reply. The reply goes to the same session, so it shows in the Claude app too.'),
+    ('claude.ai chats', 'Sign in to claude.ai once, and your chats and Projects show next to your code threads. Reply to them or start a new chat in a Project.'),
+    ('A better reply box', 'Paste pictures, mention files with @, and write lists. Queue a message while Claude is still working. When Claude asks before changing something, answer in a popup.'),
+    ('Files Claude mentions', 'File names in an answer are links. Click one to read it with an outline and search, or open it in VS Code or File Explorer.'),
+    ('Inbox and run history', 'What your bots found, newest first. Every run is kept step by step, with the tokens it used.'),
+    ('Teams', 'Invite people by email. Each invite is a one-time code that only works for that address.'),
 ]
 
 
-def features_grid():
-    return '\n'.join(f'        <div class="feat"><h3>{t}</h3><p>{p}</p></div>' for t, p in FEATURES)
+def others_grid():
+    return '\n'.join(f'        <div class="feat"><h3>{t}</h3><p>{p}</p></div>' for t, p in OTHERS)
+
+
+BRAIN_CARD = '''<div class="mock brain" aria-hidden="true">
+          <div class="mock-head"><span class="dot-g"></span><b>Client A</b><span class="mock-sub">3 projects, 12 threads, 2 bots</span></div>
+          <div class="mock-title">Brain</div>
+          <div class="brain-sec"><span>About</span><p>Website, mobile app, and brand files for Client A.</p></div>
+          <div class="brain-sec"><span>Decided</span><p>Launch on the new checkout. No changes to the logo until spring.</p></div>
+          <div class="brain-sec"><span>How it connects</span><p>The app reads prices from the website's API.</p></div>
+          <div class="brain-sec"><span>Now</span><p>Fixing the sign-up form. Review due Friday.</p></div>
+          <div class="mock-foot">Sent with every message and bot run in this group</div>
+        </div>'''
+
+PAIR_CARD = '''<div class="mock pair" aria-hidden="true">
+          <div class="pc"><div class="pc-name">Desktop</div><div class="pc-role">Home PC: projects, threads, bots</div></div>
+          <div class="pair-link"><span>Paired</span><b>482 913</b></div>
+          <div class="pc"><div class="pc-name">Laptop</div><div class="pc-role">Sees and runs everything on the desktop</div></div>
+        </div>'''
 
 
 # ---------- home ----------
-page('index.html', 'Ai Project Hub · Your Claude work, bots, and projects in one place', 'Ai Project Hub is a Windows app that keeps every Claude thread in one place and runs AI bots on your projects, on your own Claude plan. Pro and Enterprise plans.', f'''
+page('index.html', 'Ai Project Hub · Shared memory, two PCs, and visual bots for Claude Code', f'Ai Project Hub is a Windows app for Claude Code. Group your projects with a shared brain, use your home PC from your laptop, and build bots by drawing them. Pro is ${PRO_SALE} for your first year through {SALE_ENDS}.', f'''
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow">A VC Innovations Group product</span><span class="pill"><span class="dot"></span>Under development</span>
-      <h1>Your Claude work, <span class="italic">in one place</span></h1>
-      <p class="lede">Ai Project Hub is a Windows app for people who build with Claude. It keeps every Claude Code thread and claude.ai chat together by project, runs AI bots that review, research, and watch your projects on a schedule, and gives each group of projects a shared brain. It all runs on your PC, on your own Claude plan.</p>
+{PROMO}
+      <span class="eyebrow">For people who build with Claude Code</span>
+      <h1>Give your Claude projects <span class="italic">a shared memory</span></h1>
+      <p class="lede">Ai Project Hub is a Windows app that works with Claude Code. Put related projects, threads, and files in a group, and Claude reads that group's notes before every reply. Pick up the same work on your laptop. Build bots by filling in a flow instead of writing setup files.</p>
       <div class="cta">
-        <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create your account</a>
-        <a class="btn btn-ghost" href="/pricing/">See pricing</a>
+        <a class="btn btn-primary" href="/account/?buy=pro">Get Pro for ${PRO_SALE}</a>
+        <a class="btn btn-ghost" href="#features">See how it works</a>
       </div>
     </div>
   </section>
 
-  <section class="shot-block">
+  <section class="block row-block" id="features">
+    <div class="wrap row">
+      <div class="row-text">
+        <span class="eyebrow">Groups and shared brains</span>
+        <h2>One memory for a whole client, product, or team</h2>
+        <p>Claude Code reads a CLAUDE.md file in each project folder. That covers one folder. Most work spans several: a website, an app, a folder of brand files, and the threads where decisions were made.</p>
+        <ul class="ticks">
+          <li>Put projects, threads, bots, and files in a group. Anything can be in more than one group.</li>
+          <li>Give the group a brain: one page with what it's about, what was decided, how the pieces connect, and what's happening now.</li>
+          <li>Every message you send and every bot run in the group starts with that page.</li>
+          <li>A new brain catches up on what the group already holds. After that, a keeper reads new commits, reports, and threads each day or week and suggests updates for you to approve.</li>
+        </ul>
+      </div>
+      <div class="row-visual">
+        {BRAIN_CARD}
+      </div>
+    </div>
+  </section>
+
+  <section class="block row-block alt">
+    <div class="wrap row row-flip">
+      <div class="row-text">
+        <span class="eyebrow">Your desktop and your laptop</span>
+        <h2>Start on your desktop, keep going on your laptop</h2>
+        <p>Pair your laptop with your home PC once. Both screens show the same six digits, and you click Allow. After that, the laptop connects on its own whenever both PCs are on.</p>
+        <ul class="ticks">
+          <li>The laptop shows the home PC's threads, groups, bots, and runs as they happen.</li>
+          <li>Replies and bot runs happen on the home PC, with its files and its Claude Code. Nothing has to be copied or synced.</li>
+          <li>Messages between your PCs are encrypted end to end. Our server passes them along and can't read them.</li>
+          <li>Pro includes 2 devices: your main PC and a remote one.</li>
+        </ul>
+      </div>
+      <div class="row-visual">
+        {PAIR_CARD}
+      </div>
+    </div>
+  </section>
+
+  <section class="block row-block">
     <div class="wrap">
+      <div class="row-text wide">
+        <span class="eyebrow">Bots you can see</span>
+        <h2>Build a bot by filling in a flow, not a config file</h2>
+        <p>Each bot does one job, like reviewing new commits, checking that docs are current, or researching a topic each week. It's drawn as six steps: when it runs, where, its job, its rules, what it may use, and where the results go. Click a step to change it. The sentence at the top always says what the bot will do.</p>
+      </div>
       <figure class="shot">
-        <img src="/assets/shots/bot-flow.png" alt="Ai Project Hub with a bot drawn as a flow: when it runs, where, its job, its rules, and what it may do" width="1424" height="861" loading="eager" />
-        <figcaption>A bot, drawn as a flow. Click any step to change it; the sentence on top says the whole bot in plain words.</figcaption>
+        <img src="/assets/shots/bot-flow.png" alt="A bot in Ai Project Hub, drawn as a flow of six steps with a plain sentence above it" width="1424" height="861" loading="lazy" />
       </figure>
-    </div>
-  </section>
-
-  <section class="block" id="features">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="eyebrow">What it does</span>
-        <h2>More than a bot runner: <span class="italic">a hub</span> for your Claude projects</h2>
-        <p class="lede">Bots, threads, chats, files, and the people you work with, organized the way you think about your work.</p>
-      </div>
-      <div class="feats">
-{features_grid()}
-      </div>
+      <ul class="ticks ticks-cols">
+        <li>Start from a template, or describe the bot in a sentence.</li>
+        <li>Test run it and watch each step before it runs on its own.</li>
+        <li>Run it on a schedule, after each commit, or by hand. Schedules keep running with the app closed.</li>
+        <li>Bots can only read unless you allow more. They never commit, push, deploy, or publish.</li>
+      </ul>
     </div>
   </section>
 
   <section class="block alt">
     <div class="wrap">
       <div class="sec-head">
-        <span class="eyebrow">How it works</span>
-        <h2>Your PC, your plan, <span class="italic">your rules</span></h2>
+        <span class="eyebrow">Also in Ai Project Hub</span>
+        <h2>The rest of your Claude work, in the same window</h2>
       </div>
-      <div class="cards">
-        <div class="card"><div class="num">01</div><h3>Runs on your PC</h3><p>Bots and replies run with Claude Code on your computer, on your own Claude plan. Your code, threads, and reports stay on your PC.</p></div>
-        <div class="card"><div class="num">02</div><h3>Safe by default</h3><p>Bots are read-only unless you give them more. They never commit, push, deploy, or publish, and a bot that edits works in its own copy of the project.</p></div>
-        <div class="card"><div class="num">03</div><h3>Plain words</h3><p>No YAML to learn. Say what a bot should do, pick what it may use, and read what it found. Usage is shown in tokens, the way Claude Code shows it.</p></div>
+      <div class="feats">
+{others_grid()}
       </div>
     </div>
   </section>
 
-  <section class="block" id="pricing">
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">How it runs</span>
+        <h2>On your PC, with your Claude plan</h2>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="num">01</div><h3>Your files stay put</h3><p>Projects, threads, bots, and reports stay on your PC. Our server keeps your account, plan, devices, and teams, and nothing else.</p></div>
+        <div class="card"><div class="num">02</div><h3>Your Claude plan</h3><p>Claude Code runs on your own Claude Pro or Max plan. Ai Project Hub never uses an API key and never charges for AI.</p></div>
+        <div class="card"><div class="num">03</div><h3>Careful by default</h3><p>Bots can only read until you allow more, and a bot that edits works in its own copy of the project. Usage is shown in tokens, the way Claude Code shows it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt" id="pricing">
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Pricing</span>
-        <h2>Every tool, <span class="italic">one simple price</span></h2>
-        <p class="lede">Pro is every tool for one person. Enterprise adds a server for your company. The AI runs on the Claude plan you already have.</p>
+        <h2>Pro is ${PRO_SALE} for your first year</h2>
+        <p class="lede">Normally ${PRO_YEAR} a year. The holiday price is for sign-ups through {SALE_ENDS}. You pay for the app only; the AI runs on the Claude plan you already have.</p>
       </div>
 {PLANS}
-      <p class="more"><a class="text-link" href="/pricing/">Compare the plans and read the questions people ask &rarr;</a></p>
+      <p class="more"><a class="text-link" href="/pricing/">Compare the plans and read common questions &rarr;</a></p>
     </div>
   </section>
 
-  <section class="block alt">
+  <section class="block">
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">What you need</span>
-        <h2>Ready in <span class="italic">a few minutes</span></h2>
+        <h2>Set up in a few minutes</h2>
       </div>
       <div class="cards">
-        <div class="card"><div class="num">01</div><h3>Windows 10 or 11</h3><p>Ai Project Hub is a desktop app for Windows, with a tray icon for runs in the background.</p></div>
-        <div class="card"><div class="num">02</div><h3>A Claude plan</h3><p>Claude Pro or Max, with Claude Code (the Claude app includes it). Link it once in Settings; Ai Project Hub never sees your password.</p></div>
-        <div class="card"><div class="num">03</div><h3>An Ai Project Hub account</h3><p>Sign up with email, Google, or GitHub. The same account works in the app and here, and keeps your plan, PCs, and teams.</p></div>
+        <div class="card"><div class="num">01</div><h3>Windows 10 or 11</h3><p>Ai Project Hub is a Windows desktop app. It sits in the tray so bots can run in the background.</p></div>
+        <div class="card"><div class="num">02</div><h3>Claude Code</h3><p>On a Claude Pro or Max plan. The Claude desktop app includes it. Link it once in Settings; Ai Project Hub never sees your password.</p></div>
+        <div class="card"><div class="num">03</div><h3>An account</h3><p>Sign up with email, Google, or GitHub. The same account works in the app and on this site, and holds your plan and devices.</p></div>
       </div>
     </div>
   </section>
 ''', 'home')
 
 # ---------- pricing ----------
-page('pricing/index.html', 'Pricing · Ai Project Hub', f'Ai Project Hub plans: Pro at ${PRO_SALE} a year through {SALE_ENDS} (then ${PRO_YEAR}), with every tool, and Enterprise with a dedicated company server. The AI runs on your own Claude plan.', f'''
+page('pricing/index.html', 'Pricing · Ai Project Hub', f'Ai Project Hub Pro is ${PRO_SALE} for your first year through {SALE_ENDS}, then ${PRO_YEAR} a year, with every tool on 2 devices. Enterprise adds a dedicated server for your company.', f'''
   <section class="hero hero-tight">
     <div class="wrap">
-      <span class="eyebrow">Pricing</span><span class="pill"><span class="dot"></span>Holiday price through {SALE_ENDS}</span>
-      <h1>Every tool, <span class="italic">one simple price</span></h1>
-      <p class="lede">Pro gives one person every tool in Ai Project Hub. Enterprise adds a server for your company, so departments and teams work from the same knowledge. The AI runs on the Claude plan you already have.</p>
+{PROMO}
+      <span class="eyebrow">Pricing</span>
+      <h1>Two plans. <span class="italic">Every tool in both.</span></h1>
+      <p class="lede">Pro is for one person on a main PC and a laptop. Enterprise adds a server for your company, so departments and teams work from the same notes. The AI runs on the Claude plan you already have.</p>
     </div>
   </section>
 
@@ -312,7 +382,7 @@ page('pricing/index.html', 'Pricing · Ai Project Hub', f'Ai Project Hub plans: 
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Compare</span>
-        <h2>Pro and <span class="italic">Enterprise</span></h2>
+        <h2>Pro and Enterprise, side by side</h2>
       </div>
       {compare_table()}
     </div>
@@ -322,16 +392,16 @@ page('pricing/index.html', 'Pricing · Ai Project Hub', f'Ai Project Hub plans: 
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Questions</span>
-        <h2>Before you <span class="italic">buy</span></h2>
+        <h2>Before you buy</h2>
       </div>
       <div class="faq">
-        <details><summary>Do I need a Claude plan?</summary><p>Yes. Ai Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, as if you ran Claude Code yourself.</p></details>
-        <details><summary>What does the holiday price mean?</summary><p>Pro is ${PRO_SALE} a year if you sign up by {SALE_ENDS}. After that, Pro is ${PRO_YEAR} a year.</p></details>
-        <details><summary>Is there a free trial?</summary><p>No trial. Instead, if you cancel within {REFUND_DAYS} days of making your account, you get a full refund.</p></details>
-        <details><summary>What are the 2 devices?</summary><p>Your main PC and a remote one, like a laptop or a PC you work on from afar. You can remove a device any time from <a class="text-link" href="/account/">your account</a> to make room for another.</p></details>
-        <details><summary>Are any tools held back on Pro?</summary><p>No. Every plan includes every tool: threads, claude.ai chats, bots and schedules, the Inbox, Groups and group brains, skills and connectors, and Teams. Enterprise adds a server for your company.</p></details>
-        <details><summary>What does the Enterprise server do?</summary><p>It hosts your company's threads, so they're always available, not only on the PC where they started. Groups can span departments, teams, or the whole company, and every linked thread, project, and bot works with that group's shared knowledge, because they work together.</p></details>
-        <details><summary>Does my code leave my PC?</summary><p>On Pro, no. Your projects, bots, runs, reports, and threads stay on your computer; our server keeps only your account, plan, devices, and teams (the <a class="text-link" href="/privacy.html">privacy policy</a> lists all of it). On Enterprise, threads are hosted on your company's dedicated server.</p></details>
+        <details><summary>Do I need a Claude plan?</summary><p>Yes. Ai Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI. Your Claude usage counts against your Claude plan, the same as running Claude Code yourself.</p></details>
+        <details><summary>How does the holiday price work?</summary><p>Sign up for Pro by {SALE_ENDS} and your first year is ${PRO_SALE}. It renews at ${PRO_YEAR} a year.</p></details>
+        <details><summary>Is there a free trial?</summary><p>No. If you cancel within {REFUND_DAYS} days of making your account, you get a full refund.</p></details>
+        <details><summary>What are the 2 devices?</summary><p>Your main PC and a remote one, like a laptop. Pair them once and the laptop can use everything on the main PC. You can remove a device any time from <a class="text-link" href="/account/">your account</a>.</p></details>
+        <details><summary>Does Pro leave anything out?</summary><p>No. Pro has every tool: groups and brains, two devices, bots and schedules, threads and claude.ai chats, skills and connectors, and Teams. Enterprise adds a server for your company.</p></details>
+        <details><summary>What does the Enterprise server do?</summary><p>It hosts your company's threads, so they're available from any approved PC, not only the one where they started. Groups can cover a department, a team, or the whole company, and every thread, project, and bot in a group works from that group's notes.</p></details>
+        <details><summary>Does my code leave my PC?</summary><p>On Pro, no. Projects, bots, runs, reports, and threads stay on your computer. Our server keeps only your account, plan, devices, and teams; the <a class="text-link" href="/privacy.html">privacy policy</a> lists all of it. On Enterprise, threads are kept on your company's server.</p></details>
         <details><summary>What if I stop paying?</summary><p>Nothing you made is deleted. Your bots stay in their files, and your groups and brains stay on your PC.</p></details>
       </div>
     </div>

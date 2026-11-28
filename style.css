@@ -222,3 +222,55 @@ section.block.alt { background: var(--wg100); border-top: 1px solid var(--wg200)
 .confirming b { display: block; color: var(--navy); font-weight: 600; }
 .confirming small { display: block; color: var(--wg600); font-size: 0.85rem; margin-top: 2px; }
 @media (prefers-reduced-motion: reduce) { .spin, #bm-gate::before { animation-duration: 2.4s; } }
+
+/* ---------- holiday bar at the top of the hero ---------- */
+.promo { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; background: #fff; border: 1px solid var(--rust); border-radius: 999px; padding: 7px 8px 7px 8px; margin-bottom: 28px; font-size: 14px; color: var(--navy); box-shadow: 0 6px 18px rgba(32,156,224,0.12); transition: box-shadow .18s ease, transform .18s ease; }
+.promo:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(32,156,224,0.2); }
+.promo-tag { background: var(--rust); color: #fff; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; }
+.promo-text b { font-weight: 700; }
+.promo-go { color: var(--rust); font-weight: 600; padding-right: 10px; }
+.hero .eyebrow { display: block; }
+
+/* ---------- feature rows: words on one side, a picture on the other ---------- */
+.row-block .row { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.row-flip .row-text { order: 2; }
+.row-text h2 { font-size: clamp(28px, 3.6vw, 42px); line-height: 1.12; margin: 14px 0 16px; }
+.row-text > p { color: var(--wg600); font-size: 16px; }
+.row-text.wide { max-width: 760px; margin-bottom: 30px; }
+.ticks { list-style: none; margin-top: 20px; }
+.ticks li { position: relative; padding-left: 26px; margin-bottom: 12px; color: var(--navy); font-size: 15px; }
+.ticks li::before { content: ''; position: absolute; left: 2px; top: 7px; width: 11px; height: 6px; border-left: 2px solid var(--rust); border-bottom: 2px solid var(--rust); transform: rotate(-45deg); }
+.ticks-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 40px; margin-top: 28px; }
+.row-block .shot img { border-radius: var(--radius-md); }
+
+/* drawn pictures of the app (not screenshots) */
+.mock { background: #fff; border: 1px solid var(--wg200); border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 22px 24px; font-size: 14px; }
+.mock-head { display: flex; align-items: center; gap: 10px; }
+.mock-head b { font-weight: 600; color: var(--navy); }
+.mock-sub { color: var(--wg500); font-size: 12px; margin-left: auto; }
+.dot-g { width: 10px; height: 10px; border-radius: 50%; background: #1e3a8a; flex: none; }
+.mock-title { margin: 16px 0 8px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--rust); }
+.brain-sec { border-top: 1px solid var(--wg200); padding: 10px 0; display: grid; grid-template-columns: 120px 1fr; gap: 12px; }
+.brain-sec span { color: var(--wg500); font-size: 12px; padding-top: 1px; }
+.brain-sec p { color: var(--navy); }
+.mock-foot { border-top: 1px solid var(--wg200); padding-top: 12px; color: var(--wg500); font-size: 12px; }
+.pair { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
+.pc { border: 1px solid var(--wg200); border-radius: var(--radius-sm); padding: 18px 16px; background: var(--wg100); text-align: center; }
+.pc-name { font-family: var(--serif); font-size: 22px; color: var(--navy); }
+.pc-role { color: var(--wg600); font-size: 12px; margin-top: 6px; }
+.pair-link { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--wg500); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.pair-link b { font-family: var(--sans); font-size: 18px; letter-spacing: 3px; color: var(--rust); text-transform: none; }
+.pair-link::before, .pair-link::after { content: ''; width: 2px; height: 22px; background: var(--rust); opacity: .35; }
+
+@media (max-width: 900px) {
+  .row-block .row { grid-template-columns: 1fr; gap: 32px; }
+  .row-flip .row-text { order: 0; }
+  .ticks-cols { grid-template-columns: 1fr; }
+  .pair { grid-template-columns: 1fr; }
+  .pair-link { flex-direction: row; }
+  .pair-link::before, .pair-link::after { width: 22px; height: 2px; }
+}
+.pair { align-items: stretch; }
+.pair .pc { display: flex; flex-direction: column; justify-content: center; }
+.pair-link { align-self: center; }
+.promo { font-size: 15px; padding: 9px 10px 9px 9px; }
