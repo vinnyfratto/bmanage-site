@@ -172,20 +172,94 @@ function drawDevices(e) {
   box.innerHTML = (d.list || []).map((x) => `<li><span><b>${esc(x.name || 'A PC')}</b><small>${esc([x.version && 'Ai Project Hub ' + x.version, x.last && 'last seen ' + fmtDate(x.last)].filter(Boolean).join(', '))}</small></span><button type="button" class="btn btn-ghost btn-small" data-pc="${esc(x.id)}">Remove</button></li>`).join('')
     || '<li class="none">No PCs yet. Sign in to the Ai Project Hub app and it appears here.</li>';
 }
+// ---------- billing (Stripe, through the server's billing-checkout and billing-portal functions) ----------
+// Prices: the site's _build.py and supabase/functions/_shared/billing.ts in the app repo say the same.
+const HOLIDAY_ENDS = Date.parse('2027-02-01T06:00:00Z'); // the end of January 31 in Texas
+async function callBilling(name) {
+  const { data, error } = await supabase.functions.invoke(name, { body: {} });
+  if (!error && data && data.url) return { url: data.url };
+  let msg = (data && data.error) || '';
+  if (!msg && error && error.context && typeof error.context.json === 'function') {
+    try { msg = (await error.context.json()).error || ''; } catch (_e) { /* not JSON */ }
+  }
+  return { error: msg || "Couldn't reach billing. Try again in a minute." };
+}
+function drawBilling(ent, acct) {
+  const box = document.getElementById('acct-billing'); if (!box) return;
+  const buy = document.getElementById('bm-buy'); const manage = document.getElementById('bm-manage');
+  const free = !ent || ent.plan === 'free';
+  const stripe = acct && acct.payment_provider === 'stripe' && ent && ent.plan === 'pro';
+  const holiday = Date.now() < HOLIDAY_ENDS;
+  if (free) {
+    setText('acct-bill-text', holiday
+      ? 'Get Pro for $29 for your first year (holiday price through January 31), then $39 a year. Every tool, on your main PC and a remote one.'
+      : 'Get Pro for $39 a year. Every tool, on your main PC and a remote one.');
+  } else if (stripe) {
+    setText('acct-bill-text', 'Cancel, change your card, or get receipts.');
+  } else {
+    setText('acct-bill-text', '');
+  }
+  buy.style.display = free ? '' : 'none';
+  manage.style.display = stripe ? '' : 'none';
+  box.style.display = free || stripe ? '' : 'none';
+}
+async function goBilling(name, btn, label) {
+  const alertEl = document.getElementById('bm-bill-alert');
+  hide(alertEl); busy(btn, true, label);
+  const r = await callBilling(name);
+  if (r.url) { location.href = r.url; return; }
+  busy(btn, false); show(alertEl, 'error', r.error);
+}
+
 async function initAccount() {
   const root = document.getElementById('bm-account'); if (!root) return;
   const { data: sess } = await supabase.auth.getSession();
-  if (!sess.session) { location.href = '/account/login/?next=/account/'; return; }
+  if (!sess.session) { location.href = '/account/login/?next=' + encodeURIComponent('/account/' + location.search); return; }
   const user = sess.session.user;
   const prov = user.app_metadata?.provider || 'email';
   const m = user.user_metadata || {};
-  const { data: acct } = await supabase.from('bm_users')
-    .select('full_name, plan_status, created_at').eq('id', user.id).maybeSingle();
+  const readAcct = async () => (await supabase.from('bm_users')
+    .select('full_name, plan_status, created_at, payment_provider').eq('id', user.id).maybeSingle()).data;
+  const acct = await readAcct();
   const { data: ent, error } = await supabase.rpc('bm_entitlement', { p_device: '' });
   setText('acct-name', (acct && acct.full_name) || m.full_name || m.name || m.user_name || user.email);
   setText('acct-email', user.email || '');
   setText('acct-provider', prov === 'github' ? 'GitHub' : prov === 'google' ? 'Google' : 'Email and password');
   setText('acct-since', fmtDate((acct && acct.created_at) || user.created_at));
+  drawPlan(ent, acct, error);
+  const q = new URLSearchParams(location.search);
+  const buyBtn = document.getElementById('bm-buy');
+  buyBtn?.addEventListener('click', () => goBilling('billing-checkout', buyBtn, 'Opening checkout...'));
+  const manageBtn = document.getElementById('bm-manage');
+  manageBtn?.addEventListener('click', () => goBilling('billing-portal', manageBtn, 'Opening billing...'));
+  if (q.get('checkout') === 'done') {
+    // Back from Stripe: the plan arrives a moment later, when Stripe tells the server. Look again for 30 seconds.
+    show(document.getElementById('bm-bill-alert'), 'success', 'Thanks! Your payment went through. Your plan updates here in a moment.');
+    document.getElementById('acct-billing').style.display = '';
+    history.replaceState(null, '', '/account/');
+    for (let i = 0; i < 15; i++) {
+      await new Promise((r) => setTimeout(r, 2000));
+      const { data: e2 } = await supabase.rpc('bm_entitlement', { p_device: '' });
+      if (e2 && e2.plan !== 'free') { drawPlan(e2, await readAcct()); break; }
+    }
+  } else if (q.get('buy') === 'pro' && ent && ent.plan === 'free') {
+    history.replaceState(null, '', '/account/');
+    goBilling('billing-checkout', buyBtn, 'Opening checkout...');
+  }
+  document.getElementById('acct-pcs')?.addEventListener('click', async (ev) => {
+    const b = ev.target.closest('[data-pc]'); if (!b) return;
+    busy(b, true, 'Removing...');
+    const { error: e2 } = await supabase.rpc('bm_device_remove', { p_id: b.dataset.pc });
+    if (e2) { busy(b, false); return; }
+    const { data: again } = await supabase.rpc('bm_entitlement', { p_device: '' });
+    if (again) drawDevices(again);
+  });
+  document.getElementById('bm-signout')?.addEventListener('click', async () => { await supabase.auth.signOut(); location.href = '/'; });
+  root.style.display = '';
+  document.getElementById('bm-gate')?.remove();
+}
+
+function drawPlan(ent, acct, error) {
   if (error || !ent) {
     setText('acct-plan', 'Free'); setText('acct-status', "Couldn't load your plan. Refresh to try again.");
     showRow('acct-renew', false); showRow('acct-refund', false); setText('acct-devices', '');
@@ -199,17 +273,7 @@ async function initAccount() {
     showRow('acct-refund', !!ent.refund_until);
     drawDevices(ent);
   }
-  document.getElementById('acct-pcs')?.addEventListener('click', async (ev) => {
-    const b = ev.target.closest('[data-pc]'); if (!b) return;
-    busy(b, true, 'Removing...');
-    const { error: e2 } = await supabase.rpc('bm_device_remove', { p_id: b.dataset.pc });
-    if (e2) { busy(b, false); return; }
-    const { data: again } = await supabase.rpc('bm_entitlement', { p_device: '' });
-    if (again) drawDevices(again);
-  });
-  document.getElementById('bm-signout')?.addEventListener('click', async () => { await supabase.auth.signOut(); location.href = '/'; });
-  root.style.display = '';
-  document.getElementById('bm-gate')?.remove();
+  drawBilling(error ? null : ent, acct);
 }
 
 // ---------- the header's account button, on every page ----------

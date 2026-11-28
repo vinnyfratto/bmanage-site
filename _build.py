@@ -135,7 +135,7 @@ PLANS = f'''
             <li>Skills, plugins, and connectors in your bots</li>
             <li>Teams: invite people by email</li>
           </ul>
-          <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Get started</a>
+          <a class="btn btn-primary" href="/account/?buy=pro">Get Pro</a>
         </div>
         <div class="plan">
           <h3>Enterprise</h3>
@@ -485,12 +485,18 @@ page('account/index.html', 'Your Ai Project Hub account', 'Your Ai Project Hub a
         <dt>PCs</dt><dd id="acct-devices"></dd>
       </dl>
       <ul class="acct-pcs" id="acct-pcs"></ul>
+      <div class="acct-billing" id="acct-billing" style="display:none">
+        <div id="bm-bill-alert" class="alert" role="status" aria-live="polite"></div>
+        <p class="acct-sub" id="acct-bill-text"></p>
+        <button type="button" class="btn btn-primary" id="bm-buy" style="display:none">Get Pro</button>
+        <button type="button" class="btn btn-ghost" id="bm-manage" style="display:none">Manage billing</button>
+      </div>
       <h2 class="acct-section">Sign-in</h2>
       <dl class="acct-facts">
         <dt>Signs in with</dt><dd id="acct-provider"></dd>
         <dt>Member since</dt><dd id="acct-since"></dd>
       </dl>
-      <div class="note" style="margin-bottom:22px"><b>Ai Project Hub is under development.</b> There is no free trial: cancel within 30 days of making your account for a full refund. Paid plans come later; nothing is locked yet.</div>
+      <div class="note" style="margin-bottom:22px"><b>No free trial.</b> Cancel within 30 days of making your account for a full refund. Payments are handled by Stripe; we never see or keep your card.</div>
       <button type="button" class="btn btn-ghost" id="bm-signout">Sign out</button>
     </div>
   </div>

@@ -212,3 +212,4 @@ section.block.alt { background: var(--wg100); border-top: 1px solid var(--wg200)
 .compare-2 { min-width: 520px; }
 .compare-2 td { width: 22%; }
 @media (max-width: 900px) { .plans-2 { grid-template-columns: 1fr; } }
+.acct-billing { margin: 0 0 26px; } .acct-billing .btn + .btn { margin-top: 10px; }
