@@ -1,5 +1,5 @@
-// bm-auth.js: Ai Project Hub website accounts, modeled on WhereTo's wt-auth.js. A browser module that talks to the
-// Ai Project Hub server (Supabase) with the public key; the server's locked tables and row rules protect the data.
+// bm-auth.js: AI Project Hub website accounts, modeled on WhereTo's wt-auth.js. A browser module that talks to the
+// AI Project Hub server (Supabase) with the public key; the server's locked tables and row rules protect the data.
 // Pages opt in with data-bm-page="signup|login|reset|account". Every page also gets the header account button.
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -169,8 +169,8 @@ function drawDevices(e) {
   const d = e.devices || { used: 0, max: 1, list: [] };
   setText('acct-devices', `${d.used} of ${d.max} in use`);
   const box = document.getElementById('acct-pcs'); if (!box) return;
-  box.innerHTML = (d.list || []).map((x) => `<li><span><b>${esc(x.name || 'A PC')}</b><small>${esc([x.version && 'Ai Project Hub ' + x.version, x.last && 'last seen ' + fmtDate(x.last)].filter(Boolean).join(', '))}</small></span><button type="button" class="btn btn-ghost btn-small" data-pc="${esc(x.id)}">Remove</button></li>`).join('')
-    || '<li class="none">No PCs yet. Sign in to the Ai Project Hub app and it appears here.</li>';
+  box.innerHTML = (d.list || []).map((x) => `<li><span><b>${esc(x.name || 'A PC')}</b><small>${esc([x.version && 'AI Project Hub ' + x.version, x.last && 'last seen ' + fmtDate(x.last)].filter(Boolean).join(', '))}</small></span><button type="button" class="btn btn-ghost btn-small" data-pc="${esc(x.id)}">Remove</button></li>`).join('')
+    || '<li class="none">No PCs yet. Sign in to the AI Project Hub app and it appears here.</li>';
 }
 // ---------- billing (Stripe, through the server's billing-checkout and billing-portal functions) ----------
 // Prices: the site's _build.py and supabase/functions/_shared/billing.ts in the app repo say the same.

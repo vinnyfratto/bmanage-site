@@ -1,4 +1,4 @@
-/* Ai Project Hub's site, in vcinnovationsgroup.com's template: same palette, fonts, header, cards, and footer
+/* AI Project Hub's site, in vcinnovationsgroup.com's template: same palette, fonts, header, cards, and footer
    (from VC-Innovations-Group.github.io src/_includes/base.njk and _data/theme.json). */
 @font-face { font-family: 'RCL Morland'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://vcinnovationsgroup.com/media/fonts/RCLMorland-Regular.ttf') format('truetype'); }
 @font-face { font-family: 'RCL Morland'; font-style: italic; font-weight: 400; font-display: swap; src: url('https://vcinnovationsgroup.com/media/fonts/RCLMorland-Italic.ttf') format('truetype'); }

@@ -1,0 +1,459 @@
+<style>
+:root {
+  --bg: #020B1A; --bg1: #081529; --bg2: #0C1930; --line: rgba(255,255,255,0.1);
+  --blue: #1E87FF; --blue2: #00C2FF; --ink: #0C1930; --muted: #7A7A7A; --soft: #B8C2D3;
+  --navy: #1e3a8a; --max: 1140px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Heebo', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; font-size: 16px; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+h1, h2, h3 { font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+.kicker { color: var(--blue); font-size: 14px; font-weight: 500; display: block; margin-bottom: 12px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 500; font-size: 15px; padding: 13px 26px; border-radius: 3px; transition: background .15s, color .15s, border-color .15s; }
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-blue:hover { background: var(--blue2); }
+.btn-line { border: 1.5px solid #fff; color: #fff; }
+.btn-line:hover { background: #fff; color: var(--ink); }
+.btn-white { background: #fff; color: var(--navy); }
+.btn-white:hover { background: var(--bg); color: #fff; }
+
+/* holiday strip at the very top */
+.topbar { background: var(--navy); color: #fff; font-size: 14px; padding: 9px 0; overflow: hidden; white-space: nowrap; }
+.topbar b { font-weight: 700; }
+.topbar a { text-decoration: underline; text-underline-offset: 3px; margin-left: 10px; font-weight: 700; }
+.topbar a:hover { color: var(--blue2); }
+/* the holiday offer scrolls right to left; two identical halves make the loop seamless; it pauses under the pointer */
+.ticker { display: inline-flex; animation: ticker 60s linear infinite; }
+.ticker > span { display: inline-flex; align-items: center; padding-right: 150px; }
+.ticker > span::after { content: '★'; margin-left: 150px; opacity: .6; font-size: 12px; }
+.topbar:hover .ticker, .topbar:focus-within .ticker { animation-play-state: paused; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker { animation: none; } .topbar { text-align: center; } .ticker > span:not(:first-child) { display: none; } .ticker > span::after { display: none; } }
+
+/* header, over the hero */
+header { position: absolute; left: 0; right: 0; z-index: 10; }
+.nav { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+.nav .logo img { height: 34px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 30px; color: #fff; font-size: 14px; font-weight: 500; }
+.nav-links a:hover { color: var(--blue2); }
+.nav-cta { display: flex; gap: 10px; }
+.nav-cta .btn { padding: 9px 20px; font-size: 14px; }
+
+/* hero: solid navy with a curved bottom (no gradient) */
+.hero { position: relative; background: linear-gradient(135deg, rgba(30,135,255,0.4) 0%, rgba(0,194,255,0.4) 100%), #081529; color: #fff; padding: 140px 0 200px; overflow: hidden; }
+.wave { position: absolute; left: 0; bottom: -1px; width: 100%; height: 190px; display: block; z-index: 1; }
+.hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; }
+.devices { position: relative; z-index: 3; transform: translateY(95px); }
+.devices img { width: 118%; max-width: none; margin-left: -12%; height: auto; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.45)); }
+.hero-tag { display: flex; align-items: center; gap: 10px; font-size: 15px; margin-bottom: 18px; color: #dbe6ff; }
+.hero-tag svg { width: 20px; height: 20px; }
+.hero h1 { font-size: clamp(36px, 4.6vw, 54px); font-weight: 800; }
+.hero p { color: var(--soft); margin: 20px 0 30px; max-width: 46ch; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* light split section */
+.split { padding: 100px 0; position: relative; }
+.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.split h2, .dark h2 { font-size: clamp(30px, 3.4vw, 42px); }
+.split .lead { color: var(--muted); margin: 16px 0 26px; }
+.checks { list-style: none; display: grid; gap: 20px; }
+.checks li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; }
+.check { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #22c55e; display: grid; place-items: center; color: #22c55e; }
+.check svg { width: 15px; height: 15px; }
+.checks b { display: block; font-size: 17px; margin-bottom: 3px; }
+.checks span { color: var(--muted); font-size: 15px; }
+
+/* brain card */
+.card-mock { background: #fff; border-radius: 10px; box-shadow: 0 25px 70px rgba(12,25,48,0.16); padding: 26px 28px; }
+.cm-head { display: flex; align-items: center; gap: 10px; }
+.cm-head b { font-size: 17px; }
+.cm-head small { margin-left: auto; color: var(--muted); font-size: 12px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--navy); }
+.feeds { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 6px; }
+.feeds span { font-size: 12.5px; color: #4b5563; border: 1px solid #e5e9f0; background: #f6f8fb; border-radius: 999px; padding: 4px 11px; }
+.feeds b { color: var(--navy); margin-right: 3px; }
+.cm-arrow { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); margin: 12px 0 4px; }
+.cm-row { display: grid; grid-template-columns: 118px 1fr; gap: 12px; padding: 11px 0; border-top: 1px solid #edf0f5; font-size: 14.5px; }
+.cm-row span { color: var(--muted); font-size: 12.5px; }
+.cm-foot { border-top: 1px solid #edf0f5; padding-top: 12px; color: var(--muted); font-size: 12.5px; }
+
+/* dark sections */
+.dark { background: var(--bg1); color: #fff; padding: 110px 0; position: relative; overflow: hidden; }
+.dark.alt { background: var(--bg2); }
+/* our mark, washed out and clipped off the edge (in place of the template's circles) */
+.wash { position: absolute; width: 560px; height: 560px; opacity: 0.045; filter: brightness(0) invert(1); pointer-events: none; user-select: none; z-index: 0; }
+.hero .wash { opacity: 0.06; }
+.dark p { color: var(--soft); }
+.dark-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.icon-list { list-style: none; display: grid; gap: 24px; margin-top: 26px; }
+.icon-list li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; }
+.ic { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid currentColor; display: grid; place-items: center; }
+.ic svg { width: 19px; height: 19px; }
+.c-green { color: #34d399; } .c-pink { color: #FA4676; } .c-blue { color: var(--blue); } .c-cyan { color: var(--blue2); } .c-gold { color: #f5b942; } .c-violet { color: #8fa8ff; }
+.icon-list b { display: block; font-size: 17px; margin-bottom: 3px; color: #fff; }
+.icon-list span { color: var(--soft); font-size: 15px; }
+
+/* devices card on dark */
+.pair { background: #fff; color: var(--ink); border-radius: 10px; padding: 28px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: stretch; box-shadow: 0 30px 70px rgba(0,0,0,0.4); }
+.pc { border: 1px solid #e5e9f0; background: #f6f8fb; border-radius: 8px; padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.pc.home { background: #fff; border: 2px solid var(--navy); }
+.pc h3 { font-size: 22px; }
+.pc em { font-style: normal; font-size: 11px; letter-spacing: 1.3px; text-transform: uppercase; font-weight: 700; color: var(--navy); }
+.pc p { font-size: 13.5px; color: #4b5563; }
+.link { align-self: center; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.link b { font-size: 20px; letter-spacing: 3px; color: var(--blue); }
+.link .lock { display: inline-flex; align-items: center; gap: 5px; color: #16a34a; font-weight: 600; }
+.link .lock svg { width: 13px; height: 13px; }
+.link::before, .link::after { content: ''; width: 2px; height: 22px; background: var(--blue); opacity: .4; }
+
+/* bots: white, words on the left, the laptop on the right running off the edge (the template's "Our Technology") */
+.offset { position: relative; background: #fff; padding: 120px 0; overflow: hidden; }
+.offset-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; min-height: 560px; }
+.offset h2 { font-size: clamp(30px, 3.4vw, 42px); }
+.offset .lead { color: var(--muted); margin: 16px 0 26px; }
+.offset-img { position: absolute; z-index: 1; top: 50%; left: 50%; width: min(1060px, 64vw); transform: translateY(-50%); }
+.offset-img img { width: 100%; height: auto; }
+.wash.light { filter: none; opacity: 0.05; }
+/* six-up grid */
+.six { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; position: relative; }
+.six-items { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 44px; }
+.six-items div { display: grid; grid-template-columns: 44px 1fr; gap: 16px; }
+.six-items b { display: block; color: #fff; font-size: 17px; margin-bottom: 4px; }
+.six-items span { color: var(--soft); font-size: 15px; }
+.underline { width: 34px; height: 2px; background: var(--blue); margin-top: 26px; }
+
+/* why cards */
+.why { padding: 100px 0; text-align: center; }
+.why h2 { font-size: clamp(30px, 3.4vw, 42px); max-width: 20ch; margin: 0 auto; }
+.why > .wrap > p { color: var(--muted); max-width: 60ch; margin: 16px auto 48px; }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; text-align: center; }
+.why-card { border-radius: 8px; padding: 42px 46px; }
+.why-card .ic { margin: 0 auto 18px; width: 52px; height: 52px; background: #fff; }
+.why-card .ic svg { width: 22px; height: 22px; }
+.why-card h3 { font-size: 21px; margin-bottom: 10px; }
+.why-card p { color: #5b6472; font-size: 15px; }
+.p-green { background: #E3F5E6; } .p-blue { background: #DDEBFD; } .p-cyan { background: #DDF4FC; } .p-pink { background: #FCE2EA; }
+
+/* pricing */
+.plans { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 48px; max-width: 920px; margin-left: auto; margin-right: auto; text-align: left; }
+.plan { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 34px 32px; display: flex; flex-direction: column; position: relative; }
+.plan.main { border: 2px solid var(--blue); }
+.plan .tag { position: absolute; top: -13px; left: 30px; background: var(--blue); color: #fff; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; font-weight: 600; }
+.plan h3 { font-size: 26px; color: #fff; }
+.plan .for { color: var(--soft); font-size: 14.5px; margin: 6px 0 20px; }
+.price { display: flex; align-items: baseline; gap: 10px; color: #fff; }
+.price s { color: #6b7a93; font-size: 24px; }
+.price strong { font-size: 52px; font-weight: 800; line-height: 1; }
+.price small { color: var(--soft); }
+.plan .sub { color: var(--soft); font-size: 13.5px; margin-top: 10px; }
+.plan ul { list-style: none; margin: 22px 0 28px; flex: 1; display: grid; gap: 10px; }
+.plan li { color: #e4ebf7; font-size: 14.5px; padding-left: 26px; position: relative; }
+.plan li::before { content: ''; position: absolute; left: 3px; top: 6px; width: 10px; height: 6px; border-left: 2px solid var(--blue2); border-bottom: 2px solid var(--blue2); transform: rotate(-45deg); }
+.note { max-width: 920px; margin: 22px auto 0; color: var(--soft); font-size: 14px; text-align: center; }
+
+/* faq */
+.faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 56px; position: relative; }
+.faq details { background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; margin-bottom: 10px; }
+.faq summary { list-style: none; cursor: pointer; padding: 18px 20px; font-weight: 600; color: #fff; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ''; width: 9px; height: 9px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(45deg); margin-top: 4px; flex: none; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(-135deg); margin-top: 8px; }
+.faq details p { padding: 0 20px 18px; font-size: 15px; }
+
+/* get started */
+.start { text-align: center; padding: 100px 0; background: var(--bg1); color: #fff; position: relative; overflow: hidden; }
+.start::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.08) 1.2px, transparent 1.2px); background-size: 14px 14px; opacity: .6; }
+.start .wrap { position: relative; }
+.start h2 { font-size: clamp(30px, 3.6vw, 44px); }
+.start .need { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 900px; margin: 36px auto; text-align: left; }
+.start .need div { background: var(--bg2); border: 1px solid var(--line); border-radius: 8px; padding: 22px; }
+.start .need b { display: block; margin-bottom: 6px; }
+.start .need span { color: var(--soft); font-size: 14.5px; }
+
+/* promo band: solid, no gradient */
+.promo { background: var(--blue); color: #fff; padding: 64px 0; }
+.promo-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 48px; align-items: center; }
+.promo-grid .rule { background: rgba(255,255,255,0.35); height: 100%; }
+.promo .badge { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .5px; margin-bottom: 16px; }
+.promo .badge i { width: 30px; height: 30px; border-radius: 50%; background: #fff; color: var(--blue); display: grid; place-items: center; font-style: normal; font-size: 15px; }
+.promo h2 { font-size: clamp(28px, 3.2vw, 40px); }
+.promo p { color: #eaf4ff; margin-bottom: 22px; }
+
+/* footer */
+footer { background: var(--bg); color: #fff; padding: 72px 0 26px; position: relative; overflow: hidden; }
+.f-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; position: relative; }
+.f-grid img { height: 34px; width: auto; margin-bottom: 16px; }
+.f-grid p { color: var(--soft); font-size: 14.5px; max-width: 32ch; }
+.f-grid h4 { font-size: 17px; margin-bottom: 8px; }
+.f-grid h4::after { content: ''; display: block; width: 26px; height: 2px; background: var(--blue); margin-top: 10px; margin-bottom: 14px; }
+.f-grid a { display: block; color: var(--soft); font-size: 14.5px; margin-bottom: 8px; }
+.f-grid a::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--blue); margin-right: 9px; vertical-align: middle; }
+.f-grid a:hover { color: #fff; }
+.f-bottom { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; color: #8b97ad; font-size: 13px; position: relative; }
+
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .hero { padding: 120px 0 70px; }
+  .hero-grid, .split-grid, .dark-grid, .six, .faq-grid, .promo-grid { grid-template-columns: 1fr; gap: 40px; }
+  .promo-grid .rule { display: none; }
+  .devices { order: 2; transform: translateY(28px); }
+  .hero-ctas { justify-content: center; }
+  .devices img { width: 100%; max-width: 640px; margin: 0 auto; filter: drop-shadow(0 16px 22px rgba(0,0,0,0.4)); }
+  .wave { height: 80px; }
+  .six-items, .why-grid, .plans, .start .need { grid-template-columns: 1fr; }
+  .offset { padding: 80px 0 60px; }
+  .offset-grid { grid-template-columns: 1fr; min-height: 0; }
+  .offset-img { position: static; transform: none; width: auto; max-width: 640px; margin: 36px auto 0; padding: 0 20px; }
+  .pair { grid-template-columns: 1fr; }
+  .link::before, .link::after { display: none; }
+  .f-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .nav-cta .btn-line { display: none; }
+  .why-card { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar" role="region" aria-label="Holiday price"><div class="ticker"><span><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;${{SALE}}&nbsp;</b> for your first year, normally ${{YEAR}}. Sign up by {{ENDS_NB}}. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;${{SALE}}</b>, with a {{REFUND}}-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;${{SALE}}&nbsp;</b> for your first year, normally ${{YEAR}}. Sign up by {{ENDS_NB}}. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;${{SALE}}</b>, with a {{REFUND}}-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;${{SALE}}&nbsp;</b> for your first year, normally ${{YEAR}}. Sign up by {{ENDS_NB}}. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;${{SALE}}</b>, with a {{REFUND}}-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Holiday price:</b>&nbsp;Pro is <b>&nbsp;${{SALE}}&nbsp;</b> for your first year, normally ${{YEAR}}. Sign up by {{ENDS_NB}}. <a href="/account/?buy=pro">Subscribe Today</a></span><span aria-hidden="true"><b>Limited-time offer:</b>&nbsp;get your first year of Pro for <b>&nbsp;${{SALE}}</b>, with a {{REFUND}}-day money-back guarantee. <a href="/account/?buy=pro">Subscribe Today</a></span></div></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/" aria-label="AI Project Hub, home"><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /></a>
+    <nav class="nav-links">
+      <a href="/">Home</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">Questions</a><a href="/pricing/">Compare plans</a><a href="/privacy.html">Privacy</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-line" href="/account/login/" data-bm-account>Log in</a>
+      <a class="btn btn-blue" href="/account/signup/" data-bm-signup>Create account</a>
+    </div>
+  </div>
+</header>
+
+<!-- 1. hero -->
+<section class="hero">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="right:-170px;top:-120px;width:640px;height:640px" />
+  <div class="wrap hero-grid">
+    <div class="devices"><img src="/assets/shots/hero-devices.png" alt="AI Project Hub on a desktop, a tablet, and a laptop: a bot, a group, and a project" width="1080" height="724" /></div>
+    <div>
+      <div class="hero-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 22V12M21 7l-9 5-9-5"/></svg>For people who build with Claude Code</div>
+      <h1>Give your Claude Projects a Shared Brain</h1>
+      <p>Link related projects in a group, and everything said about them, in Claude Code threads and in claude.ai chats, feeds one shared brain that Claude reads before every reply. Work on the same code from your desktop or your laptop.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-blue" href="/account/?buy=pro">Get Pro for ${{SALE}}</a>
+        <a class="btn btn-line" href="#features">See how it works</a>
+      </div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path fill="#ffffff" d="M790.5,93.1c-59.3-5.3-116.8-18-192.6-50c-29.6-12.7-76.9-31-100.5-35.9c-23.6-4.9-52.6-7.8-75.5-5.3c-10.2,1.1-22.6,1.4-50.1,7.4c-27.2,6.3-58.2,16.6-79.4,24.7c-41.3,15.9-94.9,21.9-134,22.6C72,58.2,0,25.8,0,25.8V100h1000V65.3c0,0-51.5,19.4-106.2,25.7C839.5,97,814.1,95.2,790.5,93.1z"/></svg>
+</section>
+
+<!-- 2. groups (the template's "Our Technology") -->
+<section class="split" id="features">
+  <div class="wrap split-grid">
+    <div>
+      <span class="kicker">Groups and shared brains</span>
+      <h2>Link your projects, and every conversation about them counts</h2>
+      <p class="lead">On its own, Claude Code knows one folder at a time. A group links a client's projects, Claude Code threads, claude.ai chats, bots, and files, so they work as one body of knowledge.</p>
+      <ul class="checks">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>All the talk in one place</b><span>Every Code thread and claude.ai chat in the group, on one chart, next to its projects and bots.</span></div></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>Decisions travel</b><span>Something agreed in a chat reaches the next message in every project in the group.</span></div></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>It keeps up</b><span>A keeper reads new threads, chats, commits, and bot reports and suggests updates for you to approve.</span></div></li>
+      </ul>
+    </div>
+    <div class="card-mock" aria-hidden="true">
+      <div class="cm-head"><span class="dot"></span><b>Harbor Coffee Co.</b><small>client group</small></div>
+      <div class="feeds"><span><b>8</b>Claude Code threads</span><span><b>4</b>claude.ai chats</span><span><b>3</b>projects and their commits</span><span><b>2</b>bots and their reports</span></div>
+      <div class="cm-arrow">&darr; all of it feeds one brain</div>
+      <div class="cm-row"><span>About</span><div>Online store, mobile ordering app, and brand files for a regional coffee roaster.</div></div>
+      <div class="cm-row"><span>Decided</span><div>Ship the new checkout before the spring menu goes live (agreed with the owner in a claude.ai chat, Nov 20).</div></div>
+      <div class="cm-row"><span>How it connects</span><div>The ordering app pulls menu prices from the store's product API.</div></div>
+      <div class="cm-row"><span>Now</span><div>Fixing the loyalty sign-up form. Owner review on Friday.</div></div>
+      <div class="cm-foot">Every new message and bot run in Harbor Coffee Co. starts here</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. two machines (the template's "Who we are" dark block) -->
+<section class="dark">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="right:-180px;top:-160px" />
+  <div class="wrap dark-grid">
+    <div class="pair" aria-hidden="true">
+      <div class="pc home"><h3>Desktop</h3><em>Primary device</em><p>Your projects, threads, groups, and bots live here. Claude Code runs here.</p></div>
+      <div class="link"><span>Linked</span><b>482 913</b><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Encrypted</span></div>
+      <div class="pc"><h3>Laptop</h3><em>Linked device</em><p>Opens the same projects and threads, live. Nothing to copy or sync.</p></div>
+    </div>
+    <div>
+      <span class="kicker">Two machines, one code base</span>
+      <h2>Work on the same code from your desktop or your laptop</h2>
+      <ul class="icon-list">
+        <li><span class="ic c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></svg></span><div><b>Link once</b><span>Both screens show the same six digits. Confirm they match, and the laptop connects whenever both are on.</span></div></li>
+        <li><span class="ic c-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg></span><div><b>Everything, live</b><span>The laptop shows the desktop's projects, threads, groups, bots, and runs as they happen.</span></div></li>
+        <li><span class="ic c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><div><b>Runs where the code is</b><span>Reply from the laptop and Claude Code works on the desktop, in the real folders.</span></div></li>
+        <li><span class="ic c-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><div><b>Encrypted end to end</b><span>Our server passes messages between your devices and can't read them.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4. bots (the template's full-width band) -->
+<section class="offset">
+  <img class="wash light" src="/assets/brand/logo-mark.svg" alt="" style="left:-210px;top:-150px" />
+  <div class="wrap offset-grid">
+    <div class="offset-text">
+      <span class="kicker">Bots you can see</span>
+      <h2>Build a bot by filling in a flow, not a config file</h2>
+      <p class="lead">Each bot does one job, like reviewing new commits or researching a topic each week. It's drawn as six steps: when it runs, where, its job, its rules, what it may use, and where results go.</p>
+      <ul class="checks">
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>Start fast</b><span>From a template, or describe the bot in a sentence.</span></div></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>Test run first</b><span>Watch each step before it runs on its own.</span></div></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>On a schedule</b><span>Or after each commit. Schedules keep running with the app closed.</span></div></li>
+        <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></span><div><b>Careful by default</b><span>Read only until you allow more. Never commits, pushes, or deploys.</span></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="offset-img"><img src="/assets/shots/laptop-large.png" alt="A code reviewer bot in AI Project Hub on a laptop, drawn as six steps with a plain sentence above it" width="995" height="651" loading="lazy" /></div>
+</section>
+
+<!-- 5. also in the app (the template's six-up grid) -->
+<section class="dark alt">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="left:-200px;bottom:-200px" />
+  <div class="wrap six">
+    <div>
+      <span class="kicker">Also in AI Project Hub</span>
+      <h2>The rest of your Claude work, in the same window</h2>
+      <div class="underline"></div>
+    </div>
+    <div class="six-items">
+      <div><span class="ic c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><p><b>Every thread in one list</b><span>Claude Code sessions from the Claude app and the terminal, by project. Reply right there.</span></p></div>
+      <div><span class="ic c-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-12 7l-5 1 1-4a8 8 0 1 1 16-4z"/></svg></span><p><b>claude.ai chats</b><span>Your chats and Projects next to your code threads.</span></p></div>
+      <div><span class="ic c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h4l11-11-4-4L4 16z"/></svg></span><p><b>A better reply box</b><span>Paste pictures, mention files with @, and queue a message while Claude works.</span></p></div>
+      <div><span class="ic c-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/></svg></span><p><b>Files Claude mentions</b><span>Click a file name to read it with an outline and search.</span></p></div>
+      <div><span class="ic c-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6z"/></svg></span><p><b>Inbox and run history</b><span>What your bots found, and every run step by step.</span></p></div>
+      <div><span class="ic c-violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg></span><p><b>Teams</b><span>Invite people by email with a one-time code.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. how it runs (the template's four pastel cards) -->
+<section class="why">
+  <div class="wrap">
+    <span class="kicker">How it runs</span>
+    <h2>On your PC, with your Claude plan</h2>
+    <p>AI Project Hub works with the Claude Code you already have. Nothing about your code leaves your machines.</p>
+    <div class="why-grid">
+      <div class="why-card p-green"><span class="ic c-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg></span><h3>Your files stay put</h3><p>Projects, threads, bots, and reports stay on your PC. Our server keeps your account, plan, devices, and teams.</p></div>
+      <div class="why-card p-blue"><span class="ic c-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></span><h3>Your Claude plan</h3><p>Claude Code runs on your Claude Pro or Max plan. No API key, and no charge for AI.</p></div>
+      <div class="why-card p-cyan"><span class="ic c-cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span><h3>Careful by default</h3><p>Bots only read until you allow more, and a bot that edits works in its own copy of the project.</p></div>
+      <div class="why-card p-pink"><span class="ic c-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h3>Encrypted between devices</h3><p>When your laptop works on your desktop, every message is encrypted end to end.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. pricing (dark) -->
+<section class="dark" id="pricing" style="text-align:center">
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="right:-220px;top:40px" />
+  <div class="wrap" style="position:relative">
+    <span class="kicker">Pricing</span>
+    <h2>Pro is ${{SALE}} for your first year</h2>
+    <p style="max-width:58ch;margin:14px auto 0">Normally ${{YEAR}} a year. The holiday price is for sign-ups through {{ENDS}}. You pay for the app only; the AI runs on the Claude plan you already have.</p>
+    <div class="plans">
+      <div class="plan main">
+        <span class="tag">Holiday price</span>
+        <h3>Pro</h3>
+        <p class="for">For one person: every tool, on your main PC and a remote one.</p>
+        <div class="price"><s>${{YEAR}}</s><strong>${{SALE}}</strong><small>/ year</small></div>
+        <p class="sub">${{SALE}} for your first year through {{ENDS}}, then ${{YEAR}} a year.</p>
+        <ul>
+          <li>Groups that link projects, Code threads, and claude.ai chats into one shared brain</li>
+          <li>Work on the same code from your desktop or your laptop</li>
+          <li>Bots you build as a visual flow</li>
+          <li>Every Claude Code thread and claude.ai chat in one list</li>
+          <li>Teams: invite people by email</li>
+        </ul>
+        <a class="btn btn-blue" href="/account/?buy=pro">Get Pro</a>
+      </div>
+      <div class="plan">
+        <h3>Enterprise</h3>
+        <p class="for">For companies: every tool, plus a server of your own so departments and teams work from the same notes.</p>
+        <div class="price"><strong style="font-size:40px">Let's talk</strong></div>
+        <p class="sub">Priced for your company, by seats and departments.</p>
+        <ul>
+          <li>Everything in Pro, for every seat</li>
+          <li>A dedicated server that keeps your threads available from any approved PC</li>
+          <li>Groups across departments, teams, or the whole company</li>
+          <li>Seats assigned by email, and invoices</li>
+        </ul>
+        <a class="btn btn-line" href="mailto:{{EMAIL}}?subject=AI%20Project%20Hub%20Enterprise">Contact us</a>
+      </div>
+    </div>
+    <p class="note"><a href="/pricing/" style="text-decoration:underline;text-underline-offset:3px">Compare the plans side by side</a>. No free trial. Cancel within {{REFUND}} days of making your account for a full refund.</p>
+  </div>
+</section>
+
+<!-- 8. questions (the template's FAQ) -->
+<section class="dark alt" id="faq">
+  <div class="wrap faq-grid">
+    <div>
+      <span class="kicker">Questions</span>
+      <h2>Before you buy</h2>
+      <p style="margin-top:14px">Short answers to what people ask first.</p>
+      <div class="underline"></div>
+    </div>
+    <div class="faq">
+      <details open><summary>Do I need a Claude plan?</summary><p>Yes. AI Project Hub runs Claude Code on your PC under your own Claude account, on Claude Pro or Max. It never uses an API key and never charges for AI.</p></details>
+      <details><summary>How does the holiday price work?</summary><p>Sign up for Pro by {{ENDS}} and your first year is ${{SALE}}. It renews at ${{YEAR}} a year.</p></details>
+      <details><summary>Is there a free trial?</summary><p>No. If you cancel within {{REFUND}} days of making your account, you get a full refund.</p></details>
+      <details><summary>What are the 2 devices?</summary><p>Your main PC and a remote one, like a laptop. Link them once and the laptop can use everything on the main PC.</p></details>
+      <details><summary>Does my code leave my PC?</summary><p>On Pro, no. Our server keeps only your account, plan, devices, and teams. Messages between your devices are encrypted end to end.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. get started (the template's "Grow your business") -->
+<section class="start">
+  <div class="wrap">
+    <span class="kicker">What you need</span>
+    <h2>Set up in a few minutes</h2>
+    <div class="need">
+      <div><b>Windows 10 or 11</b><span>A desktop app that sits in the tray so bots can run in the background.</span></div>
+      <div><b>Claude Code</b><span>On a Claude Pro or Max plan. The Claude desktop app includes it.</span></div>
+      <div><b>An account</b><span>Sign up with email, Google, or GitHub. The same account works in the app and on the site.</span></div>
+    </div>
+    <a class="btn btn-blue" href="/account/signup/">Create your account</a>
+  </div>
+</section>
+
+<!-- 10. promo band (the template's "Save 40%") -->
+<section class="promo">
+  <div class="wrap promo-grid">
+    <div>
+      <div class="badge"><i>&#9733;</i>HOLIDAY PRICE</div>
+      <h2>Pro is ${{SALE}} for your first year</h2>
+    </div>
+    <div class="rule"></div>
+    <div>
+      <p>Normally ${{YEAR}} a year. Sign up by {{ENDS}} to get every tool on your main PC and a remote one for ${{SALE}}.</p>
+      <a class="btn btn-white" href="/account/?buy=pro">Get Pro for ${{SALE}}</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img class="wash" src="/assets/brand/logo-mark.svg" alt="" style="left:-200px;top:-120px" />
+  <div class="wrap">
+    <div class="f-grid">
+      <div><img src="/assets/brand/logo-dark.svg" alt="AI Project Hub" width="273" height="64" /><p>A Windows app for Claude Code, by VC Innovations Group.</p></div>
+      <div><h4>AI Project Hub</h4><a href="/">Overview</a><a href="#features">Features</a><a href="/pricing/">Pricing</a><a href="/account/">Your account</a></div>
+      <div><h4>Company</h4><a href="https://vcinnovationsgroup.com/">vcinnovationsgroup.com</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms of service</a></div>
+      <div><h4>Contact</h4><a href="mailto:{{EMAIL}}?subject=AI%20Project%20Hub%20question">Have questions? Email us</a></div>
+    </div>
+    <div class="f-bottom"><span>&copy; 2026 VC Innovations Group. All rights reserved.</span><span>AI Project Hub</span></div>
+  </div>
+</footer>
+</body>
+</html>
