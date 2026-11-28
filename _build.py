@@ -16,6 +16,8 @@ def head(title, desc, robots=''):
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Search Console: proves getaiprojecthub.com is ours (needed for Google sign-in brand verification). Keep it. -->
+  <meta name="google-site-verification" content="gZs-N-mG1hgnbAYeKJ3I3-_aKPQKovTtpEwuGJue6WQ" />
   <title>{title}</title>
   <meta name="description" content="{desc}" />{robots}
   <meta property="og:title" content="{title}" />
@@ -33,7 +35,7 @@ def head(title, desc, robots=''):
 
 
 def header(on=''):
-    links = [('/', 'Bot Manager', 'home'), ('/privacy.html', 'Privacy', 'privacy'), ('/terms.html', 'Terms', 'terms')]
+    links = [('/', 'Ai Project Hub', 'home'), ('/privacy.html', 'Privacy', 'privacy'), ('/terms.html', 'Terms', 'terms')]
     nav = ''.join(f'\n        <a href="{h}"{" class=\"on\"" if k == on else ""}>{l}</a>' for h, l, k in links)
     return f'''  <header>
     <div class="wrap nav">
@@ -61,7 +63,7 @@ FOOTER = f'''  <footer>
         </a>
         <div class="foot-links">
           <div class="foot-col">
-            <h4>Bot Manager</h4>
+            <h4>Ai Project Hub</h4>
             <a href="/">Overview</a>
             <a href="/account/">Your account</a>
             <a href="/privacy.html">Privacy policy</a>
@@ -80,7 +82,7 @@ FOOTER = f'''  <footer>
       </div>
       <div class="foot-bottom">
         <span>© 2026 VC Innovations Group. All rights reserved.</span>
-        <span>Bot Manager · under development</span>
+        <span>Ai Project Hub · under development</span>
       </div>
     </div>
   </footer>
@@ -103,12 +105,12 @@ def page(path, title, desc, body, on='', robots=''):
 
 
 # ---------- home ----------
-page('index.html', 'Bot Manager · VC Innovations Group', 'Bot Manager is a desktop app to create, schedule, run, and review AI bots for your projects, on your own Claude plan.', f'''
+page('index.html', 'Ai Project Hub · VC Innovations Group', 'Ai Project Hub is a desktop app to create, schedule, run, and review AI bots for your projects, on your own Claude plan.', f'''
   <section class="hero">
     <div class="wrap">
       <span class="eyebrow">A VC Innovations Group product</span><span class="pill"><span class="dot"></span>Under development</span>
-      <h1>Bot Manager: <span class="italic">AI bots</span> that work while you do</h1>
-      <p class="lede">A desktop app for Windows to create, schedule, run, and review AI bots. Each bot does one job, like reviewing code, researching a topic, or watching for secrets, with its own rules and schedule, for one project or many. Bot Manager is under development and in early use within our team.</p>
+      <h1>Ai Project Hub: <span class="italic">AI bots</span> that work while you do</h1>
+      <p class="lede">A desktop app for Windows to create, schedule, run, and review AI bots. Each bot does one job, like reviewing code, researching a topic, or watching for secrets, with its own rules and schedule, for one project or many. Ai Project Hub is under development and in early use within our team.</p>
       <div class="cta">
         <a class="btn btn-primary" href="/account/signup/" data-bm-signup>Create your account</a>
         <a class="btn btn-ghost" href="/account/login/" data-bm-account>Log in</a>
@@ -132,20 +134,20 @@ page('index.html', 'Bot Manager · VC Innovations Group', 'Bot Manager is a desk
 
   <section class="block" style="padding-top:0">
     <div class="wrap">
-      <div class="note"><b>Your account.</b> Sign up with email, Google, or GitHub. Bot Manager uses it to know who you are on a team, and to keep your plan and your PCs. The <a class="text-link" href="/privacy.html">privacy policy</a> says what is kept and how to have it deleted.</div>
+      <div class="note"><b>Your account.</b> Sign up with email, Google, or GitHub. Ai Project Hub uses it to know who you are on a team, and to keep your plan and your PCs. The <a class="text-link" href="/privacy.html">privacy policy</a> says what is kept and how to have it deleted.</div>
     </div>
   </section>
 ''', 'home')
 
 # ---------- privacy ----------
-page('privacy.html', 'Privacy policy · Bot Manager', 'What Bot Manager, by VC Innovations Group, keeps about you and why.', f'''
+page('privacy.html', 'Privacy policy · Ai Project Hub', 'What Ai Project Hub, by VC Innovations Group, keeps about you and why.', f'''
   <section class="legal">
     <div class="wrap">
       <div class="prose">
-        <span class="eyebrow">Bot Manager</span>
+        <span class="eyebrow">Ai Project Hub</span>
         <h1>Privacy policy</h1>
         <p class="meta">Last updated {UPDATED}</p>
-        <p>This policy explains what Bot Manager, a desktop app and website made by VC Innovations Group ("we"), keeps about you and why. Bot Manager is under development; we'll update this page as it grows.</p>
+        <p>This policy explains what Ai Project Hub, a desktop app and website made by VC Innovations Group ("we"), keeps about you and why. Ai Project Hub is under development; we'll update this page as it grows.</p>
         <h2>Your account</h2>
         <p>You can sign up with your email and a password, or with Google or GitHub. With email, we keep your name and email; your password is stored only as a one-way hash, never readable. With Google or GitHub, they tell us your <b>email address</b> and your <b>name</b>, and we ask for nothing else: no contacts, files, mail, calendar, or repositories. We never see your Google or GitHub password.</p>
         <p>We use your email address to match you to invitations, since an invitation works only for the email it was sent to, and we show your name and email to the people on your teams.</p>
@@ -153,20 +155,20 @@ page('privacy.html', 'Privacy policy · Bot Manager', 'What Bot Manager, by VC I
         <ul>
           <li>Your name, email address, and how you sign in (email, Google, or GitHub), and whether you asked for product email.</li>
           <li>Your plan (Free, Pro, or Enterprise) and its status. Once paid plans exist: the price, billing dates, and the payment service's reference numbers. Card details are handled by the payment service and never stored by us.</li>
-          <li>The PCs you use Bot Manager on, so a plan can allow a set number: a name, the app version, and when each was last used.</li>
+          <li>The PCs you use Ai Project Hub on, so a plan can allow a set number: a name, the app version, and when each was last used.</li>
           <li>The teams you make or join, your role on each, and when you joined.</li>
           <li>Invitations: the email invited and when. The invitation code itself is never stored, only a one-way fingerprint of it.</li>
-          <li>When your Bot Manager last checked in, so teammates can see you're online.</li>
+          <li>When your Ai Project Hub last checked in, so teammates can see you're online.</li>
         </ul>
         <p>This is kept in a database hosted by Supabase in the United States, encrypted at rest. You can see your own account; teammates see only your name, email, and whether you're online.</p>
         <h2>What stays on your computer</h2>
-        <p>Your bots, their runs and reports, your projects and code, your Claude threads, and your Claude account all stay on your computer. Bots run with Claude Code under your own Claude account with Anthropic, which has its own terms and privacy policy. The Bot Manager app keeps your sign-in on your computer encrypted by Windows.</p>
+        <p>Your bots, their runs and reports, your projects and code, your Claude threads, and your Claude account all stay on your computer. Bots run with Claude Code under your own Claude account with Anthropic, which has its own terms and privacy policy. The Ai Project Hub app keeps your sign-in on your computer encrypted by Windows.</p>
         <h2>This website</h2>
         <p>When you sign in here, your browser keeps the sign-in in its local storage until you sign out. The site uses no cookies of its own and no analytics or ads.</p>
         <h2>What we don't do</h2>
         <p>We don't sell or share your information, show ads, or track you across apps or websites.</p>
         <h2>Deleting your information</h2>
-        <p>You can leave a team or delete a team you own in Bot Manager at any time. To have your account and everything we keep about you deleted, email us at <a href="mailto:{EMAIL}">{EMAIL}</a> from the address you sign in with. We delete it within 30 days. You can also remove Bot Manager's access in your Google or GitHub account settings.</p>
+        <p>You can leave a team or delete a team you own in Ai Project Hub at any time. To have your account and everything we keep about you deleted, email us at <a href="mailto:{EMAIL}">{EMAIL}</a> from the address you sign in with. We delete it within 30 days. You can also remove Ai Project Hub's access in your Google or GitHub account settings.</p>
         <h2>Changes</h2>
         <p>If this policy changes, we'll update this page and the date above.</p>
         <h2>Contact</h2>
@@ -177,22 +179,22 @@ page('privacy.html', 'Privacy policy · Bot Manager', 'What Bot Manager, by VC I
 ''', 'privacy')
 
 # ---------- terms ----------
-page('terms.html', 'Terms of service · Bot Manager', 'The terms for using Bot Manager, by VC Innovations Group.', f'''
+page('terms.html', 'Terms of service · Ai Project Hub', 'The terms for using Ai Project Hub, by VC Innovations Group.', f'''
   <section class="legal">
     <div class="wrap">
       <div class="prose">
-        <span class="eyebrow">Bot Manager</span>
+        <span class="eyebrow">Ai Project Hub</span>
         <h1>Terms of service</h1>
         <p class="meta">Last updated {UPDATED}</p>
-        <p>Bot Manager is a desktop app and website made by VC Innovations Group. By creating an account or using it, you agree to these terms.</p>
-        <h2>Using Bot Manager</h2>
-        <p>Bot Manager is under development. It is provided as is, without warranties of any kind. You're responsible for the bots you set up, what you let them do, and the projects you run them on. Bots run with Claude Code under your own Claude account, so Anthropic's terms apply to that use too.</p>
+        <p>Ai Project Hub is a desktop app and website made by VC Innovations Group. By creating an account or using it, you agree to these terms.</p>
+        <h2>Using Ai Project Hub</h2>
+        <p>Ai Project Hub is under development. It is provided as is, without warranties of any kind. You're responsible for the bots you set up, what you let them do, and the projects you run them on. Bots run with Claude Code under your own Claude account, so Anthropic's terms apply to that use too.</p>
         <h2>Your account and teams</h2>
-        <p>Keep your account secure, whether you sign in with email, Google, or GitHub. Only invite people you mean to work with, and don't use Bot Manager to break the law or anyone's rights.</p>
+        <p>Keep your account secure, whether you sign in with email, Google, or GitHub. Only invite people you mean to work with, and don't use Ai Project Hub to break the law or anyone's rights.</p>
         <h2>Plans</h2>
-        <p>Bot Manager is free while it is under development. If paid plans come, their price, billing period, and the number of PCs each allows will be shown before you buy, and you can cancel before the next billing date.</p>
+        <p>Ai Project Hub is free while it is under development. If paid plans come, their price, billing period, and the number of PCs each allows will be shown before you buy, and you can cancel before the next billing date.</p>
         <h2>Limits</h2>
-        <p>To the extent the law allows, VC Innovations Group isn't liable for indirect or lost-profit damages from using Bot Manager. We may change or stop the service, and we may update these terms; the date above shows the latest version.</p>
+        <p>To the extent the law allows, VC Innovations Group isn't liable for indirect or lost-profit damages from using Ai Project Hub. We may change or stop the service, and we may update these terms; the date above shows the latest version.</p>
         <h2>Contact</h2>
         <p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
       </div>
@@ -201,12 +203,12 @@ page('terms.html', 'Terms of service · Bot Manager', 'The terms for using Bot M
 ''', 'terms')
 
 # ---------- account: sign up ----------
-page('account/signup/index.html', 'Create your Bot Manager account', 'Create a free Bot Manager account.', f'''
+page('account/signup/index.html', 'Create your Ai Project Hub account', 'Create a free Ai Project Hub account.', f'''
   <main class="acct">
   <div class="acct-card" data-bm-page="signup">
     <span class="eyebrow">Get started</span>
     <h1>Create your account</h1>
-    <p class="acct-sub">One free account works in the Bot Manager app and on this website.</p>
+    <p class="acct-sub">One free account works in the Ai Project Hub app and on this website.</p>
     <div id="bm-alert" class="alert" role="status" aria-live="polite"></div>
     <label class="check"><input type="checkbox" name="terms" form="bm-signup-form" required /><span>I agree to the <a href="/terms.html">Terms of Service</a> and <a href="/privacy.html">Privacy Policy</a>.</span></label>
 {OAUTH}    <form id="bm-signup-form" novalidate>
@@ -217,7 +219,7 @@ page('account/signup/index.html', 'Create your Bot Manager account', 'Create a f
       <div class="field"><label for="su-email">Email</label><input id="su-email" name="email" type="email" autocomplete="email" required /></div>
       <div class="field"><label for="su-password">Password <span class="hint">(min. 8 characters)</span></label>
         <div class="pw-field"><input id="su-password" name="password" type="password" autocomplete="new-password" minlength="8" required /><button type="button" class="pw-toggle" aria-label="Show password"></button></div></div>
-      <label class="check"><input type="checkbox" name="marketing_opt_in" /><span>Send me Bot Manager news and product updates by email. (optional)</span></label>
+      <label class="check"><input type="checkbox" name="marketing_opt_in" /><span>Send me Ai Project Hub news and product updates by email. (optional)</span></label>
       <button type="submit" class="btn btn-primary">Create account</button>
     </form>
     <p class="acct-links">Already have an account? <a href="/account/login/">Log in</a></p>
@@ -226,12 +228,12 @@ page('account/signup/index.html', 'Create your Bot Manager account', 'Create a f
 ''')
 
 # ---------- account: log in ----------
-page('account/login/index.html', 'Log in to Bot Manager', 'Log in to your Bot Manager account.', f'''
+page('account/login/index.html', 'Log in to Ai Project Hub', 'Log in to your Ai Project Hub account.', f'''
   <main class="acct">
   <div class="acct-card" data-bm-page="login">
     <span class="eyebrow">Welcome back</span>
     <h1>Log in</h1>
-    <p class="acct-sub">Use the same account as the Bot Manager app.</p>
+    <p class="acct-sub">Use the same account as the Ai Project Hub app.</p>
     <div id="bm-alert" class="alert" role="status" aria-live="polite"></div>
 {OAUTH}    <form id="bm-login-form" novalidate>
       <div class="field"><label for="li-email">Email</label><input id="li-email" name="email" type="email" autocomplete="email" required /></div>
@@ -245,7 +247,7 @@ page('account/login/index.html', 'Log in to Bot Manager', 'Log in to your Bot Ma
 ''')
 
 # ---------- account: reset ----------
-page('account/reset/index.html', 'Reset your Bot Manager password', 'Reset the password for your Bot Manager account.', '''
+page('account/reset/index.html', 'Reset your Ai Project Hub password', 'Reset the password for your Ai Project Hub account.', '''
   <main class="acct">
   <div class="acct-card" data-bm-page="reset">
     <span class="eyebrow">Account</span>
@@ -267,7 +269,7 @@ page('account/reset/index.html', 'Reset your Bot Manager password', 'Reset the p
 ''')
 
 # ---------- account: my account ----------
-page('account/index.html', 'Your Bot Manager account', 'Your Bot Manager account: plan, PCs, and sign-in.', '''
+page('account/index.html', 'Your Ai Project Hub account', 'Your Ai Project Hub account: plan, PCs, and sign-in.', '''
   <main class="acct">
   <div class="acct-card" data-bm-page="account">
     <p id="bm-gate" class="acct-sub">Loading your account...</p>
@@ -280,6 +282,7 @@ page('account/index.html', 'Your Bot Manager account', 'Your Bot Manager account
         <dt>Plan</dt><dd id="acct-plan"></dd>
         <dt>Status</dt><dd id="acct-status"></dd>
         <dt id="acct-renew-row">Renews</dt><dd id="acct-renew"></dd>
+        <dt id="acct-refund-row">Full refund</dt><dd id="acct-refund"></dd>
         <dt>PCs</dt><dd id="acct-devices"></dd>
       </dl>
       <ul class="acct-pcs" id="acct-pcs"></ul>
@@ -288,13 +291,13 @@ page('account/index.html', 'Your Bot Manager account', 'Your Bot Manager account
         <dt>Signs in with</dt><dd id="acct-provider"></dd>
         <dt>Member since</dt><dd id="acct-since"></dd>
       </dl>
-      <div class="note" style="margin-bottom:22px"><b>Bot Manager is under development.</b> Every new account starts with a 7-day trial that includes everything. Paid plans come later; nothing is locked yet.</div>
+      <div class="note" style="margin-bottom:22px"><b>Ai Project Hub is under development.</b> There is no free trial: cancel within 30 days of making your account for a full refund. Paid plans come later; nothing is locked yet.</div>
       <button type="button" class="btn btn-ghost" id="bm-signout">Sign out</button>
     </div>
   </div>
   </main>
 ''')
 # ---------- pricing matrix for Chris (internal: not linked, not indexed) ----------
-page('PricingMatrixForChris/index.html', 'Bot Manager pricing matrix (draft)', 'Internal draft: Bot Manager plans and prices next to similar tools.',
+page('PricingMatrixForChris/index.html', 'Ai Project Hub pricing matrix (draft)', 'Internal draft: Ai Project Hub plans and prices next to similar tools.',
      io.open(os.path.join(D, '_pricing-matrix.html'), encoding='utf-8').read(), robots='noindex, nofollow')
 print('built')

@@ -1,5 +1,5 @@
-// bm-auth.js: Bot Manager website accounts, modeled on WhereTo's wt-auth.js. A browser module that talks to the
-// Bot Manager server (Supabase) with the public key; the server's locked tables and row rules protect the data.
+// bm-auth.js: Ai Project Hub website accounts, modeled on WhereTo's wt-auth.js. A browser module that talks to the
+// Ai Project Hub server (Supabase) with the public key; the server's locked tables and row rules protect the data.
 // Pages opt in with data-bm-page="signup|login|reset|account". Every page also gets the header account button.
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -154,14 +154,14 @@ function initReset() {
 
 // ---------- my account ----------
 // The plan comes from the server's bm_entitlement (supabase/plans.sql): the plan in effect (a paid plan, an
-// Enterprise seat, the trial, or Free), its end date, and the PCs in use, which can be taken off here.
+// Enterprise seat, or Free), its end date, the 30 days to cancel for a full refund (from when the account was made;
+// there is no trial), and the PCs in use, which can be taken off here.
 const STATUS = { active: 'Active', trialing: 'Trial', past_due: 'Payment due', canceled: 'Canceled', expired: 'Expired', paused: 'Paused' };
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '');
 function setText(id, v) { const el = document.getElementById(id); if (el) el.textContent = v; }
 function showRow(id, on) { [id + '-row', id].forEach((x) => { const el = document.getElementById(x); if (el) el.style.display = on ? '' : 'none'; }); }
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 function planLine(e) {
-  if (e.plan === 'trial') { const d = Math.max(0, Math.ceil((Date.parse(e.ends) - Date.now()) / 864e5)); return `Trial, ${d} day${d === 1 ? '' : 's'} left`; }
   if (e.plan === 'enterprise' && e.source === 'seat') return `Enterprise${e.org && e.org.name ? ', through ' + e.org.name : ''}`;
   return e.name || 'Free';
 }
@@ -169,8 +169,8 @@ function drawDevices(e) {
   const d = e.devices || { used: 0, max: 1, list: [] };
   setText('acct-devices', `${d.used} of ${d.max} in use`);
   const box = document.getElementById('acct-pcs'); if (!box) return;
-  box.innerHTML = (d.list || []).map((x) => `<li><span><b>${esc(x.name || 'A PC')}</b><small>${esc([x.version && 'Bot Manager ' + x.version, x.last && 'last seen ' + fmtDate(x.last)].filter(Boolean).join(', '))}</small></span><button type="button" class="btn btn-ghost btn-small" data-pc="${esc(x.id)}">Remove</button></li>`).join('')
-    || '<li class="none">No PCs yet. Sign in to the Bot Manager app and it appears here.</li>';
+  box.innerHTML = (d.list || []).map((x) => `<li><span><b>${esc(x.name || 'A PC')}</b><small>${esc([x.version && 'Ai Project Hub ' + x.version, x.last && 'last seen ' + fmtDate(x.last)].filter(Boolean).join(', '))}</small></span><button type="button" class="btn btn-ghost btn-small" data-pc="${esc(x.id)}">Remove</button></li>`).join('')
+    || '<li class="none">No PCs yet. Sign in to the Ai Project Hub app and it appears here.</li>';
 }
 async function initAccount() {
   const root = document.getElementById('bm-account'); if (!root) return;
@@ -188,12 +188,15 @@ async function initAccount() {
   setText('acct-since', fmtDate((acct && acct.created_at) || user.created_at));
   if (error || !ent) {
     setText('acct-plan', 'Free'); setText('acct-status', "Couldn't load your plan. Refresh to try again.");
-    showRow('acct-renew', false); setText('acct-devices', '');
+    showRow('acct-renew', false); showRow('acct-refund', false); setText('acct-devices', '');
   } else {
     setText('acct-plan', planLine(ent));
-    setText('acct-status', ent.plan === 'trial' ? 'Everything included while it lasts' : ent.source === 'seat' ? 'Seat from your company' : ent.plan === 'free' ? 'Active' : (acct && STATUS[acct.plan_status]) || 'Active');
-    const when = ent.plan === 'trial' ? ['Trial ends', ent.ends] : ent.canceling ? ['Ends', ent.ends] : ent.renews ? ['Renews', ent.renews] : ['', ''];
+    setText('acct-status', ent.source === 'seat' ? 'Seat from your company' : ent.plan === 'free' ? 'Active' : (acct && STATUS[acct.plan_status]) || 'Active');
+    const when = ent.canceling ? ['Ends', ent.ends] : ent.renews ? ['Renews', ent.renews] : ['', ''];
     setText('acct-renew-row', when[0]); setText('acct-renew', fmtDate(when[1])); showRow('acct-renew', !!when[1]);
+    const left = ent.refund_until ? Math.max(0, Math.ceil((Date.parse(ent.refund_until) - Date.now()) / 864e5)) : 0;
+    setText('acct-refund', left ? `If you cancel by ${fmtDate(ent.refund_until)} (${left} day${left === 1 ? '' : 's'} left)` : `Ended ${fmtDate(ent.refund_until)}`);
+    showRow('acct-refund', !!ent.refund_until);
     drawDevices(ent);
   }
   document.getElementById('acct-pcs')?.addEventListener('click', async (ev) => {

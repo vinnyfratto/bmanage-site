@@ -163,7 +163,7 @@
     const us = rows.find((x) => x.us);
     const tip = $('#pm-tip');
     let cmp = '';
-    if (!r.us && us) cmp = us.price < r.price ? `Bot Manager is ${pct((1 - us.price / r.price) * 100)} less.` : `Bot Manager is ${money(us.price - r.price)} more.`;
+    if (!r.us && us) cmp = us.price < r.price ? `Ai Project Hub is ${pct((1 - us.price / r.price) * 100)} less.` : `Ai Project Hub is ${money(us.price - r.price)} more.`;
     tip.innerHTML = `<b>${esc(r.name)}</b><span>${money(r.price)} a year</span>${r.note ? `<span>${esc(r.note)}</span>` : ''}${cmp ? `<span class="pm-tip-cmp">${cmp}</span>` : ''}`;
     tip.hidden = false;
     const pad = 14, tw = tip.offsetWidth, th = tip.offsetHeight;
@@ -175,9 +175,9 @@
   function hideTip() { $('#pm-tip').hidden = true; }
 
   function charts() {
-    const person = PERSON.concat([{ name: 'Bot Manager Pro', price: S.proYear, us: true, note: S.proMonth > 0 ? `Or ${money(S.proMonth, true)} month to month. Founding price ${money(S.founding)}/yr.` : `Founding price ${money(S.founding)}/yr.` }]);
+    const person = PERSON.concat([{ name: 'Ai Project Hub Pro', price: S.proYear, us: true, note: S.proMonth > 0 ? `Or ${money(S.proMonth, true)} month to month. Founding price ${money(S.founding)}/yr.` : `Founding price ${money(S.founding)}/yr.` }]);
     if (S.founding !== S.proYear) person.push({ name: 'BM Pro, founding', price: S.founding, us: true, note: 'Kept for life by early buyers.' });
-    const seat = SEAT.concat([{ name: 'Bot Manager seat', price: S.seatYear, us: true, note: `${S.minSeats} seats at least. ${money(S.seatYear25)} per seat from 25 seats.` }]);
+    const seat = SEAT.concat([{ name: 'Ai Project Hub seat', price: S.seatYear, us: true, note: `${S.minSeats} seats at least. ${money(S.seatYear25)} per seat from 25 seats.` }]);
     chart($('#pm-chart-person'), person.sort((a, b) => a.price - b.price));
     chart($('#pm-chart-seat'), seat.sort((a, b) => a.price - b.price));
   }
@@ -215,7 +215,7 @@
     for (const r of PERSON) all.set(r.name.replace(/ (Pro|Plus|Starter|Professional|Build)$/, ''), { person: r });
     for (const r of SEAT) { const k = r.name.replace(/ (Teams|Business)$/, ''); all.set(k, Object.assign(all.get(k) || {}, { seat: r })); }
     let h = '<thead><tr><th>Tool</th><th>What it does</th><th class="n">One person, per year</th><th class="n">One seat, per year</th><th>AI</th></tr></thead><tbody>';
-    const us = `<tr class="pm-us-row"><th>Bot Manager</th><td>Bots with schedules, Claude Code threads, claude.ai chats, Groups, Teams (Windows)</td><td class="n">${money(S.proYear)}</td><td class="n">${money(S.seatYear)}</td><td>Brings own AI</td></tr>`;
+    const us = `<tr class="pm-us-row"><th>Ai Project Hub</th><td>Bots with schedules, Claude Code threads, claude.ai chats, Groups, Teams (Windows)</td><td class="n">${money(S.proYear)}</td><td class="n">${money(S.seatYear)}</td><td>Brings own AI</td></tr>`;
     h += us;
     for (const [name, v] of [...all.entries()].sort((a, b) => ((a[1].person || a[1].seat).price - (b[1].person || b[1].seat).price))) {
       const any = v.person || v.seat;
