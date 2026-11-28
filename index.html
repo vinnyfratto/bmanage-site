@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Google Search Console: proves getaiprojecthub.com is ours (needed for Google sign-in brand verification). Keep it. -->
   <meta name="google-site-verification" content="gZs-N-mG1hgnbAYeKJ3I3-_aKPQKovTtpEwuGJue6WQ" />
-  <title>Ai Project Hub · Shared memory, two PCs, and visual bots for Claude Code</title>
-  <meta name="description" content="Ai Project Hub is a Windows app for Claude Code. Group your projects with a shared brain, use your home PC from your laptop, and build bots by drawing them. Pro is $29 for your first year through January 31, 2027." />
-  <meta property="og:title" content="Ai Project Hub · Shared memory, two PCs, and visual bots for Claude Code" />
-  <meta property="og:description" content="Ai Project Hub is a Windows app for Claude Code. Group your projects with a shared brain, use your home PC from your laptop, and build bots by drawing them. Pro is $29 for your first year through January 31, 2027." />
+  <title>Ai Project Hub · Linked projects, a shared brain, and two machines for Claude Code</title>
+  <meta name="description" content="Ai Project Hub is a Windows app for Claude Code. Link projects in groups so Code threads and claude.ai chats feed one shared brain, work on the same code from your desktop or laptop, and build bots by drawing them. Pro is $29 for your first year through January 31, 2027." />
+  <meta property="og:title" content="Ai Project Hub · Linked projects, a shared brain, and two machines for Claude Code" />
+  <meta property="og:description" content="Ai Project Hub is a Windows app for Claude Code. Link projects in groups so Code threads and claude.ai chats feed one shared brain, work on the same code from your desktop or laptop, and build bots by drawing them. Pro is $29 for your first year through January 31, 2027." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://getaiprojecthub.com/assets/brand/logo-mark-512.png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -51,7 +51,7 @@
 
       <span class="eyebrow">For people who build with Claude Code</span>
       <h1>Give your Claude projects <span class="italic">a shared memory</span></h1>
-      <p class="lede">Ai Project Hub is a Windows app that works with Claude Code. Put related projects, threads, and files in a group, and Claude reads that group's notes before every reply. Pick up the same work on your laptop. Build bots by filling in a flow instead of writing setup files.</p>
+      <p class="lede">Ai Project Hub is a Windows app that works with Claude Code. Link related projects in a group, and everything said about them, in Claude Code threads and in claude.ai chats, feeds one shared brain that Claude reads before every reply. Work on the same code from your desktop or your laptop. Build bots by filling in a flow instead of writing setup files.</p>
       <div class="cta">
         <a class="btn btn-primary" href="/account/?buy=pro">Get Pro for $29</a>
         <a class="btn btn-ghost" href="#features">See how it works</a>
@@ -63,24 +63,32 @@
     <div class="wrap row">
       <div class="row-text">
         <span class="eyebrow">Groups and shared brains</span>
-        <h2>One memory for a whole client, product, or team</h2>
-        <p>Claude Code reads a CLAUDE.md file in each project folder. That covers one folder. Most work spans several: a website, an app, a folder of brand files, and the threads where decisions were made.</p>
+        <h2>Link your projects, and every conversation about them counts</h2>
+        <p>On its own, Claude Code knows one folder at a time. A thread in your app project can't see the thread where you settled the API, and neither can see the claude.ai chat where the client signed off on the design. Each new session starts from that folder's CLAUDE.md.</p>
+        <p>A group in Ai Project Hub links those pieces. Put a client's projects, its Claude Code threads, its claude.ai chats, its bots, and its files in one group, and they work as one body of knowledge.</p>
         <ul class="ticks">
-          <li>Put projects, threads, bots, and files in a group. Anything can be in more than one group.</li>
-          <li>Give the group a brain: one page with what it's about, what was decided, how the pieces connect, and what's happening now.</li>
-          <li>Every message you send and every bot run in the group starts with that page.</li>
-          <li>A new brain catches up on what the group already holds. After that, a keeper reads new commits, reports, and threads each day or week and suggests updates for you to approve.</li>
-        </ul>
+          <li><b>All the talk in one place.</b> Every Code thread and claude.ai chat in the group shows on one chart, next to its projects, bots, and files. Open any of them and reply from the same window.</li>
+          <li><b>One brain for the group.</b> A single page with what the group is about, what was decided, how the pieces connect, and what's happening now.</li>
+          <li><b>Decisions travel.</b> Something agreed in a claude.ai chat or in one project's thread reaches the next message in every other project in the group, because each new message and bot run starts with the brain.</li>
+          <li><b>It keeps up.</b> A new brain catches up on what the group already holds. After that, a keeper reads new threads, chats, commits, and bot reports each day or week and suggests updates for you to approve.</li>
+          <li><b>Groups overlap.</b> A project can be in a client group and a team group at the same time.</li>
+</ul>
       </div>
       <div class="row-visual">
         <div class="mock brain" aria-hidden="true">
-          <div class="mock-head"><span class="dot-g"></span><b>Client A</b><span class="mock-sub">3 projects, 12 threads, 2 bots</span></div>
-          <div class="mock-title">Brain</div>
+          <div class="mock-head"><span class="dot-g"></span><b>Client A</b><span class="mock-sub">one group</span></div>
+          <div class="feeds">
+            <span class="feed"><b>8</b> Claude Code threads</span>
+            <span class="feed"><b>4</b> claude.ai chats</span>
+            <span class="feed"><b>3</b> projects and their commits</span>
+            <span class="feed"><b>2</b> bots and their reports</span>
+          </div>
+          <div class="feed-arrow">all of it feeds one brain</div>
           <div class="brain-sec"><span>About</span><p>Website, mobile app, and brand files for Client A.</p></div>
-          <div class="brain-sec"><span>Decided</span><p>Launch on the new checkout. No changes to the logo until spring.</p></div>
+          <div class="brain-sec"><span>Decided</span><p>Launch on the new checkout (agreed in a claude.ai chat, Nov 20).</p></div>
           <div class="brain-sec"><span>How it connects</span><p>The app reads prices from the website's API.</p></div>
           <div class="brain-sec"><span>Now</span><p>Fixing the sign-up form. Review due Friday.</p></div>
-          <div class="mock-foot">Sent with every message and bot run in this group</div>
+          <div class="mock-foot">Every new message and bot run in Client A starts here</div>
         </div>
       </div>
     </div>
@@ -89,21 +97,32 @@
   <section class="block row-block alt">
     <div class="wrap row row-flip">
       <div class="row-text">
-        <span class="eyebrow">Your desktop and your laptop</span>
-        <h2>Start on your desktop, keep going on your laptop</h2>
-        <p>Pair your laptop with your home PC once. Both screens show the same six digits, and you click Allow. After that, the laptop connects on its own whenever both PCs are on.</p>
+        <span class="eyebrow">Two machines, one code base</span>
+        <h2>Work on the same code from your desktop or your laptop</h2>
+        <p>Your projects stay in one place: the folders on your desktop. Your laptop works on those same folders, with the same Claude Code sessions, groups, and brains. There's no second copy of the code to keep in step, no repo to pull first, and no thread that only exists on one machine.</p>
         <ul class="ticks">
-          <li>The laptop shows the home PC's threads, groups, bots, and runs as they happen.</li>
-          <li>Replies and bot runs happen on the home PC, with its files and its Claude Code. Nothing has to be copied or synced.</li>
-          <li>Messages between your PCs are encrypted end to end. Our server passes them along and can't read them.</li>
-          <li>Pro includes 2 devices: your main PC and a remote one.</li>
-        </ul>
+          <li><b>Pair once.</b> Both screens show the same six digits, and you click Allow. After that, the laptop connects whenever both PCs are on.</li>
+          <li><b>Everything, live.</b> The laptop shows the desktop's projects, threads, groups, bots, and runs as they happen.</li>
+          <li><b>Runs where the code is.</b> When you reply from the laptop, Claude Code works on the desktop, in the real project folders, with the group's brain.</li>
+          <li><b>Private.</b> Messages between your PCs are encrypted end to end. Our server passes them along and can't read them.</li>
+          <li><b>Included in Pro.</b> 2 devices: your main PC and a remote one.</li>
+</ul>
       </div>
       <div class="row-visual">
-        <div class="mock pair" aria-hidden="true">
-          <div class="pc"><div class="pc-name">Desktop</div><div class="pc-role">Home PC: projects, threads, bots</div></div>
-          <div class="pair-link"><span>Paired</span><b>482 913</b></div>
-          <div class="pc"><div class="pc-name">Laptop</div><div class="pc-role">Sees and runs everything on the desktop</div></div>
+        <div class="mock pair2" aria-hidden="true">
+          <div class="pc2 home">
+            <div class="pc-name">Desktop</div>
+            <div class="pc-role">Where the code lives</div>
+            <ul class="tree"><li>website</li><li>mobile-app</li><li>brand</li></ul>
+            <div class="pc-role">Claude Code runs here</div>
+          </div>
+          <div class="pair-link"><span>Paired</span><b>482 913</b><span>encrypted</span></div>
+          <div class="pc2">
+            <div class="pc-name">Laptop</div>
+            <div class="pc-role">Same projects, same threads, same groups</div>
+            <ul class="tree ghost"><li>website</li><li>mobile-app</li><li>brand</li></ul>
+            <div class="pc-role">Nothing copied, nothing to sync</div>
+          </div>
         </div>
       </div>
     </div>
@@ -175,8 +194,8 @@
           <div class="price"><span class="was">$39</span><span class="amt">$29</span><span class="per">/ year</span></div>
           <p class="price-sub"><b>$29 a year through January 31, 2027</b>, then $39 a year. 2 devices: your main PC and a remote one.</p>
           <ul class="plan-list">
-            <li>Groups with a shared brain that Claude reads before every reply</li>
-            <li>Use your home PC from your laptop, paired once</li>
+            <li>Groups that link projects, Code threads, and claude.ai chats into one shared brain</li>
+            <li>Work on the same code from your desktop or your laptop</li>
             <li>Bots you build as a visual flow, on a schedule or after each commit</li>
             <li>Every Claude Code thread and claude.ai chat in one list</li>
             <li>Inbox, run history, skills, and connectors</li>
