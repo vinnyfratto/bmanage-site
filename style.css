@@ -205,3 +205,10 @@ section.block.alt { background: var(--wg100); border-top: 1px solid var(--wg200)
 @media (max-width: 900px) { .plans, .feats { grid-template-columns: 1fr; } .plan-for { min-height: 0; } }
 @media (min-width: 761px) and (max-width: 900px) { .feats { grid-template-columns: 1fr 1fr; } }
 #features, #pricing { scroll-margin-top: 84px; }
+.plans-2 { grid-template-columns: repeat(2, 1fr); }
+.price .was { font-family: var(--serif); font-size: 26px; color: var(--wg400); text-decoration: line-through; margin-right: 4px; }
+.price .amt-text { font-size: 40px; }
+.price-sub b { color: var(--navy); font-weight: 600; }
+.compare-2 { min-width: 520px; }
+.compare-2 td { width: 22%; }
+@media (max-width: 900px) { .plans-2 { grid-template-columns: 1fr; } }
