@@ -213,3 +213,12 @@ section.block.alt { background: var(--wg100); border-top: 1px solid var(--wg200)
 .compare-2 td { width: 22%; }
 @media (max-width: 900px) { .plans-2 { grid-template-columns: 1fr; } }
 .acct-billing { margin: 0 0 26px; } .acct-billing .btn + .btn { margin-top: 10px; }
+/* a spinner: loading the account, and confirming a subscription after checkout */
+@keyframes bm-spin { to { transform: rotate(360deg); } }
+.spin { display: inline-block; width: 20px; height: 20px; flex: none; border: 2.5px solid var(--wg200); border-top-color: var(--rust); border-radius: 50%; animation: bm-spin .8s linear infinite; }
+#bm-gate { display: flex; align-items: center; gap: 12px; }
+#bm-gate::before { content: ''; width: 20px; height: 20px; flex: none; border: 2.5px solid var(--wg200); border-top-color: var(--rust); border-radius: 50%; animation: bm-spin .8s linear infinite; }
+.confirming { display: flex; gap: 14px; align-items: flex-start; background: #fff; border: 1px solid var(--wg200); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 16px; }
+.confirming b { display: block; color: var(--navy); font-weight: 600; }
+.confirming small { display: block; color: var(--wg600); font-size: 0.85rem; margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) { .spin, #bm-gate::before { animation-duration: 2.4s; } }

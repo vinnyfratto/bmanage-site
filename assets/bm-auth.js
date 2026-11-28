@@ -232,17 +232,7 @@ async function initAccount() {
   buyBtn?.addEventListener('click', () => goBilling('billing-checkout', buyBtn, 'Opening checkout...'));
   const manageBtn = document.getElementById('bm-manage');
   manageBtn?.addEventListener('click', () => goBilling('billing-portal', manageBtn, 'Opening billing...'));
-  if (q.get('checkout') === 'done') {
-    // Back from Stripe: the plan arrives a moment later, when Stripe tells the server. Look again for 30 seconds.
-    show(document.getElementById('bm-bill-alert'), 'success', 'Thanks! Your payment went through. Your plan updates here in a moment.');
-    document.getElementById('acct-billing').style.display = '';
-    history.replaceState(null, '', '/account/');
-    for (let i = 0; i < 15; i++) {
-      await new Promise((r) => setTimeout(r, 2000));
-      const { data: e2 } = await supabase.rpc('bm_entitlement', { p_device: '' });
-      if (e2 && e2.plan !== 'free') { drawPlan(e2, await readAcct()); break; }
-    }
-  } else if (q.get('buy') === 'pro' && ent && ent.plan === 'free') {
+  if (q.get('buy') === 'pro' && ent && ent.plan === 'free') {
     history.replaceState(null, '', '/account/');
     goBilling('billing-checkout', buyBtn, 'Opening checkout...');
   }
@@ -257,6 +247,35 @@ async function initAccount() {
   document.getElementById('bm-signout')?.addEventListener('click', async () => { await supabase.auth.signOut(); location.href = '/'; });
   root.style.display = '';
   document.getElementById('bm-gate')?.remove();
+  if (q.get('checkout') === 'done') {
+    history.replaceState(null, '', '/account/');
+    if (ent && ent.plan !== 'free') { showPaid(); return; }
+    confirmPaid(readAcct);
+  }
+}
+
+// Back from Stripe: the page shows at once, and the plan arrives when Stripe tells the server (usually a few
+// seconds). A spinner says so while it looks again, every 2 seconds for up to a minute.
+function showPaid() {
+  show(document.getElementById('bm-bill-alert'), 'success', "Thanks! You're on Pro. Every tool is yours on your main PC and a remote one.");
+  document.getElementById('acct-billing').style.display = '';
+}
+async function confirmPaid(readAcct) {
+  const box = document.getElementById('acct-billing');
+  const wait = document.createElement('div');
+  wait.className = 'confirming';
+  wait.innerHTML = '<span class="spin" aria-hidden="true"></span><span><b>Confirming your subscription...</b><small>Your payment went through. Stripe is telling our server; this usually takes a few seconds.</small></span>';
+  box.prepend(wait);
+  box.style.display = '';
+  ['bm-buy', 'bm-manage'].forEach((id) => { const b = document.getElementById(id); if (b) b.style.display = 'none'; });
+  setText('acct-bill-text', '');
+  for (let i = 0; i < 30; i++) {
+    await new Promise((r) => setTimeout(r, 2000));
+    const { data: e2 } = await supabase.rpc('bm_entitlement', { p_device: '' });
+    if (e2 && e2.plan !== 'free') { wait.remove(); drawPlan(e2, await readAcct()); showPaid(); return; }
+  }
+  wait.remove();
+  show(document.getElementById('bm-bill-alert'), 'info', "Your payment went through, but your plan hasn't shown up yet. Refresh this page in a minute. If it still says Free, email us and we'll sort it out.");
 }
 
 function drawPlan(ent, acct, error) {
